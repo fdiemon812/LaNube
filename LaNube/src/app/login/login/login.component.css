@@ -1,0 +1,17 @@
+
+h1, h2, p{
+    color: #004c78;
+}
+
+p{
+    font-size: 130%;
+}
+
+.barra-inputs{
+    height: 60px;
+}
+button{
+    background-color: #004c78;
+    margin-left: 10%;
+    width: 80%;
+}
