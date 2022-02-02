@@ -17,6 +17,6 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     AppRoutingModule,
     RouterModule
-  ]
+  ], exports:[LoginComponent]
 })
 export class LoginModule { }
