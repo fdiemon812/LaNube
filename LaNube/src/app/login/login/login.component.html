@@ -5,10 +5,11 @@
     <div class="row" height="auto"> 
 
         <div class="d-none d-md-block col-md-5 "  style="background-color:#10b8bf">
-            
+            <br><br>
+            <img src="./assets/lanube-bien.png" class="img-fluid mt-5 pt-5" alt="Imagen de una nube">
           </div>
 
-          <div class="col-md-7 d-xs-none"   >
+          <div class="col-md-7 d-xs-none h100"   >
 
             <div class="text-center mt-4 p-4" >
                 <h1>Acceso</h1>
@@ -17,21 +18,24 @@
             </div>
             <hr>
             <div class="row">
-                <div class="offset-3 col-6 mt-5 text-secondary">
-                    <form>
-                        <div class="mb-5 w">
+                <div class="offset-md-3 col-md-6  offset-2 col-8 mt-5 text-secondary">
+                    <form >
+                        <div class="mb-5">
                           <label for="usuario" class="form-label">Usuario</label>
                           <input type="email" class="form-control barra-inputs" id="usuario" >
                         </div>
                         <div class="mb-5">
                           <label for="contraseña" class="form-label">Contraseña</label>
-                          <input  type="contraseña" class="form-control barra-inputs" id="contraseña" >
+                          <input  type="password" class="form-control barra-inputs" id="contraseña" >
                         </div>
                         <div class="mb-5 form-check">
                           <input type="checkbox" class="form-check-input " id="recordar">
                           <label class="form-check-label" for="exampleCheck1">Recordar contraseña</label>
                         </div>
-                        <button type="submit" class="btn barra-inputs btn-primary ">Entrar</button>
+                        <button [routerLink]="['/home']" routerLinkActive="router-link-active"   type="button" class="btn barra-inputs btn btn-primary ">Entrar</button>
+
+                        <!-- (click)="login()" -->
+
                       </form>
                 </div>
             </div>
