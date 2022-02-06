@@ -16,8 +16,7 @@ const routes: Routes = [
     {path: 'alumno',component:AlumnoComponent}
 
 
-  ]}
-  // {path: '**',redirectTo:'login'}
+  ]},{path: '**',redirectTo:'login'}
 
 
 

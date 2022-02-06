@@ -1,3 +1,28 @@
 .bg-azul{
     background-color:#10b8bf
 }
+
+.bg-fondo{
+    background-color: #f1ebeea8;
+   
+}
+
+.nav-link.active{
+    color: #10b8bf;
+    background-color: #ffffff;
+}
+
+.icono{
+
+    width: 30px;
+
+}
+
+.h100{
+    height: 100%;
+    min-height: 100vh;
+}
+
+.h90{
+    min-height: 93vh;
+}
