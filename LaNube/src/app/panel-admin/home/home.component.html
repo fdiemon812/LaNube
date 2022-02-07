@@ -1,9 +1,11 @@
 <div class="container-fluid h100">
 
+
+  <!-- Barra de navegación superior -->
 <div class="row">
 
     
-<nav class="navbar navbar-expand-lg navbar-light bg-azul ">
+<nav class="navbar navbar-expand navbar-light bg-azul ">
     <div class="container-fluid">
         <a class="navbar-brand me-auto" href="#">LOGOOOOOO</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,18 +16,18 @@
                 
               
                 <li class="nav-item ">
-                    <a [routerLink]="['profesor']"> <img class="icono" src="./assets/packard-bell.png" alt=""></a>
+                    <a [routerLink]="['profesor']"> <i class="bi bi-bell" style="color: white; font-size: 1.5rem;"></i> </a>
                  </li>
                 <li class="nav-item ">
-                  <a [routerLink]="['profesor']"> <img class="icono" src="./assets/packard-bell.png" alt=""></a>
+                  <a [routerLink]="['profesor']"> <i class="bi bi-bell"></i></a>
                 </li>
 
                 <li class="nav-item ">
-                    <a [routerLink]="['profesor']"> <img class="icono" src="./assets/packard-bell.png" alt=""></a>
+                    <a [routerLink]="['profesor']"> <i class="bi bi-bell"></i></a>
                   </li>
 
                 <li class="nav-item">
-                    <a [routerLink]="['alumno']"> <img class="icono" src="./assets/correo.png" alt=""></a>
+                    <a [routerLink]="['alumno']"><i class="bi bi-bell"></i> </a>
                   </li>
             </ul>
         </div>
@@ -35,7 +37,7 @@
 </div>
 <!-- Barra de navegación lateral grande -->
 <div class="row h90">
-    <div class="col-2 d-none d-lg-block ">
+    <div class="col-2 d-none d-md-block ">
 
 
           
@@ -112,14 +114,14 @@
               <hr>
               <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                  <a [routerLink]="['alumno']"  routerLinkActive ="active" class="nav-link link-dark" aria-current="page">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#alumn"></use></svg>
+                  <a [routerLink]="['alumno']"  routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
+                    <svg class="bi me-1" width="16" height="16"><use xlink:href="#alumn"></use></svg>
                     Alumno
                   </a>
                 </li>
                 <li>
-                  <a [routerLink]="['profesor']" routerLinkActive ="active" class="nav-link link-dark">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                  <a [routerLink]="['profesor']" routerLinkActive ="active" class="nav-link p-0 link-dark">
+                    <svg class="bi me-1" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                     Profesor
                   </a>
                 </li>
@@ -141,53 +143,11 @@
 
     </div>
 
-    <!-- <div class="d-sm-none col-2" > <a href="/" class="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
-        <svg class="bi" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <span class="visually-hidden">Icon-only</span>
-      </a>
-      <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-        <li class="nav-item">
-          <a href="#" class="nav-link active py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-            <svg class="bi" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home"></use></svg>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
-            <svg class="bi" width="24" height="24" role="img" aria-label="Dashboard"><use xlink:href="#speedometer2"></use></svg>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
-            <svg class="bi" width="24" height="24" role="img" aria-label="Orders"><use xlink:href="#table"></use></svg>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
-            <svg class="bi" width="24" height="24" role="img" aria-label="Products"><use xlink:href="#grid"></use></svg>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
-            <svg class="bi" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"></use></svg>
-          </a>
-        </li>
-      </ul>
-      <div class="dropdown border-top">
-        <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle" width="24" height="24">
-        </a>
-        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
-        </ul>
-      </div></div> -->
+    
 
 
 
-    <div class="col-10 bg-fondo">
+    <div class="col-12 col-md-10 bg-fondo">
 
 
         <router-outlet></router-outlet>
@@ -199,6 +159,35 @@
 
 </div>
 
+
+
+<div class="row">
+
+<div class="col-12 d-block d-md-none  ">
+  <div class="row">
+
+
+ 
+  <nav class="navbar text-center navbar-expand d-flex navbar-light bg-azul fixed-bottom">
+    <div class="col-3" >
+      <a [routerLink]="['alumno']"  routerLinkActive ="active" class=" p-0 pt-2 pb-2 link-dark" aria-current="page">
+        <i class="bi bi-bag-heart" style="color: aliceblue;"></i>        
+      </a>
+    </div>
+    <div class="col-3" >
+      Profesor
+    </div>
+    <div class="col-3" >
+            a
+    </div>
+    <div class="col-3" >
+                  a
+    </div>
+</nav>
+</div>
+</div>
+
+</div>
 
 
 </div>
