@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   miFormulario: FormGroup = this.formBuilder.group({
     email: ['', [ Validators.required, Validators.pattern( this.validatorService.emailPattern ) ] ],
-    password: ['', [ Validators.required, Validators.minLength(6) ]  ]
+    password: ['', [ Validators.required ]  ]
   });
   
   
@@ -39,8 +39,6 @@ export class LoginComponent implements OnInit {
     const errors = this.miFormulario.get('email')?.errors!;
     if ( errors['required'] ) {
       return 'La contraseña es obligatoria';
-    } else if ( errors['minLength'] ) {
-      return 'Deben ser más de 6 dígitos';
     } 
 
     return '';
@@ -52,12 +50,18 @@ export class LoginComponent implements OnInit {
     console.log(this.miFormulario.value);
 
     this.miFormulario.markAllAsTouched();
+    console.log(this.miFormulario.valid)
+    if(this.miFormulario.valid){
+
+      this.router.navigateByUrl('home');
+    }
 
   }
 
 
   login(){
-     this.router.navigateByUrl('home')
+     
+    // this.router.navigateByUrl('home');
 
   }
 

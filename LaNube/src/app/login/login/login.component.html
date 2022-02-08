@@ -36,8 +36,13 @@
                           <input type="checkbox" class="form-check-input " id="recordar">
                           <label class="form-check-label" for="exampleCheck1">Recordar contraseña</label>
                         </div>
-                        <button (click)="login()" type="button" class="btn barra-inputs btn btn-primary ">Entrar</button>
-
+                        <!-- <button (click)="login()" type="button" class="btn barra-inputs btn btn-primary ">Entrar</button> -->
+                        
+                        <button class="btn barra-inputs btn btn-primary "
+                        [disabled]="miFormulario.pending"
+                        type="submit">
+                    Entrar
+                </button>
                        
                       </form>
                 </div>
