@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule, 
+    HttpClientModule
   ], exports:[LoginComponent]
 })
 export class LoginModule { }
