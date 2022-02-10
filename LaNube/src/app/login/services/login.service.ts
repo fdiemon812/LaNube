@@ -18,24 +18,25 @@ export class LoginService{
         const url = `${environment.urlApi}/login`;
         const body =  {email, password};
         
+        console.log("peticion login")
         
         return this.http.post<LoginResponse>(url, body);
 
        
     }
-
-
-    validarToken():Observable<LoginResponse>{
-        const url = `${ environment.urlApi }/home/prueba`;
-        const headers = new HttpHeaders() .set('Authorization', `Bearer ${localStorage.getItem('token')}` || '' );
     
-        return this.http.get<LoginResponse>( url, { headers } )
+
+    // validarToken():Observable<LoginResponse>{
+    //     const url = `${ environment.urlApi }/home/token`;
+    //     const headers = new HttpHeaders() .set('Authorization', `Bearer ${localStorage.getItem('token')}` || '' );
+    //     console.log('valida token');
+    //     console.log(localStorage.getItem('token'))
+    //     return this.http.post<LoginResponse>( url, { headers } )
         
-        console.log('valida token');
         
-        // return of(false)
+    //     // return of(false)
             
-      }
+    //   }
 
     
 }
