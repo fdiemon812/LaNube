@@ -12,8 +12,8 @@ const routes: Routes = [
   {path: 'login',component:LoginComponent},
   {path: 'home',component:HomeComponent, canActivate:[ValidarLogin], children:[
 
-    {path: 'profesor',component:ProfesorComponent},
-    {path: 'alumno',component:AlumnoComponent}
+    {path: 'profesor',canActivate:[ValidarLogin], component:ProfesorComponent},
+    {path: 'alumno',canActivate:[ValidarLogin],component:AlumnoComponent}
 
 
   ]},{path: '**',redirectTo:'login'}

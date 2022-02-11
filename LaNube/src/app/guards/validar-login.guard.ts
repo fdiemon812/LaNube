@@ -15,30 +15,24 @@ export class ValidarLogin implements CanActivate {
     constructor(private loginService:LoginService, private router:Router){}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+                
+        return this.loginService.validarToken().pipe(
+
+
+            map( resp=>{
+
+                return true;
+            }),
+            catchError(error =>{
+                console.log(error);
+
+                
+                this.router.navigateByUrl('/login');
+
+                return of(false)
+            })
+        )
         
-         console.log("entra en guardian")
-        
-        // //Llamar a la api y suscribirse (pasando por el servicio)
-
-        
-        // return this.loginService.validarToken().pipe(
-
-
-        //     map( resp=>{
-
-        //         console.log(resp + "ha comprobado el token")
-        //         return true;
-        //     }),
-        //     catchError(error =>{
-        //         console.log("hay un error"+error);
-
-        //         // this.router.navigateByUrl('/login');
-
-        //         return of(false)
-        //     })
-        // )
-        
-        return true;
     }
     
 
