@@ -9,7 +9,7 @@ import { AlumnoService } from '../services/alumno.service';
 })
 export class AlumnoComponent implements OnInit {
 
-  private alumnos:AlumnoInterface[]=[];
+   alumnos:AlumnoInterface[]=[];
 
 
   constructor(private alumnoService: AlumnoService) { }
@@ -19,13 +19,22 @@ export class AlumnoComponent implements OnInit {
   }
 
 
-  listarAlumnos():void{
+  listarAlumnos():any{
 
     return this.alumnoService.listarAlumnos().subscribe({
 
-      next:(),
-      error:()
+      next:resp =>{
+        console.log(resp);
+        this.alumnos=resp;
+      },
+      error: error =>{
+
+        console.log(error)
+      }
+
     })
+
+   
 
   }
 

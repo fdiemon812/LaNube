@@ -10,33 +10,18 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Historial</th>
+                <th scope="col">Dni</th>
+                <th scope="col">Aula</th>
         
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>Activo</td>
-                <td>VER</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>Activo</td>
-                <td>VER</td>
-        
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>Baja</td>
-                <td>VER</td>
+              <tr *ngFor="let alumno of alumnos">
+                <th scope="col">{{alumno.id}}</th>
+                <th scope="col">{{alumno.nombre}}</th>
+                <th scope="col">{{alumno.apellidos}}</th>
+                <th scope="col">{{alumno.dni}}</th>
+                <th scope="col">{{alumno.aula}}</th>
         
               </tr>
             </tbody>
