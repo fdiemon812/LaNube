@@ -17,7 +17,9 @@
             </div>
            
             <div class="mb-1 col-md-4 m-0 col-12">
-                <input  type="text"  class="form-control " placeholder="DNI" id="dni" >
+                <input  type="text"  class="form-control "  placeholder="DNI" formControlName="dni" id="dni" >
+                <span class="form-text text-danger"
+                *ngIf="campoNoValido('dni')">{{ dniErrorMsg }}</span>
             </div>
 
             <div class="col-12 col-md-8 m-0 mb-1">

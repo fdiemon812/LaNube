@@ -19,8 +19,8 @@ export class RegistroAlumnoComponent implements OnInit {
 
     formularioAlumno: FormGroup = this.formBuilder.group({
       nombre: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
-      apellidos: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)] ],
-      // dni: [ , [ Validators.required, Validators.min(0)] ],
+      apellidos: [ , [ Validators.required, Validators.maxLength(1),Validators.pattern(this.validatorAlumService.nombrePattern)] ],
+      dni: [ , [ Validators.pattern(this.validatorAlumService.dniPattern)] ],
 
       // direccion: [ '', [ Validators.required, Validators.minLength(3) ] ],
       // nacimiento: [ '', [ Validators.required, Validators.minLength(3) ] ],
@@ -74,14 +74,30 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
 
-    get apellidosErrorMsg(): string {
-    
-      const errors = this.formularioAlumno.get('apellidos')?.errors!;
-      if ( errors['required'] ) {
-        return 'Apellidos es obligatorio';
-      } else if ( errors['pattern'] ) {
-        return 'Solo puede contener letras';
-      } 
+  get apellidosErrorMsg(): string {
   
-      return '';}
+    const errors = this.formularioAlumno.get('apellidos')?.errors!;
+    if ( errors['required'] ) {
+      return 'Apellidos es obligatorio';
+    } else if ( errors['pattern'] ) {
+      return 'Solo puede contener letras';
+    } 
+
+    return '';}
+
+  get dniErrorMsg(): string {
+
+    const errors = this.formularioAlumno.get('dni')?.errors!;
+    if ( errors['pattern'] ) {
+      return 'Formato correcto -> 12345678B';
+    } 
+
+    return '';}
+
+
+   
+
+  
 }
+
+
