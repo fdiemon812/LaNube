@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm, PatternValidator } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
-import { ValidatorService } from '../services/validator.service';
 
 @Component({
   selector: 'app-login',
@@ -12,46 +11,34 @@ import { ValidatorService } from '../services/validator.service';
 export class LoginComponent implements OnInit {
 
   isCorrectPass:boolean=false;
+  public emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
-  miFormulario: FormGroup = this.formBuilder.group({
-    email: ['', [ Validators.required, Validators.pattern( this.validatorService.emailPattern ) ] ],
-    password: ['', [ Validators.required ]  ]
-  });
+  @ViewChild('miFormulario') miFormulario!: NgForm;
   
+  initForm = {
+    email: "",
+    password: ""
+  }
   
-  constructor(private router:Router, private loginService:LoginService, private formBuilder:FormBuilder, private validatorService: ValidatorService) { }
+  constructor(private router:Router, private loginService:LoginService) { }
 
   ngOnInit(): void {
   }
 
 
-  get emailErrorMsg(): string {
-    
-    const errors = this.miFormulario.get('email')?.errors!;
-    if ( errors['required'] ) {
-      return 'Email es obligatorio';
-    } else if ( errors['pattern'] ) {
-      return 'El valor ingresado no tiene formato de correo';
-    } 
-
-    return '';
+  emailValido(): boolean {
+    return  this.miFormulario?.controls['email'].touched && this.miFormulario?.controls['email'].invalid;
   }
 
-  get passwordErrorMsg(): string {
-    
-    const errors = this.miFormulario.get('email')?.errors!;
-    if ( errors['required'] ) {
-      return 'La contraseña es obligatoria';
-    } 
-
-    return '';
+  passValido():boolean {
+    return this.miFormulario?.controls['password'].touched && this.miFormulario?.controls['password'].invalid
   }
 
 
   submitFormulario() {
 
 
-    this.miFormulario.markAllAsTouched();
+   
 
 
     if(this.miFormulario.valid){
@@ -59,6 +46,7 @@ export class LoginComponent implements OnInit {
       
     }
 
+    
   }
 
 
@@ -81,11 +69,14 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  camposVacios(){
 
+    if(this.miFormulario.value.email=="" && this.miFormulario.value.password==""){
 
-  campoNoValido( campo: string ) {
-    return this.miFormulario.get(campo)?.invalid
-            && this.miFormulario.get(campo)?.touched;
+      this.isCorrectPass=true;
+    }
   }
+
+  
 
 }

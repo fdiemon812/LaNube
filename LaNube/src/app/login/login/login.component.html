@@ -19,19 +19,37 @@
             <hr>
             <div class="row">
                 <div class="offset-md-3 col-md-6  offset-2 col-8 mt-5 text-secondary">
-                    <form autocomplete="off" [formGroup]="miFormulario" (ngSubmit)="submitFormulario()" >
+                    <form autocomplete="off" #miFormulario="ngForm" (ngSubmit)="submitFormulario()" >
                         <div class="mb-5">
                           <label for="usuario" class="form-label">Usuario</label>
-                          <input type="email" formControlName="email" class="form-control barra-inputs" id="usuario" >
+                          <input type="email" 
+                          
+                          [ngModel]="initForm.email" 
+                          required
+                          [pattern]="emailPattern" 
+
+                          class="form-control barra-inputs" id="email" name="email" >
                           <span class="form-text text-danger"
-                          *ngIf="campoNoValido('email')">{{ emailErrorMsg }}</span>
+                        *ngIf="emailValido()">
+                        Introduce un correo electrónico válido
+                    </span>
                         </div>
                         <div class="mb-5">
                           <label for="contraseña" class="form-label">Contraseña</label>
-                          <input  type="password" formControlName="password" class="form-control barra-inputs" id="contraseña" >
-                          <span class="form-text text-danger"
-                          *ngIf="campoNoValido('password')">{{ passwordErrorMsg }}</span>
+                          <input  type="password" 
+
+                          [ngModel]="initForm.password"
+                          required
+
+                           class="form-control barra-inputs" id="password" name="password" >
+                           <span class="form-text text-danger"
+                           *ngIf="passValido()">
+                        Es obligatoria la contraseña
+                    </span>
                         </div>
+
+
+
                         <div class="mb-5 form-check">
                           <input type="checkbox" class="form-check-input " id="recordar">
                           <label class="form-check-label" for="exampleCheck1">Recordar contraseña</label>
@@ -39,13 +57,15 @@
                         
                         <div class="text-center mb-2">
 
-                          <span class="form-text barra-inputs text-danger text-center"
-                          *ngIf="isCorrectPass">Contraseña o usuario incorrectos</span>
+                          <span class="form-text text-danger"
+                           *ngIf="isCorrectPass">
+                        Usuario o Contraseña incorrecto
+                    </span>
 
                         </div>
                         
                         
-                        <button class="btn barra-inputs btn btn-primary "
+                        <button class="btn barra-inputs btn btn-primary " (click)="camposVacios()"
                         [disabled]="miFormulario.pending"
                         type="submit">
                     Entrar
