@@ -36,7 +36,14 @@
                           <input type="checkbox" class="form-check-input " id="recordar">
                           <label class="form-check-label" for="exampleCheck1">Recordar contraseña</label>
                         </div>
-                        <!-- <button (click)="login()" type="button" class="btn barra-inputs btn btn-primary ">Entrar</button> -->
+                        
+                        <div class="text-center mb-2">
+
+                          <span class="form-text barra-inputs text-danger text-center"
+                          *ngIf="isCorrectPass">Contraseña o usuario incorrectos</span>
+
+                        </div>
+                        
                         
                         <button class="btn barra-inputs btn btn-primary "
                         [disabled]="miFormulario.pending"

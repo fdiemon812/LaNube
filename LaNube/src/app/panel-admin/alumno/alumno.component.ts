@@ -24,12 +24,10 @@ export class AlumnoComponent implements OnInit {
     return this.alumnoService.listarAlumnos().subscribe({
 
       next:resp =>{
-        console.log(resp);
         this.alumnos=resp;
       },
       error: error =>{
 
-        console.log(error)
       }
 
     })

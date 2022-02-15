@@ -5,6 +5,7 @@ import { HomeComponent } from './panel-admin/home/home.component';
 import { ValidarLogin } from './guards/validar-login.guard';
 import { ProfesorComponent } from './panel-admin/profesor/profesor.component';
 import { AlumnoComponent } from './panel-admin/alumno/alumno.component';
+import { RegistroAlumnoComponent } from './panel-admin/registro-alumno/registro-alumno.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,9 @@ const routes: Routes = [
   {path: 'home',component:HomeComponent, canActivate:[ValidarLogin], children:[
 
     {path: 'profesor',canActivate:[ValidarLogin], component:ProfesorComponent},
-    {path: 'alumno',canActivate:[ValidarLogin],component:AlumnoComponent}
+    {path: 'alumno',canActivate:[ValidarLogin],component:AlumnoComponent},
+    {path: 'registro', component: RegistroAlumnoComponent },
+
 
 
   ]},{path: '**',redirectTo:'login'}

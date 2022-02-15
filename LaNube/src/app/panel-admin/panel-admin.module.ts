@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { AlumnoComponent } from './alumno/alumno.component';
 import { ProfesorComponent } from './profesor/profesor.component';
+import { RegistroAlumnoComponent } from './registro-alumno/registro-alumno.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,11 +14,14 @@ import { ProfesorComponent } from './profesor/profesor.component';
   declarations: [
     HomeComponent,
     AlumnoComponent,
-    ProfesorComponent
+    ProfesorComponent,
+    RegistroAlumnoComponent
   ],
   imports: [
-    CommonModule,AppRoutingModule,
-    RouterModule
+    CommonModule,
+    AppRoutingModule,
+    RouterModule,
+    ReactiveFormsModule
     
   ],exports:[]
 })

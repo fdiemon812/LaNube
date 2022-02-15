@@ -11,6 +11,8 @@ import { ValidatorService } from '../services/validator.service';
 })
 export class LoginComponent implements OnInit {
 
+  isCorrectPass:boolean=false;
+
   miFormulario: FormGroup = this.formBuilder.group({
     email: ['', [ Validators.required, Validators.pattern( this.validatorService.emailPattern ) ] ],
     password: ['', [ Validators.required ]  ]
@@ -48,10 +50,8 @@ export class LoginComponent implements OnInit {
 
   submitFormulario() {
 
-    console.log(this.miFormulario.value);
 
     this.miFormulario.markAllAsTouched();
-    console.log("fomrulario valido"+this.miFormulario.valid)
 
 
     if(this.miFormulario.valid){
@@ -71,15 +71,12 @@ export class LoginComponent implements OnInit {
     this.loginService.login(email, password).subscribe({
 
         next: resp => { 
-          console.log(resp)
-          console.log(resp.jwt_token)
           localStorage.setItem("token", resp.jwt_token)
           this.router.navigateByUrl('home');
 
         },
         error: error =>{
-
-          console.log(error)
+          this.isCorrectPass=true;
         }
     })
   }
