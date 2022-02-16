@@ -37,8 +37,9 @@
 
             <div class=" col-md-2 m-0 w-50 mb-3">
                 <label for="fecha" class="form-label">Nacimiento:</label>
-                <input  type="date"  class="form-control " id="fecha">
-                
+                <input  type="date" formControlName="nacimiento" class="form-control " id="fecha">
+                <span class="form-text text-danger"
+                *ngIf="campoNoValido('nacimiento')">{{ fechaErrorMsg }}</span>
             </div>
 
             <div class=" col-md-4 m-0 w-50 mb-3">

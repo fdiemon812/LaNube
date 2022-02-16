@@ -21,9 +21,7 @@ export class RegistroAlumnoComponent implements OnInit {
       nombre: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
       apellidos: [ , [ Validators.required, Validators.maxLength(1),Validators.pattern(this.validatorAlumService.nombrePattern)] ],
       dni: [ , [ Validators.pattern(this.validatorAlumService.dniPattern)] ],
-
-      // direccion: [ '', [ Validators.required, Validators.minLength(3) ] ],
-      // nacimiento: [ '', [ Validators.required, Validators.minLength(3) ] ],
+      nacimiento: [ '', [ Validators.required ] ],
       // horario: [ '', [ Validators.required, Validators.minLength(3) ] ],
       // favoritos: this.formBuilder.array([], Validators.required )
     })
@@ -91,6 +89,19 @@ export class RegistroAlumnoComponent implements OnInit {
     if ( errors['pattern'] ) {
       return 'Formato correcto -> 12345678B';
     } 
+
+    return '';}
+
+
+  get fechaErrorMsg(): string {
+
+    const errors = this.formularioAlumno.get('nacimiento')?.errors!;
+    if ( errors['required'] ) {
+      return 'Fecha obligatoria';
+    } else if( errors['fechaValida'] ){
+      return 'La fecha debe ser inferior al día de hoy';
+
+    }
 
     return '';}
 
