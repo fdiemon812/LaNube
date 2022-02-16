@@ -21,12 +21,12 @@ export class RegistroAlumnoComponent implements OnInit {
       nombre: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
       apellidos: [ , [ Validators.required, Validators.maxLength(1),Validators.pattern(this.validatorAlumService.nombrePattern)] ],
       dni: [ , [ Validators.pattern(this.validatorAlumService.dniPattern)] ],
-      nacimiento: [ '', [ Validators.required ] ],
+      nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ]
       // horario: [ '', [ Validators.required, Validators.minLength(3) ] ],
       // favoritos: this.formBuilder.array([], Validators.required )
     })
 
-  constructor(private formBuilder:FormBuilder, private validatorAlumService: ValidatorAlumnoService) { }
+  constructor(private formBuilder:FormBuilder,  private validatorAlumService: ValidatorAlumnoService) { }
 
   ngOnInit(): void {
     this.formularioAlumno.reset({})
@@ -90,23 +90,27 @@ export class RegistroAlumnoComponent implements OnInit {
       return 'Formato correcto -> 12345678B';
     } 
 
-    return '';}
+    return '';
+  }
 
 
   get fechaErrorMsg(): string {
 
+    console.log("comprobando errores")
+
     const errors = this.formularioAlumno.get('nacimiento')?.errors!;
     if ( errors['required'] ) {
-      return 'Fecha obligatoria';
-    } else if( errors['fechaValida'] ){
-      return 'La fecha debe ser inferior al día de hoy';
+      console.log("comprobando error1")
 
+      return 'Fecha obligatoria';
+    } else if(errors['fechaMayor']){
+      console.log("comprobando error2")
+      return 'Debe ser inferior a la fecha actual'
     }
 
-    return '';}
+    return '';
+  }
 
-
-   
 
   
 }

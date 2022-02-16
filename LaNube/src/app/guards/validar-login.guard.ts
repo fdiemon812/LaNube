@@ -24,7 +24,6 @@ export class ValidarLogin implements CanActivate {
                 return true;
             }),
             catchError(error =>{
-                console.log(error);
 
                 
                 this.router.navigateByUrl('/login');

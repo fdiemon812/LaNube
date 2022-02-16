@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit {
 
 
   emailValido(): boolean {
-    return  this.miFormulario?.controls['email'].touched && this.miFormulario?.controls['email'].invalid;
+    return  this.miFormulario?.controls['email']?.touched && this.miFormulario?.controls['email']?.invalid;
   }
 
   passValido():boolean {
-    return this.miFormulario?.controls['password'].touched && this.miFormulario?.controls['password'].invalid
+    return this.miFormulario?.controls['password']?.touched && this.miFormulario?.controls['password']?.invalid
   }
 
 
