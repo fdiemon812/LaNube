@@ -15,7 +15,7 @@ export class AlumnoService{
 
     listarAlumnos():Observable<AlumnoInterface[]>{
 
-        const url = `${ environment.urlApi }/alumnos`;
+        const url = `${ environment.urlApi }/alumno`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
                 

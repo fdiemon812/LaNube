@@ -9,13 +9,13 @@ import { ValidatorAlumnoService } from '../services/validator.alumno.service';
 })
 export class RegistroAlumnoComponent implements OnInit {
 
-  tutores:any[]=[{id: 1,
-    nombre:"",
-    apellidos:"",
-    dni:'',
-    tlf:'',
-    email:'',
-    password:''}];
+
+  tutoresExistentes:any[]=[{nombre:"JuanaPaca"},{nombre:"2"},{nombre:"JuanaPaca3"},{nombre:"Arbol"},]
+
+  tutoresExistentesLength:any[]=[1]
+
+
+  tutores:any[]=[];
 
     formularioAlumno: FormGroup = this.formBuilder.group({
       nombre: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
@@ -53,10 +53,15 @@ export class RegistroAlumnoComponent implements OnInit {
       password:''
     }
 
-    console.log("addTutor")
     this.tutores.push(tutor);
   }
 
+  addTutorExistente(){
+
+    
+
+    this.tutoresExistentesLength.push(1);
+  }
 
 
   get nombreErrorMsg(): string {
@@ -113,6 +118,19 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
   
+  submitForm(){
+    console.log("hola")
+    console.log(this.formularioAlumno.valid)
+    console.log(this.formularioAlumno.value)
+    if(this.formularioAlumno.valid){
+
+      console.log("enviando!!!")
+    }
+  }
+
+
+
+
 }
 
 

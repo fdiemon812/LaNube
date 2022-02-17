@@ -1,6 +1,6 @@
 <div class="row p-1">
     <div class="offset-md-2 col-md-8  offset-sm-1 col-sm-10  col-12 mt-5 text-secondary">
-        <form autocomplete="off"  [formGroup]="formularioAlumno" class="row">
+        <form autocomplete="off"  [formGroup]="formularioAlumno" (ngSubmit)="submitForm()" class="row">
             
             <h4>Alumno:</h4>
 
@@ -37,7 +37,7 @@
 
             <div class=" col-md-2 m-0 w-50 mb-3">
                 <label for="fecha" class="form-label">Nacimiento:</label>
-                <input  type="date"  class="form-control " formControlName="nacimiento" id="fecha">
+                <input  type="date" formControlName="nacimiento"  class="form-control "  id="fecha">
                 <span class="form-text text-danger"
                 *ngIf="campoNoValido('nacimiento')">{{ fechaErrorMsg }}</span>
                 
@@ -81,34 +81,65 @@
                 <div class="col-10">
                     <h4>Tutores:</h4>
                 </div>
-                <div class="col-2 text-end">
-                    <a  (click)="addTutor()"><i class="bi bi-person-plus text-end" style="color: rgb(0, 0, 0);cursor:pointer; font-size: 1.5rem;"></i></a>
-                </div>
+                
 
 
             </div>
 
-           <div class="row mt-4 p-0 m-0" *ngFor="let tutor of tutores">
+
+            <div class="mb-1  m-0 col-12 d-flex">            
+            
+                <div class="col-10">
+                    <select *ngFor="let tutor of tutoresExistentesLength" class="form-select" aria-label="alimentacion">
+                        <option selected value="5">--Escoge Tutor--</option>
+                        <option *ngFor="let tutor of tutoresExistentes; let i =index" value="{{tutor.id}}">{{tutor.nombre}}</option>
+                       
+                    </select>    
+                    </div>
+                <div class="col-2 text-end">
+                    <a  (click)="addTutorExistente()"><i class="bi bi-person-plus text-end" style="color: rgb(0, 0, 0);cursor:pointer; font-size: 1.5rem;"></i></a>
+                </div>
+            
+            </div>
+
+           
+
+
+            <div class="col-12 text-end align-center mt-4">
+
+
+                <p class="">Añadir tutor nuevo
+                
+            
+            
+                <a class="ms-2" (click)="addTutor()"><i class="bi bi-person-plus text-end" style="color: rgb(0, 0, 0);cursor:pointer; font-size: 1.5rem;"></i></a>
+            </p>
+            </div>
+
+           <div class="row mt-4 p-0 m-0" *ngFor="let tutor of tutores;let i=index">
 
             <div class="col-12 d-flex " >
 
-                <div class="col-6">
-                    <p>Tutor {{tutor.id}} :</p>
+                <div class="col-10">
+                    <p>Tutor nuevo {{tutor.id}} :</p>
                 </div>
-               
+                <div class="col-2 text-end">
+                    
+                </div>
 
 
             </div>
 
             <div class="mb-1 col-md-4 m-0 col-12" >
-                <input type="text"  class="form-control " id="nombreTutor{{tutor.id}}" placeholder="Nombre">
+                <input type="text"  class="form-control "  id="nombreTutor{{tutor.id}}" placeholder="Nombre">
+               
               </div>
               <div class="mb-1 col-12 col-md-8 m-0">
-                  <input  type="text"  class="form-control " id="apellidosTutor{{tutor.id}}" placeholder="Apellidos">
+                  <input  type="text"  class="form-control "  id="apellidosTutor{{tutor.id}}" placeholder="Apellidos">
               </div>
              
               <div class="mb-1 col-md-4 m-0 col-12">
-                  <input  type="text"  class="form-control " placeholder="DNI" id="dniTutor{{tutor.id}}" >
+                  <input  type="text"  class="form-control "  placeholder="DNI" id="dniTutor{{tutor.id}}" >
               </div>
   
               <div class="col-12 col-md-8 m-0 mb-1">
@@ -116,7 +147,7 @@
               </div>
 
               <div class="mb-1 col-md-4 m-0 col-12">
-                <input  type="text"  class="form-control " placeholder="Tlf" id="tlfTutor{{tutor.id}}" >
+                <input  type="text"  class="form-control "  placeholder="Tlf" id="tlfTutor{{tutor.id}}" >
             </div>
 
             <div class="col-12 col-md-8 m-0 mb-1">
@@ -125,7 +156,7 @@
 
             <div class="mb-4 form-check">
                 <input type="checkbox" class="form-check-input m-1" id="recordar">
-                <label class="form-check-label " for="exampleCheck1">Crear Usuario</label>
+                <label class="form-check-label " for="exampleCheck1">Crear Usuario para entrar en aplicación</label>
             </div>
 
             <div>
@@ -133,13 +164,12 @@
            
         </div>
               <div class=" offset-md-6 col-2  m-2 p-2">
-                <button class="btn  me-2 btn btn-primary " 
-                type="submit">Cancelar</button>
+                <button class="btn  me-2 btn btn-primary " >Cancelar</button>
             </div>
 
             
             <div class=" offset-md-6 col-2  m-2 p-2">
-                <button class="btn  btn btn-primary " type="submit">Guardar</button>
+                <button class="btn  btn btn-primary " [disabled]="formularioAlumno.pending" type="submit">Guardar</button>
             </div>
 
 
