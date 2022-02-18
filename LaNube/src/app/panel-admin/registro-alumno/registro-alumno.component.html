@@ -87,7 +87,7 @@
             </div>
 
 
-            <div class="mb-1  m-0 col-12 d-flex">            
+            <!-- <div class="mb-1  m-0 col-12 d-flex">            
             
                 <div class="col-10">
                     <select *ngFor="let tutor of tutoresExistentesLength" class="form-select" aria-label="alimentacion">
@@ -97,10 +97,10 @@
                     </select>    
                     </div>
                 <div class="col-2 text-end">
-                    <a  (click)="addTutorExistente()"><i class="bi bi-person-plus text-end" style="color: rgb(0, 0, 0);cursor:pointer; font-size: 1.5rem;"></i></a>
+                    <a ><i class="bi bi-person-plus text-end" style="color: rgb(0, 0, 0);cursor:pointer; font-size: 1.5rem;"></i></a>
                 </div>
             
-            </div>
+            </div> -->
 
            
 
@@ -112,16 +112,35 @@
                 
             
             
-                <a class="ms-2" (click)="addTutor()"><i class="bi bi-person-plus text-end" style="color: rgb(0, 0, 0);cursor:pointer; font-size: 1.5rem;"></i></a>
+                <a class="ms-2" (click)="agregarTutor()"><i class="bi bi-person-plus text-end" style="color: rgb(0, 0, 0);cursor:pointer; font-size: 1.5rem;"></i></a>
             </p>
             </div>
 
-           <div class="row mt-4 p-0 m-0" *ngFor="let tutor of tutores;let i=index">
 
+            <div formArrayName="tutoresArr">
+
+
+            
+           <div class="row mt-4 p-0 m-0" *ngFor="let tutor of tutoresArr.controls;let i=index">
+
+            <div>
+                <label for="tutor-{{i}}"> nombreTutor:</label><br />
+                <input id="tutor-{{i}}" [formControlName]="i" type="text" />
+              </div>
+              <div>
+                <label>apellidosTutor:</label><br />
+                <input id="tutor-{{i}}" [formControlName]="i" type="text" />
+              </div>
+              <div>
+                <label>dniTutor:</label><br />
+                <input id="tutor-{{i}}" [formControlName]="i" type="text" />
+              </div>
+
+<!--             
             <div class="col-12 d-flex " >
 
                 <div class="col-10">
-                    <p>Tutor nuevo {{tutor.id}} :</p>
+                    <p>Tutor nuevo  :</p>
                 </div>
                 <div class="col-2 text-end">
                     
@@ -161,9 +180,11 @@
 
             <div>
             </div>
-           
+            -->
         </div>
-              <div class=" offset-md-6 col-2  m-2 p-2">
+    </div>
+
+            <div class=" offset-md-6 col-2  m-2 p-2">
                 <button class="btn  me-2 btn btn-primary " >Cancelar</button>
             </div>
 
