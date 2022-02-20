@@ -9,13 +9,7 @@ import { ValidatorAlumnoService } from '../services/validator.alumno.service';
 })
 export class RegistroAlumnoComponent implements OnInit {
 
-
-  // tutoresExistentes:any[]=[{nombre:"JuanaPaca"},{nombre:"2"},{nombre:"JuanaPaca3"},{nombre:"Arbol"},]
-
-  // tutoresExistentesLength:any[]=[1]
-
-
-  // tutores:any[]=[];
+  
 
     formularioAlumno: FormGroup = this.formBuilder.group({
       nombre: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
@@ -24,12 +18,19 @@ export class RegistroAlumnoComponent implements OnInit {
       nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ],
       
       
-      tutores: this.formBuilder.array([])
+      tutores: this.formBuilder.array([
+
+        // this.formBuilder.group({
+
+        //   nombreTutor:[],
+        //   apellidoTutor:[],
+        //   dniTutor:[]
+
+        // })
+      ])
 
 
 
-      // horario: [ '', [ Validators.required, Validators.minLength(3) ] ],
-      // favoritos: this.formBuilder.array([], Validators.required )
     })
 
   constructor(private formBuilder:FormBuilder,  private validatorAlumService: ValidatorAlumnoService) { }
@@ -38,21 +39,42 @@ export class RegistroAlumnoComponent implements OnInit {
     this.formularioAlumno.reset({})
   }
 
-  // nuevoTutor: FormControl = this.formBuilder.control('', [Validators.required, Validators.minLength(3)] );
 
-  get tutoresArr() {
-    return this.formularioAlumno.get('tutores') as FormArray;
+  // get tutoresArr() {
+  //   return this.formularioAlumno.get('tutores') as FormArray;
+  // }
+
+  get tutoresArr():any{
+    return this.formularioAlumno.get('tutores') as FormArray ;
+  }
+
+  crearTutor(){
+    return this.formBuilder.group({
+
+      nombreTutor:[,Validators.required],
+      apellidoTutor:[,Validators.required],
+      dniTutor:[,Validators.required],
+      emailTutor:[,Validators.required],
+      tlfTutor:[,Validators.required],
+      passwordTutor:[,Validators.required]
+
+
+      
+    })
   }
 
   agregarTutor() {
-    const tutor = this.formBuilder.group({
-      nombreTutor: new FormControl('', Validators.required),
-      apellidoTutor: new FormControl('',Validators.required),
-      dniTutor: new FormControl('',Validators.required)
+
+
+    // const tutor = this.formBuilder.group({
+    //   nombreTutor: new FormControl('', Validators.required),
+    //   apellidoTutor: new FormControl('',Validators.required),
+    //   dniTutor: new FormControl('',Validators.required)
       
-    });
+    // });
+    let tutorArray= this.formularioAlumno.get('tutores') as FormArray;
   
-    this.tutoresArr.push(tutor);
+    tutorArray.push(this.crearTutor());
   
 
   }
@@ -65,6 +87,8 @@ export class RegistroAlumnoComponent implements OnInit {
     return this.formularioAlumno.get(campo)?.invalid
             && this.formularioAlumno.get(campo)?.touched;
   }
+
+ 
 
 
   // addTutor(){
@@ -145,13 +169,15 @@ export class RegistroAlumnoComponent implements OnInit {
 
   
   submitForm(){
-    console.log("hola")
+    // console.log("hola")
     console.log(this.formularioAlumno.valid)
     console.log(this.formularioAlumno.value)
-    this.findInvalidControlsRecursive(this.formularioAlumno)
+    this.formularioAlumno.markAllAsTouched();
+
+    // this.findInvalidControlsRecursive(this.formularioAlumno)
     if(this.formularioAlumno.valid){
 
-      console.log("enviando!!!")
+      // console.log("enviando!!!")
     }
   }
 

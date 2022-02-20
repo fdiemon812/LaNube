@@ -6,6 +6,7 @@ import { ValidarLogin } from './guards/validar-login.guard';
 import { ProfesorComponent } from './panel-admin/profesor/profesor.component';
 import { AlumnoComponent } from './panel-admin/alumno/alumno.component';
 import { RegistroAlumnoComponent } from './panel-admin/registro-alumno/registro-alumno.component';
+import { isAdmin } from './guards/isAdmin.guard';
 
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
 
     {path: 'profesor',canActivate:[ValidarLogin], component:ProfesorComponent},
     {path: 'alumno',canActivate:[ValidarLogin],component:AlumnoComponent},
-    {path: 'registro', component: RegistroAlumnoComponent },
+    {path: 'registro', canActivate:[ValidarLogin, isAdmin], component: RegistroAlumnoComponent },
 
 
 

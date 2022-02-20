@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "src/environments/environment";
 import { LoginResponse } from "../interfaces/loginResponse.interface";
 import { Observable } from "rxjs";
+import { isAdmin } from '../../guards/isAdmin.guard';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService{
 
-
+    rol!:string;
     constructor(private http:HttpClient){}
 
 
@@ -29,6 +30,11 @@ export class LoginService{
         return this.http.get<LoginResponse>( url, { headers } )
                     
       }
+
+    isAdmin():boolean{
+        
+        return true;
+    }
 
     
 }

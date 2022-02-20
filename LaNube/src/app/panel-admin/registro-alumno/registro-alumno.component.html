@@ -117,26 +117,17 @@
             </div>
 
 
-            <div formArrayName="tutoresArr">
+            <div formArrayName="tutores">
 
 
             
            <div class="row mt-4 p-0 m-0" *ngFor="let tutor of tutoresArr.controls;let i=index">
 
-            <div>
-                <label for="tutor-{{i}}"> nombreTutor:</label><br />
-                <input id="tutor-{{i}}" [formControlName]="i" type="text" />
-              </div>
-              <div>
-                <label>apellidosTutor:</label><br />
-                <input id="tutor-{{i}}" [formControlName]="i" type="text" />
-              </div>
-              <div>
-                <label>dniTutor:</label><br />
-                <input id="tutor-{{i}}" [formControlName]="i" type="text" />
-              </div>
 
-<!--             
+            <div class="row mt-4 p-0 m-0" [formGroupName]="i">
+            
+
+            
             <div class="col-12 d-flex " >
 
                 <div class="col-10">
@@ -150,27 +141,28 @@
             </div>
 
             <div class="mb-1 col-md-4 m-0 col-12" >
-                <input type="text"  class="form-control "  id="nombreTutor{{tutor.id}}" placeholder="Nombre">
-               
+                <input type="text"  class="form-control " formControlName="nombreTutor" id="nombreTutor{{tutor.id}}" placeholder="Nombre">
+                <!-- <span class="form-text text-danger"
+                *ngIf="campoNoValidoArray('tutores', i)">{{ nombreErrorMsg }}</span> -->
               </div>
               <div class="mb-1 col-12 col-md-8 m-0">
-                  <input  type="text"  class="form-control "  id="apellidosTutor{{tutor.id}}" placeholder="Apellidos">
+                  <input  type="text"  class="form-control " formControlName="apellidoTutor" id="apellidosTutor{{tutor.id}}" placeholder="Apellidos">
               </div>
              
               <div class="mb-1 col-md-4 m-0 col-12">
-                  <input  type="text"  class="form-control "  placeholder="DNI" id="dniTutor{{tutor.id}}" >
+                  <input  type="text"  class="form-control " formControlName="dniTutor" placeholder="DNI" id="dniTutor{{tutor.id}}" >
               </div>
   
               <div class="col-12 col-md-8 m-0 mb-1">
-                <input  type="email"  class="form-control " id="emailTutor{{tutor.id}}" placeholder="Email">
+                <input  type="email"  class="form-control " formControlName="emailTutor" id="emailTutor{{tutor.id}}" placeholder="Email">
               </div>
 
               <div class="mb-1 col-md-4 m-0 col-12">
-                <input  type="text"  class="form-control "  placeholder="Tlf" id="tlfTutor{{tutor.id}}" >
+                <input  type="text"  class="form-control " formControlName="tlfTutor"  placeholder="Tlf" id="tlfTutor{{tutor.id}}" >
             </div>
 
             <div class="col-12 col-md-8 m-0 mb-1">
-              <input  type="password"  class="form-control " id="emailTutor{{tutor.id}}" placeholder="Contraseña">
+              <input  type="password"  class="form-control " formControlName="passwordTutor" id="passwordTutor{{tutor.id}}" placeholder="Contraseña">
             </div>
 
             <div class="mb-4 form-check">
@@ -180,8 +172,9 @@
 
             <div>
             </div>
-            -->
         </div>
+    </div>
+
     </div>
 
             <div class=" offset-md-6 col-2  m-2 p-2">
