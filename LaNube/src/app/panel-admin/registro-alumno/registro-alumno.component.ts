@@ -208,20 +208,22 @@ export class RegistroAlumnoComponent implements OnInit {
      console.log(apellidoAlumno);
      let dniAlumno = this.formularioAlumno.value.dni;
      let direccion = this.formularioAlumno.value.direccion;
+     
      let fechaNacimiento = this.formularioAlumno.value.nacimiento;
      let aula = this.formularioAlumno.value.aula;
     //  let salida = this.formularioAlumno.value.horaSalida;
 
-    console.log(nombreAlumno+apellidoAlumno+dniAlumno+fechaNacimiento)
-    this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno, fechaNacimiento, direccion, aula);
+    console.log(direccion)
+    this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno, fechaNacimiento, direccion);
+    this.agregarAula(aula);
 
     }
   }
+  
 
+  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string){
 
-  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string, aula:number){
-
-    this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, direccion, aula).subscribe({
+    this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, direccion).subscribe({
 
 
       next: resp=>{
@@ -240,6 +242,27 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
   }
+
+
+
+  agregarAula(aula: number) {
+
+
+    this.alumnoService.agregarAula(aula).subscribe({
+
+
+      next: resp=>{
+        console.log(resp)
+        this.router.navigateByUrl('home');
+      },
+      error: error=>{
+
+        console.log(error)
+
+      }
+
+  })}
+
+
+
 }
-
-
