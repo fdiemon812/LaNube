@@ -11,7 +11,8 @@ import { ValidatorAlumnoService } from '../services/validator.alumno.service';
 })
 export class RegistroAlumnoComponent implements OnInit {
 
-  
+  private idAlumno!:number;
+
 
     formularioAlumno: FormGroup = this.formBuilder.group({
       nombre: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
@@ -187,14 +188,13 @@ export class RegistroAlumnoComponent implements OnInit {
       });
     }
     recursiveFunc(formToInvestigate);
-    console.log(invalidControls)
-    console.log(this.formularioAlumno.valid + "gfgdfgdgdfgfdgfdgdfg")
+   
     return invalidControls;
   }
 
 
    
-  submitForm(){
+  async submitForm(){
     // console.log("hola")
     console.log(this.formularioAlumno.valid)
     console.log(this.formularioAlumno.value)
@@ -213,21 +213,31 @@ export class RegistroAlumnoComponent implements OnInit {
      let aula = this.formularioAlumno.value.aula;
     //  let salida = this.formularioAlumno.value.horaSalida;
 
-    console.log(direccion)
-    this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno, fechaNacimiento, direccion);
-    this.agregarAula(aula);
+   
+
+    let tutores= this.formularioAlumno.value.tutores;
+
+
+    this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno, fechaNacimiento, direccion, aula);
+
+
+    tutores.forEach((tutor: { nombreTutor: string; apellidoTutor: string; dniTutor: string; tlfTutor: string; emailTutor: string; passwordTutor: string; }) => {
+      console.log(tutor)
+       this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor)
+    });
+     
 
     }
   }
   
 
-  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string){
+  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string, aula:number){
 
     this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, direccion).subscribe({
 
 
       next: resp=>{
-        console.log(resp)
+        this.agregarAula(aula, resp.id);
         this.router.navigateByUrl('home');
       },
       error: error=>{
@@ -245,14 +255,13 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
 
-  agregarAula(aula: number) {
+  agregarAula(aula: number, idAlumno:number) {
 
 
-    this.alumnoService.agregarAula(aula).subscribe({
+    this.alumnoService.agregarAula(aula, idAlumno).subscribe({
 
 
       next: resp=>{
-        console.log(resp)
         this.router.navigateByUrl('home');
       },
       error: error=>{
@@ -263,6 +272,31 @@ export class RegistroAlumnoComponent implements OnInit {
 
   })}
 
+
+  agregarTutorAlumno(idTutor:number, idAlumno:number){}
+
+
+  registrarTutor(nombre:string, apellido:string, dni:string, tlf:string, email:string, password:string){
+    console.log(password)
+    this.alumnoService.registrarTutor(nombre, apellido, dni, tlf, email, password).subscribe({
+
+
+      next: resp=>{
+        // this.agregarAula(aula, resp.id);
+        this.router.navigateByUrl('home');
+      },
+      error: error=>{
+
+        console.log(error)
+
+      }
+
+
+
+    })
+
+
+  }
 
 
 }

@@ -8,8 +8,8 @@ import { AlumnoInterface } from "../interfaces/alumno.interface";
     providedIn: 'root'
 })
 export class AlumnoService{
+    
    
-
     constructor(private http:HttpClient){
 
     }
@@ -36,13 +36,30 @@ export class AlumnoService{
     }
 
 
-    agregarAula(aula: number) {
-
-        const url = `${ environment.urlApi }/alumno`;
+    agregarAula(aula: number, id:number) {
+        console.log(id)
+        const url = `${ environment.urlApi }/aula/${aula}`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
-        const body= {aula}
+        const body= {id}
         console.log(body )
-         return this.http.put<AlumnoInterface>(url, body, {headers});
+         return this.http.post<AlumnoInterface>(url, body, {headers});
+    }
+
+
+
+
+    registrarTutor(nombre: string, apellidos: string, dni: string, tlf: string, email: string, password: string) {
+
+        console.log(password)
+
+        const url = `${ environment.urlApi }/register`;
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+        const body= {nombre, apellidos, dni, tlf, email, password, role:"TUTOR"}
+        console.log(body )
+         return this.http.post<any>(url, body, {headers});
+
+
     }
 }
