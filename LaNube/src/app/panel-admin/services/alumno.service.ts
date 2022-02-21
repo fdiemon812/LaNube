@@ -24,4 +24,14 @@ export class AlumnoService{
     }
 
 
+    registrarAlumno(nombre:string, apellidos:string, dni:string, fechaNacimiento:Date, direccion:string, aula:number):Observable<AlumnoInterface>{
+
+        const url = `${ environment.urlApi }/alumno`;
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+        const body= {nombre, apellidos, dni, fechaNacimiento}
+        console.log(body )
+         return this.http.post<AlumnoInterface>(url, body, {headers});
+    }
+
 }

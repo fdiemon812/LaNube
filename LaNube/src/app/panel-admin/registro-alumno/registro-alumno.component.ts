@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlumnoService } from '../services/alumno.service';
 import { ValidatorAlumnoService } from '../services/validator.alumno.service';
 
 @Component({
@@ -15,9 +17,9 @@ export class RegistroAlumnoComponent implements OnInit {
       nombre: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
       apellidos: [ , [ Validators.required, Validators.maxLength(100),Validators.pattern(this.validatorAlumService.nombrePattern)] ],
       dni: [ , [ Validators.pattern(this.validatorAlumService.dniPattern)] ],
-      nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ],
-      
-      
+      nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ], 
+      direccion:[],
+      aula:[],    
       tutores: this.formBuilder.array([
 
         // this.formBuilder.group({
@@ -33,7 +35,7 @@ export class RegistroAlumnoComponent implements OnInit {
 
     })
 
-  constructor(private formBuilder:FormBuilder,  private validatorAlumService: ValidatorAlumnoService) { }
+  constructor(private formBuilder:FormBuilder, private router:Router,  private validatorAlumService: ValidatorAlumnoService, private alumnoService:AlumnoService) { }
 
   ngOnInit(): void {
     this.formularioAlumno.reset({})
@@ -167,19 +169,7 @@ export class RegistroAlumnoComponent implements OnInit {
   }
 
 
-  
-  submitForm(){
-    // console.log("hola")
-    console.log(this.formularioAlumno.valid)
-    console.log(this.formularioAlumno.value)
-    this.formularioAlumno.markAllAsTouched();
-
-    // this.findInvalidControlsRecursive(this.formularioAlumno)
-    if(this.formularioAlumno.valid){
-
-      // console.log("enviando!!!")
-    }
-  }
+ 
 
 
   // comprueba que campos no están validando en el formulario
@@ -203,6 +193,53 @@ export class RegistroAlumnoComponent implements OnInit {
   }
 
 
+   
+  submitForm(){
+    // console.log("hola")
+    console.log(this.formularioAlumno.valid)
+    console.log(this.formularioAlumno.value)
+    this.formularioAlumno.markAllAsTouched();
+
+    // this.findInvalidControlsRecursive(this.formularioAlumno)
+    if(this.formularioAlumno.valid){
+
+     let nombreAlumno = this.formularioAlumno.value.nombre;
+     let apellidoAlumno = this.formularioAlumno.value.apellidos;
+     console.log(apellidoAlumno);
+     let dniAlumno = this.formularioAlumno.value.dni;
+     let direccion = this.formularioAlumno.value.direccion;
+     let fechaNacimiento = this.formularioAlumno.value.nacimiento;
+     let aula = this.formularioAlumno.value.aula;
+    //  let salida = this.formularioAlumno.value.horaSalida;
+
+    console.log(nombreAlumno+apellidoAlumno+dniAlumno+fechaNacimiento)
+    this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno, fechaNacimiento, direccion, aula);
+
+    }
+  }
+
+
+  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string, aula:number){
+
+    this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, direccion, aula).subscribe({
+
+
+      next: resp=>{
+        console.log(resp)
+        this.router.navigateByUrl('home');
+      },
+      error: error=>{
+
+        console.log(error)
+
+      }
+
+
+
+    })
+
+
+  }
 }
 
 
