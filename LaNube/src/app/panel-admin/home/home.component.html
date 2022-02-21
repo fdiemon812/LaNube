@@ -34,23 +34,17 @@
 
 
 
-    <div class="col-md-2  navbar navbar-expand-md " style="align-items: start;"   >
+    <div class="col-md-2 d-none d-md-block  navbar  " style="align-items: start;"   >
      
-      <button class="navbar-toggler" data-bs-toggle="collapse"
-      data-bs-target="#opciones" type="button">
-      <i class="bi bi-list"></i>
-      </button>
+     
           
             <div class="d-flex flex-column  " >
                      
-              
-              
-               <div class="collapse navbar-collapse" id="opciones">
 
               <hr>
               <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                  <a   routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
+                  <a   routerLinkActive ="active" class="nav-link p-0  link-dark" aria-current="page">
                     <i class="bi bi-people"></i>
                     Aula
                   </a>
@@ -90,7 +84,6 @@
                
               </ul>
               <hr>
-            </div>
 
             </div>
           
@@ -102,8 +95,10 @@
 
 
 
-    <div class="col-0 col-md-10 bg-fondo">
-
+    <div class="col-12 col-md-10 bg-fondo">
+      <a href="" class="p-2 text-decoration-none text-white  d-block d-md-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        <i class="bi bi-list" style="color: rgb(7, 7, 7); font-size: 1.3rem;"></i>
+      </a>
 
         <router-outlet></router-outlet>
 
@@ -124,3 +119,57 @@
 </div>
 
 
+
+<div class="col-1 col-md-1 text-center" style="height: 65px;">
+      
+  
+
+  <div class="offcanvas offcanvas-start navy" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 id="offcanvasRightLabel">Menú </h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body ">
+      <a    
+      class="nav-link p-0 pt-2 pb-2 link-dark d-flex  " aria-current="page">
+        <i class="bi bi-people"></i>
+        Aula
+      </a>
+        <a [routerLink]="['profesor']"  routerLinkActive ="active" 
+        class="nav-link p-0 pt-2 pb-2 link-dark d-flex " aria-current="page">
+          <i class="bi bi-mortarboard"></i>
+          Profesor
+        </a>
+        <a  [routerLink]="['alumno']"  routerLinkActive ="active" 
+        class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
+            <i class="bi bi-person-video" ></i>
+            Alumno
+        </a>
+        <a   
+        class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
+          <i class="bi bi-bell" ></i>
+          Menú
+      </a>
+      <a  
+      class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
+          <i class="bi bi-calendar-week" ></i>
+          Eventos
+      </a>
+      <a  
+      class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
+          <i class="bi bi-file-earmark-text" ></i>
+          Informes
+      </a>
+        
+        <!-- <div class="d-flex fixed-bottom justify-content-end">
+            <a href="#" class="p-2 text-decoration-none d-flex navy">
+                <h6 class="p-2">Cerrar sesión</h6>
+                <i class="bi bi-door-open" style="font-size: 1.5em"></i>
+            </a>
+        </div> -->
+
+        
+    </div>
+  </div>
+
+</div>
