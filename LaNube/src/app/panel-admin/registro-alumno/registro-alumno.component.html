@@ -51,14 +51,14 @@
                 <label for="horario" class="form-label">Horario:</label>
 
                 <div class="col-12"></div>
-                <input class="inputs-peque form-control me-1" type="time"   id="horario-entrada">
-                <input   class="inputs-peque form-control" type="time"   id="horario-salida">
+                <input class="inputs-peque form-control me-1" type="time" formControlName="horaEntrada"  id="horario-entrada">
+                <input   class="inputs-peque form-control" type="time" formControlName="horaSalida"  id="horario-salida">
             </div>
 
                      
                
             <div class="mb-1  m-0 col-12">
-                <select class="form-select" aria-label="alimentacion">
+                <select class="form-select" formControlName="comida" aria-label="alimentacion">
                     <option selected value="5">Alimentación</option>
                     <option value="1">Comida</option>
                     <option value="2">Biberón</option>
@@ -75,7 +75,7 @@
 
             <div >
             <label for="observaciones" class="form-label">Observaciones:</label>
-            <textarea class="form-control" id="observaciones" rows="2"></textarea>
+            <textarea class="form-control" formControlName="observaciones" id="observaciones" rows="2"></textarea>
             </div>
 
 

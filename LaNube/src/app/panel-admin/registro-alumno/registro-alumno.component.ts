@@ -21,7 +21,11 @@ export class RegistroAlumnoComponent implements OnInit {
       dni: [ , [ Validators.pattern(this.validatorAlumService.dniPattern)] ],
       nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ], 
       direccion:[],
-      aula:[, [Validators.required]],    
+      aula:[, [Validators.required]], 
+      comida:[],   
+      observaciones:[],
+      horaEntrada:[],
+      horaSalida:[],
       tutores: this.formBuilder.array([
 
         // this.formBuilder.group({
@@ -259,26 +263,28 @@ export class RegistroAlumnoComponent implements OnInit {
     console.log(this.formularioAlumno.value)
     this.formularioAlumno.markAllAsTouched();
 
-    console.log(this.findInvalidControlsRecursive(this.formularioAlumno))
+    // console.log(this.findInvalidControlsRecursive(this.formularioAlumno))
     if(this.formularioAlumno.valid){
 
      let nombreAlumno = this.formularioAlumno.value.nombre;
      let apellidoAlumno = this.formularioAlumno.value.apellidos;
-     console.log(apellidoAlumno);
      let dniAlumno = this.formularioAlumno.value.dni;
      let direccion = this.formularioAlumno.value.direccion;
      
      let fechaNacimiento = this.formularioAlumno.value.nacimiento;
      let aula = this.formularioAlumno.value.aula;
     //  let salida = this.formularioAlumno.value.horaSalida;
-
+     let comida = this.formularioAlumno.value.comida;
+     let horaEntrada = this.formularioAlumno.value.horaEntrada;
+     let horaSalida = this.formularioAlumno.value.horaSalida;
+     let observaciones = this.formularioAlumno.value.observaciones;
    
 
     let tutores= this.formularioAlumno.value.tutores;
 
 
     this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno,
-       fechaNacimiento, direccion, aula, tutores);
+       fechaNacimiento, direccion, aula, tutores, comida, horaEntrada, horaSalida, observaciones);
 
 
     
@@ -288,9 +294,10 @@ export class RegistroAlumnoComponent implements OnInit {
   }
   
 
-  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string, aula:number, tutores:any[]){
+  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string, aula:number, tutores:any[],
+     comida:string, horaEntrada:string, horaSalida:string, observaciones:string){
 
-    this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, direccion).subscribe({
+    this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, direccion, comida, horaEntrada, horaSalida, observaciones).subscribe({
 
 
       next: resp=>{
@@ -323,7 +330,8 @@ export class RegistroAlumnoComponent implements OnInit {
         this.router.navigateByUrl('home');
       },
       error: error=>{
-
+        console.log(error)
+        this.router.navigateByUrl('home');
 
       }
 
