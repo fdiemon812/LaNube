@@ -37,7 +37,6 @@ export class AlumnoService{
 
 
     agregarAula(aula: number, id:number) {
-        console.log(id)
         const url = `${ environment.urlApi }/aula/${aula}`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
@@ -51,7 +50,6 @@ export class AlumnoService{
 
     registrarTutor(nombre: string, apellidos: string, dni: string, tlf: string, email: string, password: string) {
 
-        console.log(password)
 
         const url = `${ environment.urlApi }/register`;
         const headers = new HttpHeaders() .set('Authorization',
@@ -59,6 +57,19 @@ export class AlumnoService{
         const body= {nombre, apellidos, dni, tlf, email, password, role:"TUTOR"}
         console.log(body )
          return this.http.post<any>(url, body, {headers});
+
+
+    }
+
+
+    agregarTutorAlumno(email:string, idAlumno:number ){
+
+
+        const url = `${ environment.urlApi }/alumno/${idAlumno}`;
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+        const body= {email}
+         return this.http.put<any>(url, body, {headers});
 
 
     }

@@ -218,27 +218,28 @@ export class RegistroAlumnoComponent implements OnInit {
     let tutores= this.formularioAlumno.value.tutores;
 
 
-    this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno, fechaNacimiento, direccion, aula);
+    this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno,
+       fechaNacimiento, direccion, aula, tutores);
 
 
-    tutores.forEach((tutor: { nombreTutor: string; apellidoTutor: string; dniTutor: string; tlfTutor: string; emailTutor: string; passwordTutor: string; }) => {
-      console.log(tutor)
-       this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor)
-    });
+    
      
 
     }
   }
   
 
-  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string, aula:number){
+  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string, aula:number, tutores:any[]){
 
     this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, direccion).subscribe({
 
 
       next: resp=>{
         this.agregarAula(aula, resp.id);
-        this.router.navigateByUrl('home');
+        tutores.forEach((tutor: { nombreTutor: string; apellidoTutor: string; dniTutor: string; tlfTutor: string; emailTutor: string; passwordTutor: string; }) => {
+          console.log(tutor)
+           this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor, resp.id)
+        });
       },
       error: error=>{
 
@@ -273,17 +274,34 @@ export class RegistroAlumnoComponent implements OnInit {
   })}
 
 
-  agregarTutorAlumno(idTutor:number, idAlumno:number){}
+  agregarTutorAlumno(email:string, idAlumno:number){
 
 
-  registrarTutor(nombre:string, apellido:string, dni:string, tlf:string, email:string, password:string){
+    this.alumnoService.agregarTutorAlumno(email, idAlumno).subscribe({
+
+
+      next: resp=>{
+        this.router.navigateByUrl('home');
+      },
+      error: error=>{
+
+        console.log(error)
+
+      }
+
+  })
+  }
+
+
+  registrarTutor(nombre:string, apellido:string, dni:string, tlf:string, email:string, password:string, idAlumno:number){
     console.log(password)
     this.alumnoService.registrarTutor(nombre, apellido, dni, tlf, email, password).subscribe({
 
 
       next: resp=>{
-        // this.agregarAula(aula, resp.id);
-        this.router.navigateByUrl('home');
+        console.log(resp)
+        this.agregarTutorAlumno(email, idAlumno);
+        // this.router.navigateByUrl('home');
       },
       error: error=>{
 
