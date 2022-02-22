@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidator, FormControl, ValidationErrors } from '@angular/forms';
 import { delay, map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -41,26 +42,30 @@ export class ValidatorAlumnoService implements AsyncValidator {
   validate( control: AbstractControl): Observable<ValidationErrors | null> {
 
     const email = control.value;
-    let respuesta : string ="";
-    console.log(email);
-    return this.http.get<any[]>(`http://localhost:8080/usuario?email=${ email}`)
+
+    
+    const url = `${ environment.urlApi }/usuario?email=${ email}`;
+    const headers = new HttpHeaders() .set('Authorization',
+     `Bearer ${localStorage.getItem('token')}` );
+            
+
+    return this.http.get<any>(url, {headers})
                 .pipe(
                   //Timpo de respuesta en comprobar el resultado
-                   delay(1500),
+                   delay(600),
                   map( resp => {
-                    if(resp != null && resp.length == undefined){
-                                respuesta = "valido";
-                                
+
+                    console.log(resp)
+                    if(resp == false ){
                                 control.get("email")?.setErrors({ emailTomado: true });
-                          console.log(control.get("email")?.getError("emailTomado"))
                           return { emailTomado: true }
                               }
                               else{
                       
-                                control.get("email")?.setErrors(null);
-                         respuesta = "noValido";
-                        
-                         return null
+                               control.get("email")?.setErrors(null);
+
+
+                         return null;
                               }
                   })
                 );

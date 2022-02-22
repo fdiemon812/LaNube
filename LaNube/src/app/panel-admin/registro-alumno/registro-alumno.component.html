@@ -146,22 +146,27 @@
 
             <div class="mb-1 col-md-4 m-0 col-12" >
                 <input type="text"  class="form-control " formControlName="nombreTutor" id="nombreTutor{{tutor.id}}" placeholder="Nombre">
+                <span class="form-text text-danger"
+                *ngIf="campoNoValidoArray('nombreTutor',i)">{{ nombreErrorMsg }}</span>
                 
               </div>
               <div class="mb-1 col-12 col-md-8 m-0">
                   <input  type="text"  class="form-control " formControlName="apellidoTutor" id="apellidosTutor{{tutor.id}}" placeholder="Apellidos">
-              
+                  <span class="form-text text-danger"
+                  *ngIf="campoNoValidoArray('apellidoTutor',i)">{{ apellidosErrorMsg }}</span>
                  
                 </div>
              
               <div class="mb-1 col-md-4 m-0 col-12">
                   <input  type="text"  class="form-control " formControlName="dniTutor" placeholder="DNI" id="dniTutor{{tutor.id}}" >
+                  <span class="form-text text-danger"
+                  *ngIf="campoNoValidoArray('dniTutor',i)">{{ dniTutorErrorMsg }}</span>
               </div>
   
               <div class="col-12 col-md-8 m-0 mb-1">
                 <input  type="email"  class="form-control " formControlName="emailTutor" id="emailTutor{{tutor.id}}" placeholder="Email">
                 <span class="form-text text-danger"
-                *ngIf="campoNoValidoArray('nacimiento',1)">{{ emailErrorMsg }}</span>
+                *ngIf="campoNoValidoArray('emailTutor',i)">{{ emailErrorMsg }}</span>
             </div>
 
               <div class="mb-1 col-md-4 m-0 col-12">
@@ -170,6 +175,10 @@
 
             <div class="col-12 col-md-8 m-0 mb-1">
               <input  type="password"  class="form-control " formControlName="passwordTutor" id="passwordTutor{{tutor.id}}" placeholder="Contraseña">
+                
+              <span class="form-text text-danger"
+              *ngIf="campoNoValidoArray('passwordTutor',i)">{{ passwordErrorMsg }}</span>
+           
             </div>
 
             <div class="mb-4 form-check">
@@ -190,7 +199,7 @@
 
             
             <div class=" offset-md-6 col-2  m-2 p-2">
-                <button class="btn  btn btn-primary " [disabled]="formularioAlumno.pending" type="submit">Guardar</button>
+                <button class="btn  btn btn-primary "  type="submit">Guardar</button>
             </div>
 
 

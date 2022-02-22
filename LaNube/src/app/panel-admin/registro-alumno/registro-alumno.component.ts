@@ -56,12 +56,12 @@ export class RegistroAlumnoComponent implements OnInit {
   crearTutor(){
     return this.formBuilder.group({
 
-      nombreTutor:[,Validators.required, Validators.pattern(this.validatorAlumService.nombrePattern)],
-      apellidoTutor:[,Validators.required, Validators.pattern(this.validatorAlumService.nombrePattern)],
-      dniTutor:[,Validators.required, Validators.pattern(this.validatorAlumService.dniPattern)],
+      nombreTutor:[,[Validators.required, Validators.pattern(this.validatorAlumService.nombrePattern)]],
+      apellidoTutor:[,[Validators.required, Validators.pattern(this.validatorAlumService.nombrePattern)],],
+      dniTutor:[,[Validators.required, Validators.pattern(this.validatorAlumService.dniPattern)],],
       emailTutor:[,[Validators.required, Validators.pattern(this.validatorAlumService.emailPattern)],[this.validatorAlumService]],
-      tlfTutor:[,Validators.required],
-      passwordTutor:[,Validators.required]
+      tlfTutor:[,],
+      passwordTutor:[,Validators.required] 
 
 
       
@@ -95,9 +95,9 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
   campoNoValidoArray( campo: string, i:number ) {
-
-    return this.formularioAlumno.get('tutores.0.emailTutor')?.invalid
-            && this.formularioAlumno.get('tutores.0.emailTutor')?.touched;
+    let cadena =`tutores.${i}.${campo}`
+    return this.formularioAlumno.get(cadena)?.invalid
+            && this.formularioAlumno.get(cadena)?.touched;
   }
 
 
@@ -105,7 +105,16 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
   
+  get nombreArrayErrorMsg(): string {
+    
+    const errors = this.formularioAlumno.get('nombreTutor')?.errors!;
+    if ( errors['required'] ) {
+      return 'Nombre es obligatorio';
+    } else if ( errors['pattern'] ) {
+      return 'Solo puede contener letras';
+    } 
 
+    return '';}
 
   get nombreErrorMsg(): string {
     
@@ -119,7 +128,7 @@ export class RegistroAlumnoComponent implements OnInit {
     return '';}
 
     get emailErrorMsg(): string {
-    
+       let cadena
       const errors = this.formularioAlumno.get('tutores.0.emailTutor')?.errors!;
       if ( errors['required'] ) {
         return 'Correo obligatorio';
@@ -128,8 +137,41 @@ export class RegistroAlumnoComponent implements OnInit {
       } 
   
       return '';}
+
+      get tlfErrorMsg(): string {
+        let cadena
+       const errors = this.formularioAlumno.get('tutores.0.tlfTutor')?.errors!;
+       if ( errors['required'] ) {
+         return 'Tlf obligatorio';
+       
+       } 
+   
+       return '';}
+  
+       
+       get passwordErrorMsg(): string {
+       
+       const errors = this.formularioAlumno.get('tutores.0.passwordTutor')?.errors!;
+       if ( errors['required'] ) {
+         return 'Contraseña obligatoria';
+       
+       } 
+   
+       return '';}
+   
   
       
+  get dniTutorErrorMsg(): string {
+
+    const errors = this.formularioAlumno.get('tutores.0.dniTutor')?.errors!;
+    if(errors['required']){
+      return 'DNI obligatorio';
+    }else if ( errors['pattern'] ) {
+      return 'Formato correcto -> 12345678B';
+    } 
+
+    return '';
+  }
 
 
 
@@ -217,7 +259,7 @@ export class RegistroAlumnoComponent implements OnInit {
     console.log(this.formularioAlumno.value)
     this.formularioAlumno.markAllAsTouched();
 
-    // this.findInvalidControlsRecursive(this.formularioAlumno)
+    console.log(this.findInvalidControlsRecursive(this.formularioAlumno))
     if(this.formularioAlumno.valid){
 
      let nombreAlumno = this.formularioAlumno.value.nombre;
@@ -254,13 +296,11 @@ export class RegistroAlumnoComponent implements OnInit {
       next: resp=>{
         this.agregarAula(aula, resp.id);
         tutores.forEach((tutor: { nombreTutor: string; apellidoTutor: string; dniTutor: string; tlfTutor: string; emailTutor: string; passwordTutor: string; }) => {
-          console.log(tutor)
            this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor, resp.id)
         });
       },
       error: error=>{
 
-        console.log(error)
 
       }
 
@@ -284,7 +324,6 @@ export class RegistroAlumnoComponent implements OnInit {
       },
       error: error=>{
 
-        console.log(error)
 
       }
 
@@ -302,7 +341,6 @@ export class RegistroAlumnoComponent implements OnInit {
       },
       error: error=>{
 
-        console.log(error)
 
       }
 
@@ -316,13 +354,11 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
       next: resp=>{
-        console.log(resp)
         this.agregarTutorAlumno(email, idAlumno);
         // this.router.navigateByUrl('home');
       },
       error: error=>{
 
-        console.log(error)
 
       }
 
@@ -340,13 +376,11 @@ export class RegistroAlumnoComponent implements OnInit {
     this.alumnoService.listarAula().subscribe({
 
       next:resp =>{
-        console.log(resp)
-        console.log(this.aulas)
+      
         this.aulas=resp;
       },
       error:error=>{
 
-        console.log(error);
       }
     })
   }
