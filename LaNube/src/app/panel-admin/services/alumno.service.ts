@@ -25,7 +25,8 @@ export class AlumnoService{
     }
 
 
-    registrarAlumno(nombre:string, apellidos:string, dni:string, fechaNacimiento:Date, direccion:string):Observable<AlumnoInterface>{
+    registrarAlumno(nombre:string, apellidos:string, dni:string,
+         fechaNacimiento:Date, direccion:string):Observable<AlumnoInterface>{
 
         const url = `${ environment.urlApi }/alumno`;
         const headers = new HttpHeaders() .set('Authorization',
@@ -36,19 +37,20 @@ export class AlumnoService{
     }
 
 
-    agregarAula(aula: number, id:number) {
+    agregarAula(aula: number, id:number):Observable<any> {
         const url = `${ environment.urlApi }/aula/${aula}`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
         const body= {id}
         console.log(body )
-         return this.http.post<AlumnoInterface>(url, body, {headers});
+         return this.http.put<AlumnoInterface>(url, body, {headers});
     }
 
 
 
 
-    registrarTutor(nombre: string, apellidos: string, dni: string, tlf: string, email: string, password: string) {
+    registrarTutor(nombre: string, apellidos: string, 
+        dni: string, tlf: string, email: string, password: string):Observable<any> {
 
 
         const url = `${ environment.urlApi }/register`;
@@ -62,7 +64,7 @@ export class AlumnoService{
     }
 
 
-    agregarTutorAlumno(email:string, idAlumno:number ){
+    agregarTutorAlumno(email:string, idAlumno:number ):Observable<any>{
 
 
         const url = `${ environment.urlApi }/alumno/${idAlumno}`;
@@ -73,4 +75,18 @@ export class AlumnoService{
 
 
     }
+
+
+    listarAula():Observable<any>{
+
+
+        const url = `${ environment.urlApi }/aulas`;
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+                
+
+        return this.http.get<any>(url, {headers});
+    }
+
+
 }

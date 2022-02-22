@@ -12,6 +12,7 @@ import { ValidatorAlumnoService } from '../services/validator.alumno.service';
 export class RegistroAlumnoComponent implements OnInit {
 
   private idAlumno!:number;
+   aulas!:any[];
 
 
     formularioAlumno: FormGroup = this.formBuilder.group({
@@ -20,7 +21,7 @@ export class RegistroAlumnoComponent implements OnInit {
       dni: [ , [ Validators.pattern(this.validatorAlumService.dniPattern)] ],
       nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ], 
       direccion:[],
-      aula:[],    
+      aula:[, [Validators.required]],    
       tutores: this.formBuilder.array([
 
         // this.formBuilder.group({
@@ -39,7 +40,8 @@ export class RegistroAlumnoComponent implements OnInit {
   constructor(private formBuilder:FormBuilder, private router:Router,  private validatorAlumService: ValidatorAlumnoService, private alumnoService:AlumnoService) { }
 
   ngOnInit(): void {
-    this.formularioAlumno.reset({})
+    this.formularioAlumno.reset({});
+    this.listarAulas();
   }
 
 
@@ -54,10 +56,10 @@ export class RegistroAlumnoComponent implements OnInit {
   crearTutor(){
     return this.formBuilder.group({
 
-      nombreTutor:[,Validators.required],
-      apellidoTutor:[,Validators.required],
-      dniTutor:[,Validators.required],
-      emailTutor:[,Validators.required],
+      nombreTutor:[,Validators.required, Validators.pattern(this.validatorAlumService.nombrePattern)],
+      apellidoTutor:[,Validators.required, Validators.pattern(this.validatorAlumService.nombrePattern)],
+      dniTutor:[,Validators.required, Validators.pattern(this.validatorAlumService.dniPattern)],
+      emailTutor:[,[Validators.required, Validators.pattern(this.validatorAlumService.emailPattern)],[this.validatorAlumService]],
       tlfTutor:[,Validators.required],
       passwordTutor:[,Validators.required]
 
@@ -91,30 +93,18 @@ export class RegistroAlumnoComponent implements OnInit {
             && this.formularioAlumno.get(campo)?.touched;
   }
 
+
+  campoNoValidoArray( campo: string, i:number ) {
+
+    return this.formularioAlumno.get('tutores.0.emailTutor')?.invalid
+            && this.formularioAlumno.get('tutores.0.emailTutor')?.touched;
+  }
+
+
  
 
 
-  // addTutor(){
-
-  //   const tutor = {
-  //     id: this.tutores.length+1,
-  //     nombre:"",
-  //     apellidos:"",
-  //     dni:'',
-  //     tlf:'',
-  //     email:'',
-  //     password:''
-  //   }
-
-  //   this.tutores.push(tutor);
-  // }
-
-  // addTutorExistente(){
-
-    
-
-  //   this.tutoresExistentesLength.push(1);
-  // }
+  
 
 
   get nombreErrorMsg(): string {
@@ -127,6 +117,19 @@ export class RegistroAlumnoComponent implements OnInit {
     } 
 
     return '';}
+
+    get emailErrorMsg(): string {
+    
+      const errors = this.formularioAlumno.get('tutores.0.emailTutor')?.errors!;
+      if ( errors['required'] ) {
+        return 'Correo obligatorio';
+      } else if ( errors['emailTomado'] ) {
+        return 'El email ya existe';
+      } 
+  
+      return '';}
+  
+      
 
 
 
@@ -164,6 +167,20 @@ export class RegistroAlumnoComponent implements OnInit {
     } else if(errors['fechaMayor']){
       console.log("comprobando error2")
       return 'Debe ser inferior a la fecha actual'
+    }
+
+    return '';
+  }
+
+
+  get aulaErrorMsg(): string {
+
+
+    const errors = this.formularioAlumno.get('aula')?.errors!;
+    if ( errors['required'] ) {
+
+      return 'Aula obligatoria';
+    
     }
 
     return '';
@@ -315,6 +332,27 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
   }
+
+
+
+  listarAulas(){
+
+    this.alumnoService.listarAula().subscribe({
+
+      next:resp =>{
+        console.log(resp)
+        console.log(this.aulas)
+        this.aulas=resp;
+      },
+      error:error=>{
+
+        console.log(error);
+      }
+    })
+  }
+
+
+  
 
 
 }

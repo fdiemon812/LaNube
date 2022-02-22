@@ -24,11 +24,15 @@
 
             <div class="col-12 col-md-8 m-0 mb-1">
                 <select class="form-select" formControlName="aula" aria-label="Aula">
-                    <option selected>Sin Aula</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>           
+                    <option *ngFor="let aula of aulas; let i=index"  value="{{aula.id}}">{{aula.nombre}}</option>
+                    
+
+                    
+
+                  </select>       
+                  <span class="form-text text-danger"
+                  *ngIf="campoNoValido('aula')">{{ aulaErrorMsg }}</span>
+    
             </div>
 
             <div class="mb-3  m-0 col-12">
@@ -142,12 +146,13 @@
 
             <div class="mb-1 col-md-4 m-0 col-12" >
                 <input type="text"  class="form-control " formControlName="nombreTutor" id="nombreTutor{{tutor.id}}" placeholder="Nombre">
-                <!-- <span class="form-text text-danger"
-                *ngIf="campoNoValidoArray('tutores', i)">{{ nombreErrorMsg }}</span> -->
+                
               </div>
               <div class="mb-1 col-12 col-md-8 m-0">
                   <input  type="text"  class="form-control " formControlName="apellidoTutor" id="apellidosTutor{{tutor.id}}" placeholder="Apellidos">
-              </div>
+              
+                 
+                </div>
              
               <div class="mb-1 col-md-4 m-0 col-12">
                   <input  type="text"  class="form-control " formControlName="dniTutor" placeholder="DNI" id="dniTutor{{tutor.id}}" >
@@ -155,7 +160,9 @@
   
               <div class="col-12 col-md-8 m-0 mb-1">
                 <input  type="email"  class="form-control " formControlName="emailTutor" id="emailTutor{{tutor.id}}" placeholder="Email">
-              </div>
+                <span class="form-text text-danger"
+                *ngIf="campoNoValidoArray('nacimiento',1)">{{ emailErrorMsg }}</span>
+            </div>
 
               <div class="mb-1 col-md-4 m-0 col-12">
                 <input  type="text"  class="form-control " formControlName="tlfTutor"  placeholder="Tlf" id="tlfTutor{{tutor.id}}" >
