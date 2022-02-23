@@ -6,7 +6,9 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AlumnoComponent } from './alumno/alumno.component';
 import { ProfesorComponent } from './profesor/profesor.component';
 import { RegistroAlumnoComponent } from './registro-alumno/registro-alumno.component';
+import {DataTablesModule} from 'angular-datatables';
 import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -21,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AppRoutingModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
     
   ],exports:[]
 })
