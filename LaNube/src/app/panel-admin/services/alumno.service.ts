@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AlumnoInterface } from "../interfaces/alumno.interface";
+import { AulaInterface } from '../interfaces/aula.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -26,25 +27,23 @@ export class AlumnoService{
 
 
     registrarAlumno(nombre:string, apellidos:string, dni:string,
-         fechaNacimiento:Date, direccion:string, comida:string, horaEntrada:string, horaSalida:string, observaciones:string):Observable<AlumnoInterface>{
+         fechaNacimiento:Date, direccion:string, comida:string, 
+         horaEntrada:string, horaSalida:string, observaciones:string, aula:any):Observable<AlumnoInterface>{
 
-        const url = `${ environment.urlApi }/alumno`;
+         
+
+
+        let  idCentro=1;
+        const url = `${ environment.urlApi }/centro/${idCentro}/alumno`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
-        const body= {nombre, apellidos, dni, fechaNacimiento, direccion, comida,  observaciones}
-        console.log(body )
-         return this.http.post<AlumnoInterface>(url, body, {headers});
-    }
+        const body= {nombre, apellidos, dni, fechaNacimiento, direccion, comida,  observaciones, horaEntrada, horaSalida, aula}
+       
 
 
-    agregarAula(aula: number, id:number):Observable<any> {
-        const url = `${ environment.urlApi }/aula/${aula}`;
-        const headers = new HttpHeaders() .set('Authorization',
-         `Bearer ${localStorage.getItem('token')}` );
-        const body= {id}
-        console.log(body )
-         return this.http.put<AlumnoInterface>(url, body, {headers});
+        return this.http.post<AlumnoInterface>(url, body, {headers});
     }
+
 
 
 
@@ -80,7 +79,7 @@ export class AlumnoService{
     listarAula():Observable<any>{
 
 
-        const url = `${ environment.urlApi }/aulas`;
+        const url = `${ environment.urlApi }/centro/1/aulas`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
                 

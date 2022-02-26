@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { AlumnoService } from '../services/alumno.service';
 import { ValidatorAlumnoService } from '../services/validator.alumno.service';
+import { AulaInterface } from '../interfaces/aula.interface';
 
 @Component({
   selector: 'app-registro-alumno',
@@ -272,7 +273,7 @@ export class RegistroAlumnoComponent implements OnInit {
      let direccion = this.formularioAlumno.value.direccion;
      
      let fechaNacimiento = this.formularioAlumno.value.nacimiento;
-     let aula = this.formularioAlumno.value.aula;
+     const aula = {"id":parseInt(this.formularioAlumno.value.aula)};
     //  let salida = this.formularioAlumno.value.horaSalida;
      let comida = this.formularioAlumno.value.comida;
      let horaEntrada = this.formularioAlumno.value.horaEntrada;
@@ -284,7 +285,7 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
     this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno,
-       fechaNacimiento, direccion, aula, tutores, comida, horaEntrada, horaSalida, observaciones);
+       fechaNacimiento, direccion, tutores, comida, horaEntrada, horaSalida, observaciones,aula );
 
 
     
@@ -294,17 +295,18 @@ export class RegistroAlumnoComponent implements OnInit {
   }
   
 
-  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string, aula:number, tutores:any[],
-     comida:string, horaEntrada:string, horaSalida:string, observaciones:string){
+  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string,  tutores:any[],
+     comida:string, horaEntrada:string, horaSalida:string, observaciones:string, aula:any){
 
-    this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, direccion, comida, horaEntrada, horaSalida, observaciones).subscribe({
+    this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, 
+      direccion, comida, horaEntrada, horaSalida, observaciones, aula).subscribe({
 
 
       next: resp=>{
-        this.agregarAula(aula, resp.id);
         tutores.forEach((tutor: { nombreTutor: string; apellidoTutor: string; dniTutor: string; tlfTutor: string; emailTutor: string; passwordTutor: string; }) => {
-           this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor, resp.id)
+          this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor, resp.id)
         });
+        this.router.navigateByUrl('home/alumno');
       },
       error: error=>{
 
@@ -320,22 +322,7 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
 
-  agregarAula(aula: number, idAlumno:number) {
-
-
-    this.alumnoService.agregarAula(aula, idAlumno).subscribe({
-
-
-      next: resp=>{
-        this.router.navigateByUrl('home');
-      },
-      error: error=>{
-        console.log(error)
-        this.router.navigateByUrl('home');
-
-      }
-
-  })}
+  
 
 
   agregarTutorAlumno(email:string, idAlumno:number){
