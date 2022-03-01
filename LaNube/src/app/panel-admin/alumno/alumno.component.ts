@@ -11,7 +11,11 @@ import {Subject} from 'rxjs';
 export class AlumnoComponent implements OnInit, OnDestroy {
 
    alumnos:AlumnoInterface[]=[];
-   dtOptions: DataTables.Settings = {};
+   dtOptions: DataTables.Settings = {
+     language: {
+       url: "../../../assets/espa.json"
+     }
+   };
    dtTrigger: Subject<any> = new Subject<any>();
 
 

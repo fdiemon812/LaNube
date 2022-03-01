@@ -17,10 +17,10 @@
     <div class=" offset-1 col-10">
 
 
-        <table class="table-responsive w-100 bg-light " datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <table class="table-responsive  w-100 bg-light " datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
               <tr >
-                <th scope="col">ID</th>
+                
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
                 <th scope="col">Dni</th>
@@ -36,7 +36,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let alumno of alumnos">
-                <th scope="col">{{alumno.id}}</th>
+                
                 <th scope="col">{{alumno.nombre}}</th>
                 <th scope="col">{{alumno.apellidos}}</th>
                 <th scope="col">{{alumno.dni}}</th>
