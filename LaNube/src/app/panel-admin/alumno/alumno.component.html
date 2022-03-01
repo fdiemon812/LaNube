@@ -17,6 +17,8 @@
     <div class=" offset-1 col-10">
 
 
+      <p (centro)="procesaCentro($event)">{{idCentro2}}</p>
+
         <table class="table-responsive  w-100 bg-light " datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
               <tr >
@@ -43,7 +45,7 @@
                 <th scope="col">{{alumno.aula.nombre}}</th>
                 <th scope="col">{{alumno.fechaNacimiento}}</th>
                 <th scope="col">{{alumno.comida}}</th>
-                <th scope="col">{{alumno.comeEnCentro}}</th>
+                <th scope="col"><i *ngIf="!alumno.comeEnCentro" class="bi bi-x"></i><i *ngIf="alumno.comeEnCentro" class="bi bi-check-lg"></i></th>
 
         
               </tr>

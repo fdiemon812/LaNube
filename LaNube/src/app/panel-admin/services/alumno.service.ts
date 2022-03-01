@@ -28,7 +28,7 @@ export class AlumnoService{
 
     registrarAlumno(nombre:string, apellidos:string, dni:string,
          fechaNacimiento:Date, direccion:string, comida:string, 
-         horaEntrada:string, horaSalida:string, observaciones:string, aula:any):Observable<AlumnoInterface>{
+         horaEntrada:string, horaSalida:string, observaciones:string, aula:any, comeEnCentro:boolean):Observable<AlumnoInterface>{
 
          
 
@@ -37,7 +37,7 @@ export class AlumnoService{
         const url = `${ environment.urlApi }/centro/${idCentro}/alumno`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
-        const body= {nombre, apellidos, dni, fechaNacimiento, direccion, comida,  observaciones, horaEntrada, horaSalida, aula}
+        const body= {nombre, apellidos, dni, fechaNacimiento, direccion, comida,  observaciones, horaEntrada, horaSalida, aula, comeEnCentro}
        
 
 

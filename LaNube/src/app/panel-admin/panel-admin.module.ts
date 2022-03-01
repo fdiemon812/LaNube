@@ -7,7 +7,7 @@ import { AlumnoComponent } from './alumno/alumno.component';
 import { ProfesorComponent } from './profesor/profesor.component';
 import { RegistroAlumnoComponent } from './registro-alumno/registro-alumno.component';
 import {DataTablesModule} from 'angular-datatables';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 
@@ -24,6 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
     DataTablesModule
     
   ],exports:[]

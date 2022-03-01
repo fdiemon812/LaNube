@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  
+  idCentro!:number;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+
+  @Output()
+  centro = new EventEmitter<number>();
+
+
+
+
+  cambiarCentro(){
+    console.log("emitiendo");
+    console.log(this.idCentro);
+    this.centro.emit(this.idCentro);
+  }
 }

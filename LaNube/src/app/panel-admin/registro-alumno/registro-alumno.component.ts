@@ -27,6 +27,7 @@ export class RegistroAlumnoComponent implements OnInit {
       observaciones:[],
       horaEntrada:[],
       horaSalida:[],
+      comeEnCentro:[,],
       tutores: this.formBuilder.array([
 
         // this.formBuilder.group({
@@ -279,13 +280,14 @@ export class RegistroAlumnoComponent implements OnInit {
      let horaEntrada = this.formularioAlumno.value.horaEntrada;
      let horaSalida = this.formularioAlumno.value.horaSalida;
      let observaciones = this.formularioAlumno.value.observaciones;
-   
+     let comeEnCentro = this.formularioAlumno.value.comeEnCentro;
+      console.log(comeEnCentro);
 
     let tutores= this.formularioAlumno.value.tutores;
 
 
     this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno,
-       fechaNacimiento, direccion, tutores, comida, horaEntrada, horaSalida, observaciones,aula );
+       fechaNacimiento, direccion, tutores, comida, horaEntrada, horaSalida, observaciones,aula, comeEnCentro );
 
 
     
@@ -296,10 +298,12 @@ export class RegistroAlumnoComponent implements OnInit {
   
 
   crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string,  tutores:any[],
-     comida:string, horaEntrada:string, horaSalida:string, observaciones:string, aula:any){
+     comida:string, horaEntrada:string, horaSalida:string, observaciones:string, aula:any, comeEnCentro:boolean){
+
+      console.log(comeEnCentro)
 
     this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, 
-      direccion, comida, horaEntrada, horaSalida, observaciones, aula).subscribe({
+      direccion, comida, horaEntrada, horaSalida, observaciones, aula, comeEnCentro).subscribe({
 
 
       next: resp=>{
