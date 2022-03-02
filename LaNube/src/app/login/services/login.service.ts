@@ -31,9 +31,13 @@ export class LoginService{
                     
       }
 
-    isAdmin():boolean{
+    isAdmin():Observable<any>{
         
-        return true;
+        const url = `${ environment.urlApi }/home/rol`;
+        const headers = new HttpHeaders() .set('Authorization', `Bearer ${localStorage.getItem('token')}` );
+       
+        return this.http.get<any>( url, { headers } )
+       
     }
 
     
