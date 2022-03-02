@@ -23,7 +23,12 @@ export class HomeComponent implements OnInit {
   cambiarCentro(){
     console.log("emitiendo");
     console.log(this.idCentro);
+
+
     this.centro.emit(this.idCentro);
+
+
+    
     console.log(this.centro.emit(this.idCentro));
     
   }

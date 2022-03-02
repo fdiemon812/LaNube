@@ -29,9 +29,7 @@ export class AlumnoComponent implements OnInit, OnDestroy {
         url: '/assets/es-ES.json'
       }}
 
-      $('#myTable').DataTable( {
-        responsive: true
-    } );
+     
       
       this.listarAlumnos();
   }
