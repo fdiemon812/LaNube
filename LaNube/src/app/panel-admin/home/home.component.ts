@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  @Output() centro:EventEmitter<any> = new EventEmitter();
+  @Output() centro = new EventEmitter();
 
 
 
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
 
 
     
-    console.log(this.centro.emit(this.idCentro));
+    console.log(this.centro);
     
   }
 }

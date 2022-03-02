@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login/login.component';
 import { LoginModule } from './login/login.module';
 import { PanelAdminModule } from './panel-admin/panel-admin.module';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
