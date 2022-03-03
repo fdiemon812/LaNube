@@ -10,12 +10,5 @@ export class AppComponent {
 
 
 
-  idCentro2:number=0;
-
-  procesaCentro(idCentro:any){
-    console.log("mi centro es")
-    console.log(idCentro);
-    this.idCentro2=idCentro;
-    
-  }
+ 
 }

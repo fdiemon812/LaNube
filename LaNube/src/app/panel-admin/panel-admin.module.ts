@@ -8,6 +8,8 @@ import { ProfesorComponent } from './profesor/profesor.component';
 import { RegistroAlumnoComponent } from './registro-alumno/registro-alumno.component';
 import {DataTablesModule} from 'angular-datatables';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { VistaAlumnoComponent } from './vista-alumno/vista-alumno.component';
+import { FiltroAlumnoComponent } from './filtro-alumno/filtro-alumno.component';
 
 
 
@@ -17,7 +19,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HomeComponent,
     AlumnoComponent,
     ProfesorComponent,
-    RegistroAlumnoComponent
+    RegistroAlumnoComponent,
+    VistaAlumnoComponent,
+    FiltroAlumnoComponent
   ],
   imports: [
     CommonModule,

@@ -7,6 +7,7 @@ import { ProfesorComponent } from './panel-admin/profesor/profesor.component';
 import { AlumnoComponent } from './panel-admin/alumno/alumno.component';
 import { RegistroAlumnoComponent } from './panel-admin/registro-alumno/registro-alumno.component';
 import { isAdmin } from './guards/isAdmin.guard';
+import { VistaAlumnoComponent } from './panel-admin/vista-alumno/vista-alumno.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
   {path: 'home',component:HomeComponent, canActivate:[ValidarLogin], children:[
 
     {path: 'profesor',canActivate:[ValidarLogin], component:ProfesorComponent},
-    {path: 'alumno',canActivate:[ValidarLogin],component:AlumnoComponent},
+    {path: 'alumno',canActivate:[ValidarLogin],component:VistaAlumnoComponent},
     {path: 'registro', canActivate:[ValidarLogin, isAdmin], component: RegistroAlumnoComponent },
 
 

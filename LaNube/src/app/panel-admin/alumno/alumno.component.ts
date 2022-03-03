@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { AlumnoInterface } from '../interfaces/alumno.interface';
 import { AlumnoService } from '../services/alumno.service';
 import {Subject} from 'rxjs';
@@ -8,9 +8,9 @@ import {Subject} from 'rxjs';
   templateUrl: './alumno.component.html',
   styleUrls: ['./alumno.component.css']
 })
-export class AlumnoComponent implements OnInit, OnDestroy {
+export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
-  
+  @Input()  idAulaInput:number=0;
 
    alumnos:AlumnoInterface[]=[];
   
@@ -28,10 +28,19 @@ export class AlumnoComponent implements OnInit, OnDestroy {
     // };
 
      
-      
-      this.listarAlumnos();
+    
+    this.listarAlumnos();
+    
   }
 
+
+
+  ngOnChanges(){
+    if(this.idAulaInput!=0){
+      this.listarAlumnosAula();
+
+    }
+  }
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
@@ -44,17 +53,35 @@ export class AlumnoComponent implements OnInit, OnDestroy {
 
       next:resp =>{
         this.alumnos=resp;
-        this.dtTrigger.next(this.alumnos);
+         this.dtTrigger.next(this.alumnos);
         
       },
       error: error =>{
-
+        
       }
 
     })
-
-   
-
   }
+
+  listarAlumnosAula():any{
+
+    return this.alumnoService.listarAlumnosAula(this.idAulaInput).subscribe({
+
+      next:resp =>{
+        console.log("resp")
+        console.log(resp)
+        this.alumnos=resp;
+        // this.dtTrigger.next(this.alumnos);
+        
+      },
+      error: error =>{
+        console.log("error")
+        console.log(error)
+      }
+
+    })
+  }
+
+
 
 }

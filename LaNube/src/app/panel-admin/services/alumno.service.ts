@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AlumnoInterface } from "../interfaces/alumno.interface";
-import { AulaInterface } from '../interfaces/aula.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -25,6 +24,16 @@ export class AlumnoService{
         return this.http.get<AlumnoInterface[]>(url, {headers});
     }
 
+
+    listarAlumnosAula(idAulaInput:number):Observable<AlumnoInterface[]>{
+
+        const url = `${ environment.urlApi }/centro/1/aula/${idAulaInput}/alumnos`;
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+                
+
+        return this.http.get<AlumnoInterface[]>(url, {headers});
+    }
 
     registrarAlumno(nombre:string, apellidos:string, dni:string,
          fechaNacimiento:Date, direccion:string, comida:string, 
