@@ -53,18 +53,20 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
       next:resp =>{
         this.alumnos=resp;
+        console.log(resp)
          this.dtTrigger.next(this.alumnos);
         
       },
       error: error =>{
-        
+        console.log(error)
+
       }
 
     })
   }
 
   listarAlumnosAula():any{
-
+    console.log("entra en funcion")
     return this.alumnoService.listarAlumnosAula(this.idAulaInput).subscribe({
 
       next:resp =>{

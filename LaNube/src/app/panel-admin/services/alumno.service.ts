@@ -15,8 +15,8 @@ export class AlumnoService{
     }
 
     listarAlumnos():Observable<AlumnoInterface[]>{
-
-        const url = `${ environment.urlApi }/alumno`;
+        console.log("solicitando todos los alumnos")
+        const url = `${ environment.urlApi }/centro/1/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
                 
