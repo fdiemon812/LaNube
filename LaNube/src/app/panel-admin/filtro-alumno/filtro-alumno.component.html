@@ -4,7 +4,8 @@
         <div class="offset-1 p-0  text-start " >
             <label class="d-flex mt-2" for="aula">Aula</label>
             <select [(ngModel)]="idAula"  (change)="cambiarAula()" class="ms-2 form-select d-flex" name="aula" id="aula" style="width:200px;" >
-                <option value="{{aula.id}}" selected *ngFor="let aula of aulas">{{aula.nombre}}</option>
+                <option value="0" selected="selected" >Todos</option>
+                <option value="{{aula.id}}"  *ngFor="let aula of aulas">{{aula.nombre}}</option>
                 
         
         

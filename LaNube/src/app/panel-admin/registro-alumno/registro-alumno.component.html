@@ -63,7 +63,9 @@
                     <option value="Comida">Comida</option>
                     <option value="Biberón">Biberón</option>
                     <option value="Biberón y Comida">Biberón + Comida</option>
-                    </select>    
+                    </select>   
+                    <span class="form-text text-danger"
+              *ngIf="campoNoValido('comida')">{{ comidaErrorMsg }}</span> 
             </div>
 
             <div class="mb-4 form-check">

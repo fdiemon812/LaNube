@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit,  } from '@angular/core';
 import { AlumnoInterface } from '../interfaces/alumno.interface';
 import { AlumnoService } from '../services/alumno.service';
 import {Subject} from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-alumno',
@@ -14,32 +15,41 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
    alumnos:AlumnoInterface[]=[];
   
-   dtOptions!: DataTables.Settings;
+   dtOptions: DataTables.Settings ={};
    dtTrigger: Subject<any> = new Subject<any>();
+   
+  
+  
 
 
-  constructor(private alumnoService: AlumnoService) { }
+  constructor(private alumnoService: AlumnoService, private router:Router) { }
   
   ngOnInit(): void {
-    // this.dtOptions = {
-    //   language: {
-    //     url: 'http://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
-    //   }
-    // };
-
-     
-    
-    this.listarAlumnos();
-    
-  }
-
-
-
-  ngOnChanges(){
-    if(this.idAulaInput!=0){
-      this.listarAlumnosAula();
-
+   
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      
+      responsive: true,
+      language: {
+        
+        url: '/assets/es-ES.json'
+      }
     }
+    this.listarAlumnos();
+   
+    
+    }
+    
+ 
+    ngOnChanges(){
+     
+      
+             
+      if(this.idAulaInput!=0){
+        this.listarAlumnosAula();
+        
+      }
+
   }
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
@@ -53,12 +63,10 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
       next:resp =>{
         this.alumnos=resp;
-        console.log(resp)
-         this.dtTrigger.next(this.alumnos);
+          this.dtTrigger.next(null);
         
       },
       error: error =>{
-        console.log(error)
 
       }
 
@@ -70,15 +78,14 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     return this.alumnoService.listarAlumnosAula(this.idAulaInput).subscribe({
 
       next:resp =>{
-        console.log("resp")
-        console.log(resp)
+       
         this.alumnos=resp;
-        // this.dtTrigger.next(this.alumnos);
+          // this.dtTrigger.next(null)
+
         
       },
       error: error =>{
-        console.log("error")
-        console.log(error)
+        
       }
 
     })

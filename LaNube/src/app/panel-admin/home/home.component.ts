@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { CentroService } from '../services/centro.service';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,21 @@ export class HomeComponent implements OnInit {
 
   
   idCentro!:number;
-  constructor() { }
+
+  constructor(private centroService: CentroService) { }
+  
 
   ngOnInit(): void {
   }
+
+
+  cambiarCentro(): void {
+
+    this.centroService.cambiarCentro(this.idCentro);
+    console.log(this.idCentro);
+  }
+  
+
 
 
  

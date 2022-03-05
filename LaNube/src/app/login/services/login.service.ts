@@ -33,7 +33,7 @@ export class LoginService{
 
     isAdmin():Observable<any>{
         
-        const url = `${ environment.urlApi }/home/rol`;
+        const url = `${ environment.urlApi }/home/usuario`;
         const headers = new HttpHeaders() .set('Authorization', `Bearer ${localStorage.getItem('token')}` );
        
         return this.http.get<any>( url, { headers } )

@@ -23,7 +23,7 @@ export class RegistroAlumnoComponent implements OnInit {
       nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ], 
       direccion:[],
       aula:[, [Validators.required]], 
-      comida:[],   
+      comida:[ ,[Validators.required]],   
       observaciones:[],
       horaEntrada:[],
       horaSalida:[],
@@ -108,14 +108,21 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
  
+  get comidaErrorMsg(): string {
+    
+    const errors = this.formularioAlumno.get('comida')?.errors!;
+    if ( errors['required'] ) {
+      return 'Nombre es obligatorio';
+    } 
 
+    return '';}
 
   
   get nombreArrayErrorMsg(): string {
     
     const errors = this.formularioAlumno.get('nombreTutor')?.errors!;
     if ( errors['required'] ) {
-      return 'Nombre es obligatorio';
+      return 'Comida es obligatorio';
     } else if ( errors['pattern'] ) {
       return 'Solo puede contener letras';
     } 

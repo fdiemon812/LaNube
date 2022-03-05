@@ -1,22 +1,32 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AlumnoInterface } from "../interfaces/alumno.interface";
+import { CentroService } from './centro.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AlumnoService{
+export class AlumnoService {
     
-   
-    constructor(private http:HttpClient){
+    centro:number= this.centroService.obtenerCentro;
+    constructor(private http:HttpClient, private centroService: CentroService){
 
     }
 
+   
+  
+
+    
+
+
+
     listarAlumnos():Observable<AlumnoInterface[]>{
-        console.log("solicitando todos los alumnos")
-        const url = `${ environment.urlApi }/centro/1/alumnos`;
+
+        
+
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
                 
@@ -27,7 +37,7 @@ export class AlumnoService{
 
     listarAlumnosAula(idAulaInput:number):Observable<AlumnoInterface[]>{
 
-        const url = `${ environment.urlApi }/centro/1/aula/${idAulaInput}/alumnos`;
+        const url = `${ environment.urlApi }/centro/${this.centro}/aula/${idAulaInput}/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
                 
@@ -40,10 +50,8 @@ export class AlumnoService{
          horaEntrada:string, horaSalida:string, observaciones:string, aula:any, comeEnCentro:boolean):Observable<AlumnoInterface>{
 
          
-
-
-        let  idCentro=1;
-        const url = `${ environment.urlApi }/centro/${idCentro}/alumno`;
+       
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumno`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
         const body= {nombre, apellidos, dni, fechaNacimiento, direccion, comida,  observaciones, horaEntrada, horaSalida, aula, comeEnCentro}
@@ -88,7 +96,7 @@ export class AlumnoService{
     listarAula():Observable<any>{
 
 
-        const url = `${ environment.urlApi }/centro/1/aulas`;
+        const url = `${ environment.urlApi }/centro/${this.centro}/aulas`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
                 
