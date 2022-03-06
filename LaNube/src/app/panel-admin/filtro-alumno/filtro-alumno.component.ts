@@ -26,16 +26,9 @@ export class FiltroAlumnoComponent implements OnInit {
 
 
   cambiarAula(){
-    console.log("emitiendo");
-    console.log(this.idAula);
-
-
-    this.aulaEvento.emit(this.idAula);
-
-
     
-    console.log(this.idAula);
-    
+
+    this.aulaEvento.emit(this.idAula);    
   }
 
   listarAulas(){

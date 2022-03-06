@@ -16,8 +16,7 @@ export class VistaAlumnoComponent implements OnInit {
    idAulaInput:number=0;
 
   procesaAula(idAula:any){
-    console.log("mi centro es")
-    console.log(idAula);
+    
     this.idAulaInput=idAula;
     
   }

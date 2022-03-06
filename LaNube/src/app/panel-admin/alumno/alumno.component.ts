@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit,  } from '@angular/core';
+import { ViewChild, Component, Input, OnChanges, OnDestroy, OnInit,  } from '@angular/core';
 import { AlumnoInterface } from '../interfaces/alumno.interface';
 import { AlumnoService } from '../services/alumno.service';
 import {Subject} from 'rxjs';
 import { Router } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-alumno',
@@ -15,8 +16,12 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
    alumnos:AlumnoInterface[]=[];
   
+   isCargado:boolean=false;
    dtOptions: DataTables.Settings ={};
    dtTrigger: Subject<any> = new Subject<any>();
+
+   @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
    
   
   
@@ -42,12 +47,13 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     
  
     ngOnChanges(){
-     
-      
-             
-      if(this.idAulaInput!=0){
-        this.listarAlumnosAula();
+      if(this.isCargado==true && this.idAulaInput!=0){
         
+        this.listarAlumnosAula();     
+       
+      } else if(this.isCargado == true){
+
+        this.listarAlumnos();
       }
 
   }
@@ -63,7 +69,22 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
       next:resp =>{
         this.alumnos=resp;
-          this.dtTrigger.next(null);
+        if(!this.isCargado){
+          this.dtTrigger.next(this.dtOptions);
+          this.isCargado=true;
+
+        }else{
+
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+            this.dtTrigger.next(null);
+          });       
+
+
+        }
+
+
+
         
       },
       error: error =>{
@@ -74,15 +95,15 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   listarAlumnosAula():any{
-    console.log("entra en funcion")
     return this.alumnoService.listarAlumnosAula(this.idAulaInput).subscribe({
 
       next:resp =>{
        
         this.alumnos=resp;
-          // this.dtTrigger.next(null)
-
-        
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next(null);
+        });        
       },
       error: error =>{
         
