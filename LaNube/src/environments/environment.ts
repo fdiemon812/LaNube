@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  urlApi: "https://lanubespring.herokuapp.com" 
+  urlApi: "http://localhost:8080" 
 };
 
 /*

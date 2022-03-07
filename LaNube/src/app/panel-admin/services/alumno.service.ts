@@ -10,7 +10,8 @@ import { CentroService } from './centro.service';
 })
 export class AlumnoService {
     
-    centro:number= this.centroService.obtenerCentro;
+    centro:any=1;
+    isPrimera:boolean=true;
     constructor(private http:HttpClient, private centroService: CentroService){
 
     }
@@ -24,7 +25,8 @@ export class AlumnoService {
 
     listarAlumnos():Observable<AlumnoInterface[]>{
 
-        
+        console.log("lanzando peticion de centro ")
+        console.log(this.centro)
 
         const url = `${ environment.urlApi }/centro/${this.centro}/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
@@ -102,6 +104,18 @@ export class AlumnoService {
                 
 
         return this.http.get<any>(url, {headers});
+    }
+
+
+    cambiarCentro(centro:any){
+        
+        if(centro==null){
+            this.centro=1;
+            this.isPrimera=false;
+        }else{
+            this.centro= parseInt(centro);
+        }
+        
     }
 
 

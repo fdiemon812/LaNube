@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AlumnoService } from '../services/alumno.service';
 import { AulaInterface } from '../interfaces/aula.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-filtro-alumno',
@@ -11,11 +12,18 @@ export class FiltroAlumnoComponent implements OnInit {
 
   idAula!:number;
   aulas!:AulaInterface[];
-  constructor(private alumnoService:AlumnoService) { }
+  constructor(private alumnoService:AlumnoService, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.listarAulas();
+    // this.activatedRoute.queryParams.subscribe({
+    //   next: ((params) => {
+         
+    //     this.changeCentro((params['centro']));
+    //   })
+    // })
+
+    // this.listarAulas();
   }
 
 
@@ -24,6 +32,10 @@ export class FiltroAlumnoComponent implements OnInit {
 
 
 
+  // changeCentro(centro:string) {
+    
+  //   this.listarAulas();
+  // }
 
   cambiarAula(){
     

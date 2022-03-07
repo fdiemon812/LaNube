@@ -2,8 +2,9 @@ import { ViewChild, Component, Input, OnChanges, OnDestroy, OnInit,  } from '@an
 import { AlumnoInterface } from '../interfaces/alumno.interface';
 import { AlumnoService } from '../services/alumno.service';
 import {Subject} from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
+import { CentroService } from '../services/centro.service';
 
 @Component({
   selector: 'app-alumno',
@@ -27,7 +28,8 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   
 
 
-  constructor(private alumnoService: AlumnoService, private router:Router) { }
+  constructor(private alumnoService: AlumnoService,
+    private centroService:CentroService, private activatedRoute: ActivatedRoute) { }
   
   ngOnInit(): void {
    
@@ -40,13 +42,34 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
         url: '/assets/es-ES.json'
       }
     }
+    
+    this.activatedRoute.queryParams.subscribe({
+      next: ((params) => {
+
+        if(params['centro']!=null){
+          
+          this.changeCentro(parseInt(params['centro']));
+        }else{
+          // this.changeCentro(parseInt(params['centro']));
+        }
+          
+      })
+    })
     this.listarAlumnos();
    
     
     }
+
+
+  changeCentro(centro:number) {
+    this.alumnoService.cambiarCentro(centro);
+    console.log("cambiando centro" + centro)
+    this.ngOnChanges();
+  }
     
  
     ngOnChanges(){
+      console.log("OnChanges!")
       if(this.isCargado==true && this.idAulaInput!=0){
         
         this.listarAlumnosAula();     
@@ -64,7 +87,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
 
   listarAlumnos():any{
-
+    console.log("listando alumnos")
     return this.alumnoService.listarAlumnos().subscribe({
 
       next:resp =>{
@@ -95,6 +118,9 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   listarAlumnosAula():any{
+
+    console.log("listando Aulas")
+
     return this.alumnoService.listarAlumnosAula(this.idAulaInput).subscribe({
 
       next:resp =>{

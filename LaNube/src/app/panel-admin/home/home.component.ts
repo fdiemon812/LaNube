@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CentroService } from '../services/centro.service';
 
 @Component({
@@ -9,9 +10,9 @@ import { CentroService } from '../services/centro.service';
 export class HomeComponent implements OnInit {
 
   
-  idCentro!:number;
+  centro!:number;
 
-  constructor(private centroService: CentroService) { }
+  constructor(private centroService: CentroService, private router:Router, private activatedRoute:ActivatedRoute) { }
   
 
   ngOnInit(): void {
@@ -20,8 +21,13 @@ export class HomeComponent implements OnInit {
 
   cambiarCentro(): void {
 
-    this.centroService.cambiarCentro(this.idCentro);
-    console.log(this.idCentro);
+    this.router.navigate(
+      [], 
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: { centro: this.centro },
+        queryParamsHandling: 'merge'
+      });
   }
   
 
