@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CentroService } from '../services/centro.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +11,7 @@ export class HomeComponent implements OnInit {
   
   centro!:number;
 
-  constructor(private centroService: CentroService, private router:Router, private activatedRoute:ActivatedRoute) { }
+  constructor( private router:Router, private activatedRoute:ActivatedRoute) { }
   
 
   ngOnInit(): void {

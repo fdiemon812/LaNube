@@ -16,14 +16,12 @@ export class FiltroAlumnoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.activatedRoute.queryParams.subscribe({
-    //   next: ((params) => {
-         
-    //     this.changeCentro((params['centro']));
-    //   })
-    // })
+    this.activatedRoute.queryParams.subscribe({
+      next: ((params) => {
+        this.changeCentro((params['centro']));
+      })
+    })
 
-    // this.listarAulas();
   }
 
 
@@ -32,10 +30,12 @@ export class FiltroAlumnoComponent implements OnInit {
 
 
 
-  // changeCentro(centro:string) {
+   changeCentro(centro:string) {
     
-  //   this.listarAulas();
-  // }
+    this.alumnoService.cambiarCentro(centro);
+    this.listarAulas();
+
+   }
 
   cambiarAula(){
     

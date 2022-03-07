@@ -40,5 +40,18 @@ export class LoginService{
        
     }
 
+
+    cambiarRol(rol:string){
+        console.log("cambiando el rol")
+        console.log(rol)
+        this.rol=rol;
+    }
+
+    get obtenerRol(){
+        console.log("obteniendo el rol ")
+        console.log(this.rol);
+        return this.rol;
+    }
+
     
 }

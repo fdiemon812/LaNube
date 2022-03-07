@@ -8,7 +8,7 @@
     <div class=" offset-1 col-10 mt-1 text-end">
 
 
-      <a [routerLink]="['/home/registro']">Añadir<i class="bi bi-person-plus"></i></a>
+      <a [routerLink]="['/home/registro']" *ngIf="comprobarTutor()" >Añadir<i class="bi bi-person-plus"></i></a>
 
 
     </div>

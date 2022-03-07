@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm, PatternValidator } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, map, of } from 'rxjs';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
 
     if(this.miFormulario.valid){
       this.login();
-      
+          
     }
 
     
@@ -60,13 +61,34 @@ export class LoginComponent implements OnInit {
 
         next: resp => { 
           localStorage.setItem("token", resp.jwt_token)
-          this.router.navigateByUrl('home');
+          this.userRol();  
+           this.router.navigateByUrl('home');
 
         },
         error: error =>{
           this.isCorrectPass=true;
         }
     })
+  }
+
+  userRol(){
+     console.log("entrando")
+   this.loginService.isAdmin().subscribe({
+
+    next: resp => { 
+      console.log(resp)
+      // localStorage.setItem("role", resp.role)
+      // this.router.navigateByUrl('home');
+      this.loginService.cambiarRol(resp.role);
+
+    },
+    error: error =>{
+
+      this.isCorrectPass=true;
+    }
+})
+  
+
   }
 
   camposVacios(){

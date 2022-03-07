@@ -21,7 +21,6 @@ export class isAdmin implements CanActivate {
 
             map( resp=>{
                 let respuesta:boolean=false;
-              
                if(resp.role == "ADMINISTRADOR"){
 
                 respuesta = true;

@@ -3,7 +3,6 @@ import { Injectable, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AlumnoInterface } from "../interfaces/alumno.interface";
-import { CentroService } from './centro.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +11,7 @@ export class AlumnoService {
     
     centro:any=1;
     isPrimera:boolean=true;
-    constructor(private http:HttpClient, private centroService: CentroService){
+    constructor(private http:HttpClient, ){
 
     }
 
@@ -25,8 +24,7 @@ export class AlumnoService {
 
     listarAlumnos():Observable<AlumnoInterface[]>{
 
-        console.log("lanzando peticion de centro ")
-        console.log(this.centro)
+        
 
         const url = `${ environment.urlApi }/centro/${this.centro}/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
@@ -75,7 +73,6 @@ export class AlumnoService {
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
         const body= {nombre, apellidos, dni, tlf, email, password, role:"TUTOR"}
-        console.log(body )
          return this.http.post<any>(url, body, {headers});
 
 
@@ -96,7 +93,6 @@ export class AlumnoService {
 
 
     listarAula():Observable<any>{
-
 
         const url = `${ environment.urlApi }/centro/${this.centro}/aulas`;
         const headers = new HttpHeaders() .set('Authorization',

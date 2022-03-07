@@ -2,9 +2,10 @@ import { ViewChild, Component, Input, OnChanges, OnDestroy, OnInit,  } from '@an
 import { AlumnoInterface } from '../interfaces/alumno.interface';
 import { AlumnoService } from '../services/alumno.service';
 import {Subject} from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-import { CentroService } from '../services/centro.service';
+import { isAdmin } from '../../guards/isAdmin.guard';
+import { LoginService } from '../../login/services/login.service';
 
 @Component({
   selector: 'app-alumno',
@@ -29,7 +30,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
 
   constructor(private alumnoService: AlumnoService,
-    private centroService:CentroService, private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute, private isAdmin:isAdmin, private loginService:LoginService) { }
   
   ngOnInit(): void {
    
@@ -63,13 +64,11 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
   changeCentro(centro:number) {
     this.alumnoService.cambiarCentro(centro);
-    console.log("cambiando centro" + centro)
     this.ngOnChanges();
   }
     
  
     ngOnChanges(){
-      console.log("OnChanges!")
       if(this.isCargado==true && this.idAulaInput!=0){
         
         this.listarAlumnosAula();     
@@ -87,7 +86,6 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
 
   listarAlumnos():any{
-    console.log("listando alumnos")
     return this.alumnoService.listarAlumnos().subscribe({
 
       next:resp =>{
@@ -119,7 +117,6 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
   listarAlumnosAula():any{
 
-    console.log("listando Aulas")
 
     return this.alumnoService.listarAlumnosAula(this.idAulaInput).subscribe({
 
@@ -138,6 +135,23 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     })
   }
 
+
+  comprobarTutor():boolean{
+    
+
+    let respuesta: boolean=false;
+
+    console.log(this.loginService.obtenerRol)
+
+    if(this.loginService.obtenerRol == "ADMINISTRADOR" ){
+
+      respuesta = true;
+
+    }
+
+    return respuesta;
+
+  }
 
 
 }
