@@ -13,7 +13,12 @@ export class LoginService{
     rol!:string;
     constructor(private http:HttpClient){}
 
-
+    /**
+     *  Peticion para logarse
+     * @param email 
+     * @param password 
+     * @returns 
+     */
     login(email:string, password:string):Observable<LoginResponse>{
         const url = `${environment.urlApi}/login`;
         const body =  {email, password};
@@ -23,7 +28,10 @@ export class LoginService{
        
     }
     
-
+    /**
+     * 
+     * @returns Peticion para comprobar si el token sigue siendo valido
+     */
     validarToken():Observable<LoginResponse>{
         const url = `${ environment.urlApi }/home/token`;
         const headers = new HttpHeaders() .set('Authorization', `Bearer ${localStorage.getItem('token')}` );
@@ -31,6 +39,10 @@ export class LoginService{
                     
       }
 
+      /**
+       *    Peticion para comprobar el rol
+       * @returns 
+       */
     isAdmin():Observable<any>{
         
         const url = `${ environment.urlApi }/home/usuario`;
@@ -42,16 +54,21 @@ export class LoginService{
 
 
     cambiarRol(rol:string){
-        console.log("cambiando el rol")
-        console.log(rol)
+        
         this.rol=rol;
     }
 
     get obtenerRol(){
-        console.log("obteniendo el rol ")
-        console.log(this.rol);
+       
+
+
+
+
         return this.rol;
     }
 
+
+
+   
     
 }

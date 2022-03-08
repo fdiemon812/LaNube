@@ -17,10 +17,8 @@ export class ValidatorAlumnoService implements AsyncValidator {
   constructor(private http:HttpClient) { }
 
   fechaValida(){
-    console.log("validando")
 
     return ( formGroup: AbstractControl ): ValidationErrors | null => {
-      console.log("return")
       const fechaNacimiento = new Date(formGroup.get("nacimiento")?.value);
       const fechaSistema =new Date();
 
@@ -55,7 +53,6 @@ export class ValidatorAlumnoService implements AsyncValidator {
                    delay(600),
                   map( resp => {
 
-                    console.log(resp)
                     if(resp == false ){
                       //SI EL USUARIO EXISTE EN LA BBDD (RESP=FALSE), METEMOS EL ERROR. 
                                 control.get("email")?.setErrors({ emailTomado: true });

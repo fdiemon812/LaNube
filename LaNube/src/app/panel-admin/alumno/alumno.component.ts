@@ -6,6 +6,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot } f
 import { DataTableDirective } from 'angular-datatables';
 import { isAdmin } from '../../guards/isAdmin.guard';
 import { LoginService } from '../../login/services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alumno',
@@ -30,10 +31,13 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
 
   constructor(private alumnoService: AlumnoService,
-    private activatedRoute: ActivatedRoute, private isAdmin:isAdmin, private loginService:LoginService) { }
+    private activatedRoute: ActivatedRoute,
+     private isAdmin:isAdmin, private loginService:LoginService,
+     private router:Router) { }
   
   ngOnInit(): void {
    
+    this.comprobarTutor();
     this.dtOptions = {
       pagingType: 'full_numbers',
       
@@ -50,8 +54,6 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
         if(params['centro']!=null){
           
           this.changeCentro(parseInt(params['centro']));
-        }else{
-          // this.changeCentro(parseInt(params['centro']));
         }
           
       })
@@ -110,6 +112,15 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
       },
       error: error =>{
 
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
+
       }
 
     })
@@ -129,7 +140,14 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
         });        
       },
       error: error =>{
-        
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
       }
 
     })
@@ -141,11 +159,16 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
     let respuesta: boolean=false;
 
-    console.log(this.loginService.obtenerRol)
+    
 
     if(this.loginService.obtenerRol == "ADMINISTRADOR" ){
 
       respuesta = true;
+
+    } else if(this.loginService.obtenerRol== null){
+
+      localStorage.removeItem("token");
+      this.router.navigateByUrl("/login");
 
     }
 

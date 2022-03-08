@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AlumnoService } from '../services/alumno.service';
 import { AulaInterface } from '../interfaces/aula.interface';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-filtro-alumno',
@@ -52,6 +53,16 @@ export class FiltroAlumnoComponent implements OnInit {
         this.aulas=resp;
       },
       error:error=>{
+
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
 
       }
     })

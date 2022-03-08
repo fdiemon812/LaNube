@@ -122,81 +122,85 @@
             </p>
             </div>
 
-
+<!-- AQUI EMPIEZA A RECORRER EL CONTROL DEL GRUPO TUTORES -->
             <div formArrayName="tutores">
 
 
-            
-           <div class="row mt-4 p-0 m-0" *ngFor="let tutor of tutoresArr.controls;let i=index">
+            <!-- AQUI RECORREMOS UN FORMARRAY, EL ATRIBUTO CONTROLSSSS -->
+                    <div class="row mt-4 p-0 m-0" *ngFor="let tutor of tutoresArr.controls;let i=index">
+
+            <!-- AQUI LE DECIMOS LA POSICION DEL GRUPO -->
+                        <div class="row mt-4 p-0 m-0" [formGroupName]="i">
+                        
+
+                                    
+                                    <div class="col-12 d-flex " >
+
+                                        <div class="col-10">
+                                            <p>Tutor nuevo  :</p>
+                                        </div>
+                                        <div class="col-2 text-end">
+                                            
+                                        </div>
 
 
-            <div class="row mt-4 p-0 m-0" [formGroupName]="i">
-            
+                                    </div>
 
-            
-            <div class="col-12 d-flex " >
+                                    <div class="mb-1 col-md-4 m-0 col-12" >
+                                        <input type="text"  class="form-control " formControlName="nombreTutor" id="nombreTutor{{tutor.id}}" placeholder="Nombre">
+                                        <span class="form-text text-danger"
+                                        *ngIf="campoNoValidoArray('nombreTutor',i)">Obligatorio</span>
+                                        
+                                    </div>
 
-                <div class="col-10">
-                    <p>Tutor nuevo  :</p>
+
+                                  
+
+                                    <div class="mb-1 col-12 col-md-8 m-0">
+                                        <input  type="text"  class="form-control " formControlName="apellidoTutor" id="apellidosTutor{{tutor.id}}" placeholder="Apellidos">
+                                        <span class="form-text text-danger"
+                                        *ngIf="campoNoValidoArray('apellidoTutor',i)">Obligatorio</span>
+                                        
+                                        </div>
+                                    
+                                    <div class="mb-1 col-md-4 m-0 col-12">
+                                        <input  type="text"  class="form-control " formControlName="dniTutor" placeholder="DNI" id="dniTutor{{tutor.id}}" >
+                                        <span class="form-text text-danger"
+                                        *ngIf="campoNoValidoArray('dniTutor',i)">Obligatorio ->12345678A</span>
+                                    </div>
+                        
+                                    <div class="col-12 col-md-8 m-0 mb-1">
+                                        <input  type="email"  class="form-control " formControlName="emailTutor" id="emailTutor{{tutor.id}}" placeholder="Email">
+                                        <span class="form-text text-danger"
+                                        *ngIf="campoNoValidoArray('emailTutor',i)">Email no disponible</span>
+                                    </div>
+
+                                    <div class="mb-1 col-md-4 m-0 col-12">
+                                        <input  type="text"  class="form-control " formControlName="tlfTutor"  placeholder="Tlf" id="tlfTutor{{tutor.id}}" >
+                                    </div>
+
+                                    <div class="col-12 col-md-8 m-0 mb-1">
+                                    <input  type="password"  class="form-control " formControlName="passwordTutor" id="passwordTutor{{tutor.id}}" placeholder="Contraseña">
+                                        
+                                    <span class="form-text text-danger"
+                                    *ngIf="campoNoValidoArray('passwordTutor',i)">Obligatoria contraseña </span>
+                                
+                                    </div>
+
+                                    <!-- <div class="mb-4 form-check">
+                                        <input type="checkbox" class="form-check-input m-1" id="recordar">
+                                        <label class="form-check-label " for="exampleCheck1">Crear Usuario para entrar en aplicación</label>
+                                    </div> -->
+
+                                    <div>
+                                    </div>
+                    </div>
                 </div>
-                <div class="col-2 text-end">
-                    
-                </div>
-
-
-            </div>
-
-            <div class="mb-1 col-md-4 m-0 col-12" >
-                <input type="text"  class="form-control " formControlName="nombreTutor" id="nombreTutor{{tutor.id}}" placeholder="Nombre">
-                <span class="form-text text-danger"
-                *ngIf="campoNoValidoArray('nombreTutor',i)">{{ nombreErrorMsg }}</span>
-                
-              </div>
-              <div class="mb-1 col-12 col-md-8 m-0">
-                  <input  type="text"  class="form-control " formControlName="apellidoTutor" id="apellidosTutor{{tutor.id}}" placeholder="Apellidos">
-                  <span class="form-text text-danger"
-                  *ngIf="campoNoValidoArray('apellidoTutor',i)">{{ apellidosErrorMsg }}</span>
-                 
-                </div>
-             
-              <div class="mb-1 col-md-4 m-0 col-12">
-                  <input  type="text"  class="form-control " formControlName="dniTutor" placeholder="DNI" id="dniTutor{{tutor.id}}" >
-                  <span class="form-text text-danger"
-                  *ngIf="campoNoValidoArray('dniTutor',i)">{{ dniTutorErrorMsg }}</span>
-              </div>
-  
-              <div class="col-12 col-md-8 m-0 mb-1">
-                <input  type="email"  class="form-control " formControlName="emailTutor" id="emailTutor{{tutor.id}}" placeholder="Email">
-                <span class="form-text text-danger"
-                *ngIf="campoNoValidoArray('emailTutor',i)">{{ emailErrorMsg }}</span>
-            </div>
-
-              <div class="mb-1 col-md-4 m-0 col-12">
-                <input  type="text"  class="form-control " formControlName="tlfTutor"  placeholder="Tlf" id="tlfTutor{{tutor.id}}" >
-            </div>
-
-            <div class="col-12 col-md-8 m-0 mb-1">
-              <input  type="password"  class="form-control " formControlName="passwordTutor" id="passwordTutor{{tutor.id}}" placeholder="Contraseña">
-                
-              <span class="form-text text-danger"
-              *ngIf="campoNoValidoArray('passwordTutor',i)">{{ passwordErrorMsg }}</span>
-           
-            </div>
-
-            <!-- <div class="mb-4 form-check">
-                <input type="checkbox" class="form-check-input m-1" id="recordar">
-                <label class="form-check-label " for="exampleCheck1">Crear Usuario para entrar en aplicación</label>
-            </div> -->
-
-            <div>
-            </div>
-        </div>
-    </div>
 
     </div>
 
             <div class=" offset-md-6 col-2  m-2 p-2">
-                <button class="btn  me-2 btn btn-primary " >Cancelar</button>
+                <button routerLink="/home/alumno" class="btn  me-2 btn btn-primary " >Cancelar</button>
             </div>
 
             

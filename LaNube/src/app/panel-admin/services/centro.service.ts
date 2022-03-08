@@ -14,7 +14,10 @@ export class CentroService {
     constructor( private http:HttpClient){}
 
 
-
+    /**
+     * 
+     * @returns Lista todos los centros
+     */
     listarCentros():Observable<CentroInterface[]>{
 
 

@@ -1,6 +1,7 @@
 import { CompileEntryComponentMetadata } from '@angular/compiler';
 import { Component, EventEmitter, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { CentroInterface } from '../interfaces/centro.interface';
 import { CentroService } from '../services/centro.service';
 
@@ -55,6 +56,15 @@ export class HomeComponent implements OnInit {
       },
       error: error =>{
         
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
       }
 
     })

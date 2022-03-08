@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlumnoService } from '../services/alumno.service';
 import { ValidatorAlumnoService } from '../services/validator.alumno.service';
 import { AulaInterface } from '../interfaces/aula.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro-alumno',
@@ -30,6 +31,10 @@ export class RegistroAlumnoComponent implements OnInit {
       comeEnCentro:[,],
       tutores: this.formBuilder.array([
 
+
+
+        //AQUI SE CREAN NUEVOS GRUPOS DE FORMULARIOS
+
         // this.formBuilder.group({
 
         //   nombreTutor:[],
@@ -51,14 +56,12 @@ export class RegistroAlumnoComponent implements OnInit {
   }
 
 
-  // get tutoresArr() {
-  //   return this.formularioAlumno.get('tutores') as FormArray;
-  // }
 
   get tutoresArr():any{
     return this.formularioAlumno.get('tutores') as FormArray ;
   }
 
+  //CREA UN NUEVO FORMULARIO TUTOR
   crearTutor(){
     return this.formBuilder.group({
 
@@ -77,12 +80,6 @@ export class RegistroAlumnoComponent implements OnInit {
   agregarTutor() {
 
 
-    // const tutor = this.formBuilder.group({
-    //   nombreTutor: new FormControl('', Validators.required),
-    //   apellidoTutor: new FormControl('',Validators.required),
-    //   dniTutor: new FormControl('',Validators.required)
-      
-    // });
     let tutorArray= this.formularioAlumno.get('tutores') as FormArray;
   
     tutorArray.push(this.crearTutor());
@@ -99,9 +96,10 @@ export class RegistroAlumnoComponent implements OnInit {
             && this.formularioAlumno.get(campo)?.touched;
   }
 
-
+//ESTO DEVUELVE TRUE SI FALLA UN CAMPO CONCRETO DEL TUTOR i;
   campoNoValidoArray( campo: string, i:number ) {
     let cadena =`tutores.${i}.${campo}`
+    
     return this.formularioAlumno.get(cadena)?.invalid
             && this.formularioAlumno.get(cadena)?.touched;
   }
@@ -112,7 +110,7 @@ export class RegistroAlumnoComponent implements OnInit {
     
     const errors = this.formularioAlumno.get('comida')?.errors!;
     if ( errors['required'] ) {
-      return 'Nombre es obligatorio';
+      return 'Comida es obligatorio';
     } 
 
     return '';}
@@ -132,9 +130,9 @@ export class RegistroAlumnoComponent implements OnInit {
   get nombreErrorMsg(): string {
     
     const errors = this.formularioAlumno.get('nombre')?.errors!;
-    if ( errors['required'] ) {
+    if (errors!=null &&  errors['required'] ) {
       return 'Nombre es obligatorio';
-    } else if ( errors['pattern'] ) {
+    } else if (errors!=null && errors['pattern'] ) {
       return 'Solo puede contener letras';
     } 
 
@@ -165,7 +163,7 @@ export class RegistroAlumnoComponent implements OnInit {
        get passwordErrorMsg(): string {
        
        const errors = this.formularioAlumno.get('tutores.0.passwordTutor')?.errors!;
-       if ( errors['required'] ) {
+       if (errors!=null &&  errors['required'] ) {
          return 'Contraseña obligatoria';
        
        } 
@@ -177,9 +175,9 @@ export class RegistroAlumnoComponent implements OnInit {
   get dniTutorErrorMsg(): string {
 
     const errors = this.formularioAlumno.get('tutores.0.dniTutor')?.errors!;
-    if(errors['required']){
+    if(errors!=null && errors['required']){
       return 'DNI obligatorio';
-    }else if ( errors['pattern'] ) {
+    }else if (errors!=null && errors['pattern'] ) {
       return 'Formato correcto -> 12345678B';
     } 
 
@@ -191,9 +189,9 @@ export class RegistroAlumnoComponent implements OnInit {
   get apellidosErrorMsg(): string {
   
     const errors = this.formularioAlumno.get('apellidos')?.errors!;
-    if ( errors['required'] ) {
+    if (errors!=null && errors['required'] ) {
       return 'Apellidos es obligatorio';
-    } else if ( errors['pattern'] ) {
+    } else if (errors!=null && errors['pattern'] ) {
       return 'Solo puede contener letras';
     } 
 
@@ -212,16 +210,13 @@ export class RegistroAlumnoComponent implements OnInit {
 
   get fechaErrorMsg(): string {
 
-    console.log("comprobando errores")
-
+ 
     const errors = this.formularioAlumno.get('nacimiento')?.errors!;
     if ( errors['required'] ) {
-      console.log("comprobando error1")
 
       return 'Fecha obligatoria';
     } else if(errors['fechaMayor']){
-      console.log("comprobando error2")
-      return 'Debe ser inferior a la fecha actual'
+       return 'Debe ser inferior a la fecha actual'
     }
 
     return '';
@@ -267,12 +262,9 @@ export class RegistroAlumnoComponent implements OnInit {
 
    
   async submitForm(){
-    // console.log("hola")
-    console.log(this.formularioAlumno.valid)
-    console.log(this.formularioAlumno.value)
+    
     this.formularioAlumno.markAllAsTouched();
 
-    // console.log(this.findInvalidControlsRecursive(this.formularioAlumno))
     if(this.formularioAlumno.valid){
 
      let nombreAlumno = this.formularioAlumno.value.nombre;
@@ -288,7 +280,6 @@ export class RegistroAlumnoComponent implements OnInit {
      let horaSalida = this.formularioAlumno.value.horaSalida;
      let observaciones = this.formularioAlumno.value.observaciones;
      let comeEnCentro = this.formularioAlumno.value.comeEnCentro;
-      console.log(comeEnCentro);
 
     let tutores= this.formularioAlumno.value.tutores;
 
@@ -307,7 +298,6 @@ export class RegistroAlumnoComponent implements OnInit {
   crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string,  tutores:any[],
      comida:string, horaEntrada:string, horaSalida:string, observaciones:string, aula:any, comeEnCentro:boolean){
 
-      console.log(comeEnCentro)
 
     this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, 
       direccion, comida, horaEntrada, horaSalida, observaciones, aula, comeEnCentro).subscribe({
@@ -355,7 +345,6 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
   registrarTutor(nombre:string, apellido:string, dni:string, tlf:string, email:string, password:string, idAlumno:number){
-    console.log(password)
     this.alumnoService.registrarTutor(nombre, apellido, dni, tlf, email, password).subscribe({
 
 
@@ -386,7 +375,14 @@ export class RegistroAlumnoComponent implements OnInit {
         this.aulas=resp;
       },
       error:error=>{
-
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
       }
     })
   }

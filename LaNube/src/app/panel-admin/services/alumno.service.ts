@@ -20,7 +20,10 @@ export class AlumnoService {
 
     
 
-
+    /**
+     * 
+     * @returns Lista todos los alumnos de un centro
+     */
 
     listarAlumnos():Observable<AlumnoInterface[]>{
 
@@ -34,7 +37,11 @@ export class AlumnoService {
         return this.http.get<AlumnoInterface[]>(url, {headers});
     }
 
-
+    /**
+     * 
+     * @param idAulaInput Lista los alumnos de un aula determinada en un centro determinada
+     * @returns 
+     */
     listarAlumnosAula(idAulaInput:number):Observable<AlumnoInterface[]>{
 
         const url = `${ environment.urlApi }/centro/${this.centro}/aula/${idAulaInput}/alumnos`;
@@ -45,6 +52,22 @@ export class AlumnoService {
         return this.http.get<AlumnoInterface[]>(url, {headers});
     }
 
+
+    /**
+     * Registra un alumno 
+     * @param nombre 
+     * @param apellidos 
+     * @param dni 
+     * @param fechaNacimiento 
+     * @param direccion 
+     * @param comida 
+     * @param horaEntrada 
+     * @param horaSalida 
+     * @param observaciones 
+     * @param aula 
+     * @param comeEnCentro 
+     * @returns 
+     */
     registrarAlumno(nombre:string, apellidos:string, dni:string,
          fechaNacimiento:Date, direccion:string, comida:string, 
          horaEntrada:string, horaSalida:string, observaciones:string, aula:any, comeEnCentro:boolean):Observable<AlumnoInterface>{
@@ -64,7 +87,16 @@ export class AlumnoService {
 
 
 
-
+    /**
+     * 
+     * @param nombre Registra un tutor
+     * @param apellidos 
+     * @param dni 
+     * @param tlf 
+     * @param email 
+     * @param password 
+     * @returns 
+     */
     registrarTutor(nombre: string, apellidos: string, 
         dni: string, tlf: string, email: string, password: string):Observable<any> {
 
@@ -79,6 +111,13 @@ export class AlumnoService {
     }
 
 
+
+    /**
+     * Agrega un aluno-tutor
+     * @param email 
+     * @param idAlumno 
+     * @returns 
+     */
     agregarTutorAlumno(email:string, idAlumno:number ):Observable<any>{
 
 
@@ -91,7 +130,10 @@ export class AlumnoService {
 
     }
 
-
+    /**
+     * 
+     * @returns Lista las aulas de un centro
+     */
     listarAula():Observable<any>{
 
         const url = `${ environment.urlApi }/centro/${this.centro}/aulas`;
