@@ -57,11 +57,12 @@ export class ValidatorAlumnoService implements AsyncValidator {
 
                     console.log(resp)
                     if(resp == false ){
+                      //SI EL USUARIO EXISTE EN LA BBDD (RESP=FALSE), METEMOS EL ERROR. 
                                 control.get("email")?.setErrors({ emailTomado: true });
                           return { emailTomado: true }
                               }
                               else{
-                      
+                                //SI NO EXISTE EL USUARIO EN LA BBDD NO HAY ERROR
                                control.get("email")?.setErrors(null);
 
 
