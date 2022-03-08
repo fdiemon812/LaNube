@@ -11,25 +11,33 @@
         
 
           <select  [(ngModel)]="centro" (change)="cambiarCentro()"  class="ms-5" name="" id="" style="width: 200px;">
-            <option  value="1">Centro-1</option>
-            <option value="2">Centro-2</option>
-            <option value="3">Centro-3</option>
+
+            <option *ngFor="let centro of centros" value={{centro.id}}>{{centro.nombre}}</option>
   
           </select>
 
        
        
 
-        
+
+          
             <ul class="navbar-nav ms-auto m-2 mb-lg-0">
                 
-              
-                <li class="nav-item ">
-                    <a > <i class="bi bi-person" style="color: white; font-size: 1.6rem;"></i> </a>
-                 </li>
-              
+              <div class="dropstart">
+                <li class="nav-item">
+                    <a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-person"  style="color: white; font-size: 1.6rem;"></i> </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <li><a  href class="dropdown-item" >Ajustes</a></li>
+                      <hr>
+                      <li><a href class="dropdown-item" (click)="cerrarSesion()">Cerrar sesión</a></li>
+                    </ul>
+                
+                
+                  </li>
+                </div>
+
             </ul>
-        
+           
     </div>
 </nav>
 

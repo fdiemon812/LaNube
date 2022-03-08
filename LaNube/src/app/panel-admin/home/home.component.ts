@@ -1,5 +1,8 @@
+import { CompileEntryComponentMetadata } from '@angular/compiler';
 import { Component, EventEmitter, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CentroInterface } from '../interfaces/centro.interface';
+import { CentroService } from '../services/centro.service';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +12,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   
-  centro!:number;
-
-  constructor( private router:Router, private activatedRoute:ActivatedRoute) { }
+  centro:number=1;
+  centros!:CentroInterface[];
+  constructor( private router:Router, private activatedRoute:ActivatedRoute, private centroService:CentroService) { }
   
 
   ngOnInit(): void {
+
+    this.listarCentros();
   }
 
 
@@ -30,7 +35,29 @@ export class HomeComponent implements OnInit {
   }
   
 
+  cerrarSesion(){
+
+    localStorage.removeItem("token");
+    this.router.navigateByUrl("/login");
+  }
 
 
+  listarCentros(){
+
+
+    return this.centroService.listarCentros().subscribe({
+
+      next:resp =>{
+       
+        this.centros=resp;
+       
+              
+      },
+      error: error =>{
+        
+      }
+
+    })
+  }
  
 }

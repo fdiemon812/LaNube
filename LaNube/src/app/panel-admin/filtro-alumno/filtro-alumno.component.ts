@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FiltroAlumnoComponent implements OnInit {
 
-  idAula!:number;
+  idAula:number=0;
   aulas!:AulaInterface[];
   constructor(private alumnoService:AlumnoService, private activatedRoute:ActivatedRoute) { }
 

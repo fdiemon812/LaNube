@@ -14,7 +14,7 @@
     </div>
 
   </div>
-    <div class=" offset-lg-1 col-12 col-lg-10 table-responsive" >
+    <div class=" offset-lg-1 col-12 col-lg-10 text-center table-responsive" >
 
 
 
@@ -28,7 +28,7 @@
                 <th scope="col">Aula</th>
                 <th scope="col">Edad</th>
                 <th scope="col">Alimentación</th>
-                <th scope="col">Almuerzo </th>
+                <th  scope="col">Almuerzo </th>
                 <th scope="col">Editar/Borrar </th>
 
 
@@ -37,9 +37,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let alumno of alumnos">
+              <tr class="m-5" *ngFor="let alumno of alumnos">
                 
-                <th scope="col">{{alumno.nombre}}</th>
+                <th class="p-2" scope="col">{{alumno.nombre}}</th>
                 <th scope="col">{{alumno.apellidos}}</th>
                 <th scope="col">{{alumno.dni}}</th>
                 <th scope="col">{{alumno.aula.nombre}}</th>
