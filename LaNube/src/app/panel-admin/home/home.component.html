@@ -10,7 +10,7 @@
         <a class="navbar-brand me-auto" href="#"><img src="../../../assets/lanube-bien-logo.png" class="logo" alt="logo-nube"></a>
         
 
-          <select  [(ngModel)]="centro" (change)="cambiarCentro()"  class="ms-5" name="" id="" style="width: 200px;">
+          <select  [(ngModel)]="centro" (change)="cambiarCentro()"  class="ms-5 form-select" name="" id="" style="width: 200px;">
 
             <option *ngFor="let centro of centros" value={{centro.id}}>{{centro.nombre}}</option>
   
@@ -25,6 +25,7 @@
                 
               <div class="dropstart">
                 <li class="nav-item">
+                  
                     <a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-person"  style="color: white; font-size: 1.6rem;"></i> </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li><a  href class="dropdown-item" >Ajustes</a></li>
@@ -83,7 +84,7 @@
                 </li>
                 <li class="nav-item">
                   <a   routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
-                    <i class="bi bi-bell"></i>
+                    <i class="bi bi-card-list"></i>
                     Menú
                   </a>
                 </li>
