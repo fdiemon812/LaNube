@@ -71,8 +71,6 @@ export class RegistroAlumnoComponent implements OnInit {
       emailTutor:[,[Validators.required, Validators.pattern(this.validatorAlumService.emailPattern)],[this.validatorAlumService]],
       tlfTutor:[,],
       passwordTutor:[,Validators.required] 
-
-
       
     })
   }
