@@ -44,7 +44,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
       responsive: true,
       language: {
         
-        url: '/assets/es-ES.json'
+        url: 'http://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
       }
     }
     

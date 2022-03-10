@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   isCorrectPass:boolean=false;
   public emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
-
+  isGray:boolean =false;
   @ViewChild('miFormulario') miFormulario!: NgForm;
   
   initForm = {
@@ -111,6 +111,22 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
+  cambiarGrises(){
+    
+
+    if(this.isGray){
+
+      document.querySelector('html')?.classList.remove("grayScale")
+      this.isGray=false;
+
+
+    }else{
+      this.isGray=true;
+      document.querySelector('html')?.classList.add("grayScale")
+    }
+
+  }
   
 
 }

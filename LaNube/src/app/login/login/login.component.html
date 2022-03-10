@@ -50,9 +50,14 @@
 
 
 
-                        <div class="mb-5 form-check">
+                        <!-- <div class="mb-5 form-check">
                           <input type="checkbox" class="form-check-input " id="recordar">
                           <label class="form-check-label" for="exampleCheck1">Recordar contraseña</label>
+                        </div> -->
+
+                        <div class="mb-5 form-check">
+                          <input (click)="cambiarGrises()" type="checkbox" class="form-check-input " id="grises">
+                          <label class="grises" for="grises">Todo gris</label>
                         </div>
                         
                         <div class="text-center mb-2">
