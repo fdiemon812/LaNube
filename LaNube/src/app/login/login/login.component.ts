@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
 
         next: resp => { 
           localStorage.setItem("token", resp.jwt_token)
-          this.userRol();  
+          // this.userRol();  
            this.router.navigateByUrl('home');
 
         },
@@ -86,22 +86,22 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  userRol(){
-   this.loginService.isAdmin().subscribe({
+//   userRol(){
+//    this.loginService.isAdmin().subscribe({
 
-    next: resp => { 
+//     next: resp => { 
       
-      this.loginService.cambiarRol(resp.role);
+//       this.loginService.cambiarRol(resp.role);
 
-    },
-    error: error =>{
+//     },
+//     error: error =>{
 
-      this.isCorrectPass=true;
-    }
-})
+//       this.isCorrectPass=true;
+//     }
+// })
   
 
-  }
+//   }
 
   camposVacios(){
 

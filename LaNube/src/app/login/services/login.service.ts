@@ -53,19 +53,19 @@ export class LoginService{
     }
 
 
-    cambiarRol(rol:string){
+    // cambiarRol(rol:string){
         
-        this.rol=rol;
-    }
+    //     this.rol=rol;
+    // }
 
-    get obtenerRol(){
+    // get obtenerRol(){
        
 
 
 
 
-        return this.rol;
-    }
+    //     return this.rol;
+    // }
 
 
 

@@ -10,6 +10,7 @@ import {DataTablesModule} from 'angular-datatables';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { VistaAlumnoComponent } from './vista-alumno/vista-alumno.component';
 import { FiltroAlumnoComponent } from './filtro-alumno/filtro-alumno.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
 
@@ -32,6 +33,6 @@ import { FiltroAlumnoComponent } from './filtro-alumno/filtro-alumno.component';
     CommonModule,
     DataTablesModule
     
-  ],exports:[]
-})
+  ],exports:[],
+  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],})
 export class PanelAdminModule { }

@@ -7,6 +7,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { isAdmin } from '../../guards/isAdmin.guard';
 import { LoginService } from '../../login/services/login.service';
 import Swal from 'sweetalert2';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-alumno',
@@ -33,7 +34,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private alumnoService: AlumnoService,
     private activatedRoute: ActivatedRoute,
      private isAdmin:isAdmin, private loginService:LoginService,
-     private router:Router) { }
+     private router:Router, private jwt :JwtHelperService) { }
   
   ngOnInit(): void {
    
@@ -158,15 +159,20 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   comprobarTutor():boolean{
     
 
-    let respuesta: boolean=false;
+  let respuesta: boolean=false;
+  let rol ="";
+  if(localStorage.getItem("token")!= null){
 
-    
+    rol= this.jwt.decodeToken(localStorage.getItem("token")!).rol;
 
-    if(this.loginService.obtenerRol == "ADMINISTRADOR" ){
+  }
+
+
+    if(rol == "ADMINISTRADOR" ){
 
       respuesta = true;
 
-    } else if(this.loginService.obtenerRol== null){
+    } else if(rol== null){
 
       localStorage.removeItem("token");
       this.router.navigateByUrl("/login");
