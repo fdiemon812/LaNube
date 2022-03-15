@@ -145,6 +145,20 @@ export class AlumnoService {
     }
 
 
+
+    borrarAlumno(idAlumno:number ):Observable<any>{
+
+
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumno/${idAlumno}`;
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+       
+         return this.http.delete<any>(url, {headers});
+
+
+    }
+
+
     cambiarCentro(centro:any){
         
         if(centro==null){

@@ -3,3 +3,13 @@
 .grayScale {
     filter: grayscale(1);
 }
+
+
+.celestito{
+
+    background:#d5eff09c ;
+}
+
+html{
+    overflow: hidden;
+}

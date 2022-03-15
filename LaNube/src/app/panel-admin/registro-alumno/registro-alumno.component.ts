@@ -283,7 +283,8 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
     this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno,
-       fechaNacimiento, direccion, tutores, comida, horaEntrada, horaSalida, observaciones,aula, comeEnCentro );
+       fechaNacimiento, direccion, tutores, comida, horaEntrada, 
+       horaSalida, observaciones,aula, comeEnCentro );
 
 
     

@@ -18,18 +18,21 @@
 
 
 
-        <table class="table-responsive    bg-light " datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <table class="table celestito table-striped   "
+         datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" 
+         >
             <thead>
               <tr >
                 
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellidos</th>
-                <th scope="col">Dni</th>
-                <th scope="col">Aula</th>
-                <th scope="col">Edad</th>
-                <th scope="col">Alimentación</th>
-                <th  scope="col">Almuerzo </th>
-                <th scope="col">Editar/Borrar </th>
+                <td scope="col">Nombre completo</td>
+                <!-- <td scope="col">Apellidos</td> -->
+                <!-- <th scope="col">Dni</th> -->
+                <td scope="col">Aula</td>
+                <td scope="col">Edad</td>
+                <td scope="col">Alimentación</td>
+                <td  scope="col">Almuerzo </td>
+                <td  scope="col"> </td>
+
 
 
 
@@ -39,18 +42,18 @@
             <tbody>
               <tr class="m-5" *ngFor="let alumno of alumnos">
                 
-                <th class="p-2" scope="col">{{alumno.nombre}}</th>
-                <th scope="col">{{alumno.apellidos}}</th>
-                <th scope="col">{{alumno.dni}}</th>
-                <th scope="col">{{alumno.aula.nombre}}</th>
-                <th scope="col">{{alumno.fechaNacimiento}}</th>
-                <th scope="col">{{alumno.comida}}</th>
-                <th scope="col"><i *ngIf="!alumno.comeEnCentro" class="bi bi-x"></i><i *ngIf="alumno.comeEnCentro" class="bi bi-check-lg"></i></th>
-                <th scope="col">
+                <td class="p-2" scope="col">{{alumno.nombre}}, {{alumno.apellidos}} </td>
+                <!-- <td scope="col"></td> -->
+                <!-- <th scope="col">{{alumno.dni}}</th> -->
+                <td scope="col">{{alumno.aula.nombre}}</td>
+                <td scope="col">{{alumno.fechaNacimiento}}</td>
+                <td scope="col">{{alumno.comida}}</td>
+                <td scope="col"><i *ngIf="!alumno.comeEnCentro" class="bi bi-x"></i><i *ngIf="alumno.comeEnCentro" class="bi bi-check-lg"></i></td>
+                <td scope="col">
 
-                  <i class="bi bi-pen me-1"></i> <i class=" ms-1 bi bi-trash"></i>
+                  <i class="bi bi-pen me-1"></i> <i (click)="confirmarBorradoAlumno(alumno.id)" class=" ms-1 bi bi-trash"></i>
 
-                </th>
+                </td>
 
         
               </tr>

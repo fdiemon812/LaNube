@@ -39,7 +39,8 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
    
     this.comprobarTutor();
     this.dtOptions = {
-      pagingType: 'full_numbers',
+      pagingType: 'simple_numbers',
+      autoWidth:true,
       
       responsive: true,
       language: {
@@ -176,5 +177,59 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
   }
 
+
+  confirmarBorradoAlumno(idAlumno:number){
+
+    Swal.fire({
+      title: '¿Lo tienes claro?',
+      text: "El alumno desaparecerá",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Borrar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.borrarAlumno(idAlumno);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Borrado',
+          text: 'El alumno ha sido eliminado',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    })
+
+
+  }
+
+
+  borrarAlumno(idAlumno:number):any{
+    
+
+    return this.alumnoService.borrarAlumno(idAlumno).subscribe({
+
+      next:resp =>{
+        
+        this.ngOnChanges();
+      },
+      error: error =>{
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
+
+      }
+
+    })
+  }
 
 }
