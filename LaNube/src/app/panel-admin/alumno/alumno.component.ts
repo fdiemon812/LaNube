@@ -136,6 +136,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
       next:resp =>{
        
         this.alumnos=resp;
+        console.log(resp);
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
           this.dtTrigger.next(null);
@@ -237,5 +238,50 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
     })
   }
+
+
+  editarAlumno(id:number):void{
+
+    this.router.navigate(['home/editar', { id: id }]);
+  }
+
+
+  cambiarEstado(alumno:AlumnoInterface){
+
+
+    if(alumno.alta){
+      alumno.alta=false;
+    }else{
+
+      alumno.alta=true;
+    }
+
+ 
+    this.alumnoService.editarAlumno(alumno).subscribe({
+
+      next:resp =>{
+        
+        // this.ngOnChanges();
+      },
+      error: error =>{
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
+
+        localStorage.removeItem("token");
+        this.router.navigateByUrl("/login");
+
+      }
+
+    })
+
+  }
+
 
 }

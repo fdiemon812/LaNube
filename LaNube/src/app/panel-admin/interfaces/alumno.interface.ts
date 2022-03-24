@@ -10,6 +10,7 @@ export interface  AlumnoInterface{
     horaEntrada:     string;
     horaSalida:      string;
     comida:          string;
+    alta:          boolean;
     comeEnCentro:    boolean;
     observaciones:   string;
     aula:           AulaInterface;

@@ -8,6 +8,7 @@ import { AlumnoInterface } from "../interfaces/alumno.interface";
     providedIn: 'root'
 })
 export class AlumnoService {
+  
     
     centro:any=1;
     isPrimera:boolean=true;
@@ -101,7 +102,7 @@ export class AlumnoService {
         dni: string, tlf: string, email: string, password: string):Observable<any> {
 
 
-        const url = `${ environment.urlApi }/register`;
+        const url = `${ environment.urlApi }/centro/${this.centro}/register`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
         const body= {nombre, apellidos, dni, tlf, email, password, role:"TUTOR"}
@@ -118,13 +119,15 @@ export class AlumnoService {
      * @param idAlumno 
      * @returns 
      */
-    agregarTutorAlumno(email:string, idAlumno:number ):Observable<any>{
+    agregarTutorAlumno(id:number, idAlumno:number ):Observable<any>{
 
 
         const url = `${ environment.urlApi }/alumno/${idAlumno}`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
-        const body= {email}
+        const body= {id}
+        console.log(body);
+        
          return this.http.put<any>(url, body, {headers});
 
 
@@ -169,6 +172,21 @@ export class AlumnoService {
         }
         
     }
+
+
+    editarAlumno(alumno: AlumnoInterface) {
+        
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumno/${alumno.id}`;
+
+        const body= alumno;
+        console.log(body);
+        const headers = new HttpHeaders() .set('Authorization',
+    
+         `Bearer ${localStorage.getItem('token')}` );
+       
+         return this.http.put<AlumnoInterface>(url, body,{headers});
+
+      }
 
 
 }

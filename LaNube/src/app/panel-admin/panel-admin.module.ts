@@ -11,6 +11,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { VistaAlumnoComponent } from './vista-alumno/vista-alumno.component';
 import { FiltroAlumnoComponent } from './filtro-alumno/filtro-alumno.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
 
 
 
@@ -22,7 +23,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     ProfesorComponent,
     RegistroAlumnoComponent,
     VistaAlumnoComponent,
-    FiltroAlumnoComponent
+    FiltroAlumnoComponent,
+    EditarAlumnoComponent
   ],
   imports: [
     CommonModule,

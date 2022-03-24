@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlumnoService } from '../services/alumno.service';
 import { ValidatorAlumnoService } from '../services/validator.alumno.service';
 import Swal from 'sweetalert2';
@@ -9,10 +9,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-registro-alumno',
-  templateUrl: './registro-alumno.component.html',
-  styleUrls: ['./registro-alumno.component.css']
+  templateUrl: './editar-alumno.component.html',
+  styleUrls: ['./editar-alumno.component.css']
 })
-export class RegistroAlumnoComponent implements OnInit {
+export class EditarAlumnoComponent implements OnInit {
 
   private idAlumno!:number;
 
@@ -55,7 +55,7 @@ export class RegistroAlumnoComponent implements OnInit {
 
     })
 
-  constructor(private formBuilder:FormBuilder, private router:Router,  
+  constructor(private formBuilder:FormBuilder, private router:Router,  private activatedRoute:ActivatedRoute,
     private validatorAlumService: ValidatorAlumnoService,
     private jwt :JwtHelperService,
     private tutoresService:TutoresService,
@@ -64,6 +64,8 @@ export class RegistroAlumnoComponent implements OnInit {
   ngOnInit(): void {
     // this.formularioAlumno.reset({});
     this.listarAulas();
+    this.activatedRoute.snapshot.params.id
+    this.agregarTutorAlumno(0)
   }
 
 
