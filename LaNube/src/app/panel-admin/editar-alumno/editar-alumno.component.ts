@@ -24,7 +24,7 @@ export class EditarAlumnoComponent implements OnInit {
 
 
     formularioAlumno: FormGroup = this.formBuilder.group({
-      nombre: [ this.alumno.nombre , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
+      nombre: [  , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
       apellidos: [ , [ Validators.required, Validators.maxLength(100),Validators.pattern(this.validatorAlumService.nombrePattern)] ],
       dni: [ , [ Validators.pattern(this.validatorAlumService.dniPattern)] ],
       nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ], 
@@ -274,62 +274,66 @@ export class EditarAlumnoComponent implements OnInit {
 
    
   async submitForm(){
-    console.log(this.formularioAlumno.value);
     this.formularioAlumno.markAllAsTouched();
 
     if(this.formularioAlumno.valid){
 
-     let nombreAlumno = this.formularioAlumno.value.nombre;
-     let apellidoAlumno = this.formularioAlumno.value.apellidos;
-     let dniAlumno = this.formularioAlumno.value.dni;
-     let direccion = this.formularioAlumno.value.direccion;
-     
-     let fechaNacimiento = this.formularioAlumno.value.nacimiento;
-     const aula = {"id":parseInt(this.formularioAlumno.value.aula)};
-    //  let salida = this.formularioAlumno.value.horaSalida;
-     let comida = this.formularioAlumno.value.comida;
-     let horaEntrada = this.formularioAlumno.value.horaEntrada;
-     let horaSalida = this.formularioAlumno.value.horaSalida;
-     let observaciones = this.formularioAlumno.value.observaciones;
-     let comeEnCentro = this.formularioAlumno.value.comeEnCentro;
+      const alumnoModificado:AlumnoInterface={
 
-    let tutores= this.formularioAlumno.value.tutores;
+        nombre:          this.formularioAlumno.value.nombre,
+        apellidos:       this.formularioAlumno.value.apellidos,
+        id:              this.activatedRoute.snapshot.params["id"],
+        dni:             this.formularioAlumno.value.dni,
+        direccion:       this.formularioAlumno.value.direccion,
+        fechaNacimiento: this.formularioAlumno.value.nacimiento,
+        horaEntrada:     this.formularioAlumno.value.horaEntrada,
+        horaSalida:      this.formularioAlumno.value.horaSalida,
+        comida:          this.formularioAlumno.value.comida,
+        alta:            this.alumno.alta,
+        comeEnCentro:    this.formularioAlumno.value.comeEnCentro,
+        observaciones:   this.formularioAlumno.value.observaciones,
+        aula:           { "id":parseInt(this.formularioAlumno.value.aula)} };
 
 
-    this.crearAlumno(nombreAlumno, apellidoAlumno, dniAlumno,
-       fechaNacimiento, direccion, tutores, comida, horaEntrada, 
-       horaSalida, observaciones,aula, comeEnCentro );
+        
+        
+        
+        
+        let tutores= this.formularioAlumno.value.tutores;
+        
+        
+        this.editarAlumnoDatos(alumnoModificado);
+      }
 
 
     
      
 
     }
-  }
+  
   
 
-  crearAlumno(nombre:string, apellido:string, dni:string, fecha:Date, direccion:string,  tutores:any[],
-     comida:string, horaEntrada:string, horaSalida:string, observaciones:string, aula:any, comeEnCentro:boolean){
-
-
-    this.alumnoService.registrarAlumno(nombre, apellido, dni, fecha, 
-      direccion, comida, horaEntrada, horaSalida, observaciones, aula, comeEnCentro).subscribe({
-
-
-      next: resp=>{
-        tutores.forEach((tutor: { nombreTutor: string; apellidoTutor: string; dniTutor: string; tlfTutor: string; emailTutor: string; passwordTutor: string; }) => {
-          this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor, resp.id)
-        });
-        this.router.navigateByUrl('home/alumno');
-      },
-      error: error=>{
-
-
-      }
+  editarAlumnoDatos(alumno: AlumnoInterface){
 
 
 
-    })
+    console.log(alumno)
+
+    // this.alumnoService.editarAlumno(alumno).subscribe({
+
+
+    //   next: resp=>{
+    //     console.log(resp)
+
+    //   },
+    //   error: error=>{
+
+
+    //   }
+
+
+
+    // })
 
 
   }
@@ -350,6 +354,15 @@ export class EditarAlumnoComponent implements OnInit {
       },
       error: error=>{
 
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
 
       }
 
@@ -460,7 +473,41 @@ export class EditarAlumnoComponent implements OnInit {
       next:resp =>{
       
         this.alumno=resp;
-       
+        this.formularioAlumno.reset({
+
+
+          
+            nombre: resp.nombre ,
+            apellidos: resp.apellidos,
+            dni: resp.dni,
+            nacimiento:resp.fechaNacimiento , 
+            direccion: resp.direccion,
+            aula: resp.aula.id, 
+            comida: resp.comida,   
+            observaciones:resp.observaciones,
+            horaEntrada:resp.horaEntrada,
+            horaSalida:resp.horaSalida,
+            comeEnCentro:resp.comeEnCentro,
+            // tutoresExistentesArray1:,
+            // tutoresExistentesArray2:,
+            tutores: this.formBuilder.array([
+      
+      
+      
+              //AQUI SE CREAN NUEVOS GRUPOS DE FORMULARIOS
+      
+              // this.formBuilder.group({
+      
+              //   nombreTutor:[],
+              //   apellidoTutor:[],
+              //   dniTutor:[]
+      
+              // })
+            ])
+      
+
+
+        })
       },
       error:error=>{
 

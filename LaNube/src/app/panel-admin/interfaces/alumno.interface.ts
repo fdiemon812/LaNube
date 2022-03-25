@@ -13,5 +13,5 @@ export interface  AlumnoInterface{
     alta:          boolean;
     comeEnCentro:    boolean;
     observaciones:   string;
-    aula:           AulaInterface;
+    aula:           AulaInterface|any;
 }
