@@ -179,12 +179,24 @@ export class AlumnoService {
         const url = `${ environment.urlApi }/centro/${this.centro}/alumno/${alumno.id}`;
 
         const body= alumno;
-        console.log(body);
         const headers = new HttpHeaders() .set('Authorization',
     
          `Bearer ${localStorage.getItem('token')}` );
        
          return this.http.put<AlumnoInterface>(url, body,{headers});
+
+      }
+
+
+      getAlumno(idAlumno:number) {
+        
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumno/${idAlumno}`;
+
+        const headers = new HttpHeaders() .set('Authorization',
+    
+         `Bearer ${localStorage.getItem('token')}` );
+       
+         return this.http.get<AlumnoInterface>(url,{headers});
 
       }
 

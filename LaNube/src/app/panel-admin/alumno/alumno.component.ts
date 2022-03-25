@@ -242,7 +242,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
   editarAlumno(id:number):void{
 
-    this.router.navigate(['home/editar', { id: id }]);
+    this.router.navigate([`home/editar/${id}`]);
   }
 
 

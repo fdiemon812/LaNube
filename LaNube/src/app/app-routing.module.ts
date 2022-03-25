@@ -19,14 +19,14 @@ const routes: Routes = [
     {path: 'profesor',canActivate:[ValidarLogin], component:ProfesorComponent},
     {path: 'alumno',canActivate:[ValidarLogin],component:VistaAlumnoComponent},
     {path: 'registro', canActivate:[ValidarLogin, isAdmin], component: RegistroAlumnoComponent },
-    {path: 'editar', canActivate:[ValidarLogin, isAdmin], component: EditarAlumnoComponent },
+    {path: 'editar/:id', canActivate:[ValidarLogin, isAdmin], component: EditarAlumnoComponent },
 
 
 
   ]}
-  // ,{
-    // path: '**',redirectTo:'login'
-  // }
+  ,{
+    path: '**',redirectTo:'login'
+  }
 
 
 

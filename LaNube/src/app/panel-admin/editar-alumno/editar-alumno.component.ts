@@ -6,6 +6,7 @@ import { ValidatorAlumnoService } from '../services/validator.alumno.service';
 import Swal from 'sweetalert2';
 import { TutoresService } from '../services/tutores.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AlumnoInterface } from '../interfaces/alumno.interface';
 
 @Component({
   selector: 'app-registro-alumno',
@@ -14,7 +15,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class EditarAlumnoComponent implements OnInit {
 
-  private idAlumno!:number;
+   alumno!:AlumnoInterface;
 
    tutoresExistentes:number = 0;
    tutoresExistentesArray:any[]=[];
@@ -23,7 +24,7 @@ export class EditarAlumnoComponent implements OnInit {
 
 
     formularioAlumno: FormGroup = this.formBuilder.group({
-      nombre: [ , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
+      nombre: [ this.alumno.nombre , [ Validators.required, Validators.maxLength(100), Validators.pattern(this.validatorAlumService.nombrePattern)]   ],
       apellidos: [ , [ Validators.required, Validators.maxLength(100),Validators.pattern(this.validatorAlumService.nombrePattern)] ],
       dni: [ , [ Validators.pattern(this.validatorAlumService.dniPattern)] ],
       nacimiento: [ , [ Validators.required,this.validatorAlumService.fechaValida]  ], 
@@ -62,10 +63,10 @@ export class EditarAlumnoComponent implements OnInit {
     private alumnoService:AlumnoService) { }
 
   ngOnInit(): void {
-    // this.formularioAlumno.reset({});
     this.listarAulas();
-    this.activatedRoute.snapshot.params.id
-    this.agregarTutorAlumno(0)
+    this.getAlumno( );
+
+
   }
 
 
@@ -448,6 +449,33 @@ export class EditarAlumnoComponent implements OnInit {
       this.listarTutores();
     
     
+  }
+
+
+  getAlumno(){
+
+
+    this.alumnoService.getAlumno(this.activatedRoute.snapshot.params['id']).subscribe({
+
+      next:resp =>{
+      
+        this.alumno=resp;
+       
+      },
+      error:error=>{
+
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    })
+
   }
 
 
