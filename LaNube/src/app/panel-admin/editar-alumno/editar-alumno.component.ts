@@ -472,6 +472,7 @@ export class EditarAlumnoComponent implements OnInit {
 
       next:resp =>{
       
+        console.log(resp)
         this.alumno=resp;
         this.formularioAlumno.reset({
 

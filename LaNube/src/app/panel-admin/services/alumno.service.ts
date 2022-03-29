@@ -126,7 +126,6 @@ export class AlumnoService {
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
         const body= {id}
-        console.log(body);
         
          return this.http.put<any>(url, body, {headers});
 

@@ -271,7 +271,6 @@ export class RegistroAlumnoComponent implements OnInit {
 
    
   async submitForm(){
-    console.log(this.formularioAlumno.value);
     this.formularioAlumno.markAllAsTouched();
 
     if(this.formularioAlumno.valid){
@@ -314,6 +313,20 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
       next: resp=>{
+
+       if(this.tutoresExistentes==1 && this.formularioAlumno.value.tutoresExistentesArray1!=0){
+
+        this.agregarTutorAlumno(this.formularioAlumno.value.tutoresExistentesArray1, resp.id);
+        
+       }else if(this.tutoresExistentes==2 && this.formularioAlumno.value.tutoresExistentesArray2!=0 && this.formularioAlumno.value.tutoresExistentesArray1!=0){
+
+        this.agregarTutorAlumno(this.formularioAlumno.value.tutoresExistentesArray1, resp.id);
+        this.agregarTutorAlumno(this.formularioAlumno.value.tutoresExistentesArray2, resp.id);
+
+       }
+
+
+
         tutores.forEach((tutor: { nombreTutor: string; apellidoTutor: string; dniTutor: string; tlfTutor: string; emailTutor: string; passwordTutor: string; }) => {
           this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor, resp.id)
         });

@@ -93,6 +93,8 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     return this.alumnoService.listarAlumnos().subscribe({
 
       next:resp =>{
+        console.log(resp);
+
         this.alumnos=resp;
         if(!this.isCargado){
           this.dtTrigger.next(this.dtOptions);
@@ -113,6 +115,8 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
         
       },
       error: error =>{
+
+        console.log(error);
 
         Swal.fire({
           position: 'center',
@@ -143,6 +147,8 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
         });        
       },
       error: error =>{
+        console.log(error);
+
         Swal.fire({
           position: 'center',
           icon: 'warning',
