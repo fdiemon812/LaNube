@@ -93,7 +93,6 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     return this.alumnoService.listarAlumnos().subscribe({
 
       next:resp =>{
-        console.log(resp);
 
         this.alumnos=resp;
         if(!this.isCargado){

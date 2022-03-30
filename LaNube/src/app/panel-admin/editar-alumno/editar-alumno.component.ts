@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { TutoresService } from '../services/tutores.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AlumnoInterface } from '../interfaces/alumno.interface';
+import { TutorInterface } from '../interfaces/tutor.interface';
 
 @Component({
   selector: 'app-registro-alumno',
@@ -19,6 +20,7 @@ export class EditarAlumnoComponent implements OnInit {
 
    tutoresExistentes:number = 0;
    tutoresExistentesArray:any[]=[];
+   tutoresAlumno:number[]=[0,0];
   
    aulas!:any[];
 
@@ -63,8 +65,9 @@ export class EditarAlumnoComponent implements OnInit {
     private alumnoService:AlumnoService) { }
 
   ngOnInit(): void {
+    this.listarTutores()
     this.listarAulas();
-    this.getAlumno( );
+    this.getAlumno();
 
 
   }
@@ -437,6 +440,7 @@ export class EditarAlumnoComponent implements OnInit {
       
         
         this.tutoresExistentesArray=resp;
+        console.log(this.tutoresExistentesArray)
       },
       error:error=>{
 
@@ -472,43 +476,11 @@ export class EditarAlumnoComponent implements OnInit {
 
       next:resp =>{
       
-        console.log(resp)
         this.alumno=resp;
-        this.formularioAlumno.reset({
 
-
-          
-            nombre: resp.nombre ,
-            apellidos: resp.apellidos,
-            dni: resp.dni,
-            nacimiento:resp.fechaNacimiento , 
-            direccion: resp.direccion,
-            aula: resp.aula.id, 
-            comida: resp.comida,   
-            observaciones:resp.observaciones,
-            horaEntrada:resp.horaEntrada,
-            horaSalida:resp.horaSalida,
-            comeEnCentro:resp.comeEnCentro,
-            // tutoresExistentesArray1:,
-            // tutoresExistentesArray2:,
-            tutores: this.formBuilder.array([
-      
-      
-      
-              //AQUI SE CREAN NUEVOS GRUPOS DE FORMULARIOS
-      
-              // this.formBuilder.group({
-      
-              //   nombreTutor:[],
-              //   apellidoTutor:[],
-              //   dniTutor:[]
-      
-              // })
-            ])
-      
-
-
-        })
+        this.getTutores();
+       
+        
       },
       error:error=>{
 
@@ -526,6 +498,67 @@ export class EditarAlumnoComponent implements OnInit {
 
   }
 
+
+
+  getTutores(){
+    this.tutoresService.listarTutoresAlumno(this.activatedRoute.snapshot.params['id']).subscribe({
+
+
+      next:resp =>{
+       
+
+        if(resp.length==2){
+
+          this.tutoresAlumno=[resp[0].id, resp[1].id];
+        }else if(resp.length==1){
+          this.tutoresAlumno=[resp[0].id, 0];
+
+        }
+        this.tutoresExistentes=resp.length;
+        
+        console.log(this.tutoresAlumno);
+        
+        console.log(this.tutoresAlumno[0])
+        this.formularioAlumno.reset({
+
+
+          
+          nombre: this.alumno.nombre ,
+          apellidos: this.alumno.apellidos,
+          dni: this.alumno.dni,
+          nacimiento:this.alumno.fechaNacimiento , 
+          direccion: this.alumno.direccion,
+          aula: this.alumno.aula.id, 
+          comida: this.alumno.comida,   
+          observaciones:this.alumno.observaciones,
+          horaEntrada:this.alumno.horaEntrada,
+          horaSalida:this.alumno.horaSalida,
+          comeEnCentro:this.alumno.comeEnCentro,
+          tutoresExistentesArray1: this.tutoresAlumno[0],
+          tutoresExistentesArray2:this.tutoresAlumno[1],
+          tutores: this.formBuilder.array([
+    
+          ])
+    
+
+
+      })
+
+
+      },
+
+
+
+      error:err=>{ Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })}
+    })
+  }
 
   
 

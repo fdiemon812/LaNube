@@ -113,7 +113,6 @@
                 <div *ngIf="tutoresExistentes>=1" class="col-12">
                     <p>Tutor1: </p>
                     <select   class="form-select" formControlName="tutoresExistentesArray1" aria-label="Aula">
-                        <option value="0"  >Selecciona Tutor</option>
                         <option *ngFor="let tutor of tutoresExistentesArray; let i=index"  value="{{tutor.id}}">{{tutor.apellidos}}, {{tutor.nombre}}</option>
                     
                       </select>      
@@ -122,7 +121,6 @@
                 <div *ngIf="tutoresExistentes>=2" class="col-12 mt-3">
                     <p>Tutor2: </p>
                     <select  class="form-select" formControlName="tutoresExistentesArray2" aria-label="Aula">
-                        <option value="0"  >Selecciona Tutor</option>
                         <option *ngFor="let tutor of tutoresExistentesArray; let i=index"  value="{{tutor.id}}">{{tutor.apellidos}}, {{tutor.nombre}}</option>
                       </select>    
                 </div>

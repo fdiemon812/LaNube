@@ -6,4 +6,5 @@ export interface TutorInterface {
     tlf:       string;
     role:      string;
     password:  string;
+    id: number;
 }
