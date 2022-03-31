@@ -52,4 +52,23 @@ export class TutoresService {
 
     }
 
+
+   actualizarTutoresAlumno(idAlumno:number, body: { id: any; }[] | {}[] ){
+        
+        let centro=this.alumnoService.centro;
+
+        const url = `${ environment.urlApi }/centro/${centro}/alumno/${idAlumno}`;
+
+     
+        console.log("lanzando peticion");
+        
+
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+
+
+        return this.http.patch<TutorInterface[]>(url, body, {headers});
+
+    }
+
 }

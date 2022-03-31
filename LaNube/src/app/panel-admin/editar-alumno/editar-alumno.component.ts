@@ -18,6 +18,8 @@ export class EditarAlumnoComponent implements OnInit {
 
    alumno!:AlumnoInterface;
 
+   
+   tutoresExistentesTotales: number=0;
    tutoresExistentes:number = 0;
    tutoresExistentesArray:any[]=[];
    tutoresAlumno:number[]=[0,0];
@@ -69,7 +71,7 @@ export class EditarAlumnoComponent implements OnInit {
     this.listarAulas();
     this.getAlumno();
 
-
+  
   }
 
 
@@ -95,11 +97,21 @@ export class EditarAlumnoComponent implements OnInit {
   agregarTutor() {
 
 
+    console.log("agregando nuevo TOTAL"+this.tutoresExistentesTotales);
+    console.log("agregando nuevo"+this.tutoresExistentes);
+
+    if(this.tutoresExistentesTotales<2){
+      this.tutoresExistentesTotales++;
+
     let tutorArray= this.formularioAlumno.get('tutores') as FormArray;
   
     tutorArray.push(this.crearTutor());
-  
 
+
+
+    }
+    console.log("agregando nuevo TOTAL"+this.tutoresExistentesTotales);
+    console.log("agregando nuevo"+this.tutoresExistentes);
   }
 
 
@@ -318,25 +330,38 @@ export class EditarAlumnoComponent implements OnInit {
 
   editarAlumnoDatos(alumno: AlumnoInterface){
 
+    console.log("hola!!");
+    
+    
+    this.alumnoService.editarAlumno(alumno).subscribe({
+      
+      
+      next: resp=>{
+       this.modificarTutorAlumno()
+        
+       
+       this.formularioAlumno.value.tutores.forEach((tutor: { nombreTutor: string; apellidoTutor: string; dniTutor: string; tlfTutor: string; emailTutor: string; passwordTutor: string; }) => {
+        this.registrarTutor(tutor.nombreTutor, tutor.apellidoTutor, tutor.dniTutor, tutor.tlfTutor, tutor.emailTutor, tutor.passwordTutor, resp.id)
+      });
+      this.router.navigateByUrl('home/alumno');
+    
+
+       },
+       error: error=>{
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
+
+       }
 
 
-    console.log(alumno)
 
-    // this.alumnoService.editarAlumno(alumno).subscribe({
-
-
-    //   next: resp=>{
-    //     console.log(resp)
-
-    //   },
-    //   error: error=>{
-
-
-    //   }
-
-
-
-    // })
+     })
 
 
   }
@@ -381,6 +406,7 @@ export class EditarAlumnoComponent implements OnInit {
 
         if(resp.jwt_token!= null){
           
+          //id del tutor
          let id= this.jwt.decodeToken(resp.jwt_token!).id;
       
          this.agregarTutorAlumno(id, idAlumno);
@@ -438,9 +464,13 @@ export class EditarAlumnoComponent implements OnInit {
 
       next:resp =>{
       
-        
+        console.log("listado de tutores grander TOTALES"+this.tutoresExistentesTotales);
+        console.log("listado de tutores grander"+this.tutoresExistentes);
         this.tutoresExistentesArray=resp;
-        console.log(this.tutoresExistentesArray)
+       
+
+        console.log("listado de tutores grander TOTALES"+this.tutoresExistentesTotales);
+        console.log("listado de tutores grander"+this.tutoresExistentes);
       },
       error:error=>{
 
@@ -460,11 +490,15 @@ export class EditarAlumnoComponent implements OnInit {
 
   elegirTutor():void{
     
-  
+   
+
+    if(this.tutoresExistentesTotales<2 && this.tutoresExistentes<2){
 
       this.tutoresExistentes=this.tutoresExistentes+1;
-      this.listarTutores();
-    
+      this.tutoresExistentesTotales++;
+      // this.listarTutores();
+      
+    }
     
   }
 
@@ -515,10 +549,9 @@ export class EditarAlumnoComponent implements OnInit {
 
         }
         this.tutoresExistentes=resp.length;
-        
-        console.log(this.tutoresAlumno);
-        
-        console.log(this.tutoresAlumno[0])
+        this.tutoresExistentesTotales=resp.length;
+
+      
         this.formularioAlumno.reset({
 
 
@@ -561,6 +594,91 @@ export class EditarAlumnoComponent implements OnInit {
   }
 
   
+      modificarTutorAlumno(){
 
+
+    
+
+        if(this.tutoresExistentes>=0){
+
+          let body;
+          if(this.tutoresExistentes==2){
+
+          
+          body=[
+
+            {
+              "id":this.formularioAlumno.value.tutoresExistentesArray1
+            },
+            {
+              "id":this.formularioAlumno.value.tutoresExistentesArray2
+            }
+  
+          ]  
+
+
+            }else if(this.tutoresExistentes==1){
+             body=[
+
+              {
+                "id":this.formularioAlumno.value.tutoresExistentesArray1
+              }
+    
+            ]  
+          }else{
+
+            body=[{}]
+          }
+         
+          console.log("LANZANDO");
+          
+          this.tutoresService.actualizarTutoresAlumno(this.alumno.id, body).subscribe({
+
+            next: resp=>{
+              
+              console.log(resp)
+            },
+            error: err =>{
+
+              console.log(err)
+
+
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Ups... Algo va mal',
+                text: 'Intentalo más tarde',
+                showConfirmButton: false,
+                timer: 2000
+              })
+            }
+          })
+
+
+
+        }
+      }
+
+
+
+      quitarTutor(){
+
+      
+        
+        
+        if(this.tutoresExistentesTotales>0 && this.tutoresExistentes>0 ){
+          
+          this.tutoresExistentes--;
+          this.tutoresExistentesTotales--;
+        
+
+      
+
+        }
+        
+
+        
+
+      }
 
 }

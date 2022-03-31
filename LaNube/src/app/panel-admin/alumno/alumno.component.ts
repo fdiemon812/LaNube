@@ -19,7 +19,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   @Input()  idAulaInput:number=0;
 
    alumnos:AlumnoInterface[]=[];
-  
+    tutoresExistentes!:number;
    isCargado:boolean=false;
    dtOptions: DataTables.Settings ={};
    dtTrigger: Subject<any> = new Subject<any>();

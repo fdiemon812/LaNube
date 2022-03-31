@@ -17,6 +17,7 @@ export class RegistroAlumnoComponent implements OnInit {
   private idAlumno!:number;
 
    tutoresExistentes:number = 0;
+   tutoresExistentesTotales:number =0;
    tutoresExistentesArray:any[]=[];
   
    aulas!:any[];
@@ -88,10 +89,15 @@ export class RegistroAlumnoComponent implements OnInit {
 
   agregarTutor() {
 
+    
 
-    let tutorArray= this.formularioAlumno.get('tutores') as FormArray;
-  
-    tutorArray.push(this.crearTutor());
+    if(this.tutoresExistentesTotales<2){
+      this.tutoresExistentesTotales++;
+      
+      let tutorArray= this.formularioAlumno.get('tutores') as FormArray;
+    
+      tutorArray.push(this.crearTutor());
+    }
   
 
   }
@@ -454,9 +460,12 @@ export class RegistroAlumnoComponent implements OnInit {
   elegirTutor():void{
     
   
+      if(this.tutoresExistentesTotales<2){
 
-      this.tutoresExistentes=this.tutoresExistentes+1;
-      this.listarTutores();
+        this.tutoresExistentes=this.tutoresExistentes+1;
+        this.tutoresExistentesTotales=this.tutoresExistentesTotales+1;
+        this.listarTutores();
+      }
     
     
   }
