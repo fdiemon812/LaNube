@@ -27,7 +27,6 @@ import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
     EditarAlumnoComponent
   ],
   imports: [
-    CommonModule,
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule,
@@ -35,6 +34,11 @@ import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
     CommonModule,
     DataTablesModule
     
-  ],exports:[],
+  ],exports:[ 
+
+
+    FiltroAlumnoComponent
+
+  ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],})
 export class PanelAdminModule { }
