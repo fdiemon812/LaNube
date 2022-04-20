@@ -1,15 +1,20 @@
+
+
+
 <div class="d-flex">
 
-<div>
-  <app-filtro-alumno (aulaEvento)="procesaAula($event)" ></app-filtro-alumno>
+  <div>
+    <app-filtro-alumno (aulaEvento)="procesaAula($event)" ></app-filtro-alumno>
+
+  </div>
+  <div>
+
+    <app-fecha (fechaEvento)="procesaFecha($event)"></app-fecha>
+  </div>
 
 </div>
-<div>
 
-  <app-fecha (fechaEvento)="procesaFecha($event)"></app-fecha>
-</div>
-
-</div>
+<form action="">
 
 
 
@@ -47,7 +52,7 @@
         <hr></div>
 
 
-  <div class="row " *ngFor="let alumno of alumnos">
+  <div class="row" name="fila" *ngFor="let alumno of alumnos;let i=index">
 
     
   
@@ -57,24 +62,28 @@
     <div class="d-flex">
 
       
-      <div class="nombre">{{alumno.apellidos}}, {{alumno.nombre}}</div>
+      <div  class="nombre">{{alumno.apellidos}}, {{alumno.nombre}}</div>
      
 
+
+  
       <div class="me-5">
 
-        <input type="time" id="entrada">
+        <input type="time" [id]="alumno.id+'entrada'">
       </div>
 
       <div class="me-5">
 
-        <input type="time" id="salida">
+        <input type="time" [id]="alumno.id+'salida'">
       </div>
      
       <div class="me-5">
 
-        <button (click)="cambiarAsistencia(alumno)" *ngIf="alumno.alta"  type="button" class="btn btn-success">Sí</button>
-        <button (click)="cambiarAsistencia(alumno)" *ngIf="!alumno.alta" type="button" class="btn btn-danger">No</button>
-        
+        <!-- <button (click)="cambiarAsistencia(alumno)" *ngIf="alumno.alta"  type="button" class="btn btn-success">Sí</button>
+        <button (click)="cambiarAsistencia(alumno)" *ngIf="!alumno.alta"  type="button" class="btn btn-danger">No</button> -->
+
+        <input type="checkbox" class="" [id]="alumno.id+'asistencia'">
+        <!-- <label class="btn btn-danger" [for]="alumno.id">Checked</label><br> -->
       </div>
         
     </div>
@@ -88,5 +97,10 @@
 
 
 </div>
+<div class="text-center">
 
+  <button (click)="submit()"  type="button" class="btn btn-primary">Guardar</button> 
+</div>
+
+</form>
 

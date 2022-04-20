@@ -21,7 +21,7 @@ export class FechaComponent implements OnInit {
 
   cambiarFecha(){
     
-
+    
     this.fechaEvento.emit(this.fecha);    
   }
 

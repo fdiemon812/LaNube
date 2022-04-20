@@ -254,7 +254,40 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
 
+
+  confirmarCambioEstado(alumno:AlumnoInterface){
+
+    let texto="Vas a dar de ALTA";
+    let mensajeBoton="Dar de ALTA"
+    if(alumno.alta){
+      texto="Vas a dar de BAJA"
+      mensajeBoton="Dar de BAJA"
+    }
+
+
+    Swal.fire({
+      title: '¿Lo tienes claro?',
+      text: texto,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: mensajeBoton
+    }).then((result) => {
+      if (result.isConfirmed) {
+  
+        this.cambiarEstado(alumno);
+       
+      }
+    })
+  }
+
+
+
   cambiarEstado(alumno:AlumnoInterface){
+
+
+
 
 
     if(alumno.alta){
@@ -269,7 +302,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
       next:resp =>{
         
-        // this.ngOnChanges();
+
       },
       error: error =>{
 

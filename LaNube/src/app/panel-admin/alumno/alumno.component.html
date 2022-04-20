@@ -52,8 +52,8 @@
                 <td scope="col"><i *ngIf="!alumno.comeEnCentro" class="bi bi-x"></i><i *ngIf="alumno.comeEnCentro" class="bi bi-check-lg"></i></td>
                 <td scope="col">
                   
-                  <button (click)="cambiarEstado(alumno)" *ngIf="alumno.alta"  type="button" class="btn btn-success">Alta</button>
-                  <button (click)="cambiarEstado(alumno)" *ngIf="!alumno.alta" type="button" class="btn btn-danger">Baja</button>
+                  <button (click)="confirmarCambioEstado(alumno)" *ngIf="alumno.alta"  type="button" class="btn btn-success">Alta</button>
+                  <button (click)="confirmarCambioEstado(alumno)" *ngIf="!alumno.alta" type="button" class="btn btn-danger">Baja</button>
                  
                 
                 </td>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AlumnoService } from '../../panel-admin/services/alumno.service';
 import { AlumnoInterface } from '../../panel-admin/interfaces/alumno.interface';
+import { AsistenciaService } from '../../panel-admin/services/asistencia.service';
 
 @Component({
   selector: 'app-entrada',
@@ -11,18 +12,24 @@ import { AlumnoInterface } from '../../panel-admin/interfaces/alumno.interface';
 export class EntradaComponent implements OnInit {
 
   idAulaInput:number=0;
-  fecha!:string;
+  fecha:Date=new Date();
   alumnos!:AlumnoInterface[];
 
   
-  constructor(private alumnoService:AlumnoService) { }
+  constructor(private alumnoService:AlumnoService, private estadoAlumno: AsistenciaService) { }
   
   ngOnInit(): void {
+    
+    
+   
+    
   this.ngOnChanges();
   }
 
 
   ngOnChanges(){
+
+
     if( this.idAulaInput!=0){
       
       this.listarAlumnosAula();     
@@ -32,6 +39,9 @@ export class EntradaComponent implements OnInit {
       this.listarAlumnos();
     }
 
+
+    
+
 }
   
   
@@ -40,13 +50,25 @@ export class EntradaComponent implements OnInit {
   procesaAula(idAula:any){
     
     this.idAulaInput=idAula;
-    
+    this.ngOnChanges();
   }
 
   procesaFecha(fecha:any){
     
-    this.fecha=fecha;
     
+    
+    let year =fecha.substring(0,4)
+    let mes = fecha.substring(5,7)
+    let dia = fecha.substring(8,10)
+   
+    
+    
+    
+    this.fecha=new Date(year+"/"+mes+"/"+dia);
+
+    
+    this.ngOnChanges();
+
   }
   
   
@@ -58,7 +80,6 @@ export class EntradaComponent implements OnInit {
       next:resp =>{
        
         this.alumnos=resp;
-        console.log(resp);
 
       },
       error: error =>{
@@ -84,12 +105,23 @@ export class EntradaComponent implements OnInit {
       next:resp =>{
 
         this.alumnos=resp;
-        console.log(resp);
+
+
+        this.alumnos.forEach(alumno => {
+      
+          
+          let mes:number =  this.fecha.getMonth()+1;
+          
+
+          this.getEstadoAlumno(this.fecha.getDate(), mes, this.fecha.getFullYear(), alumno.id)
+          
+          
+    
+        });
 
       },
       error: error =>{
 
-        console.log(error);
 
         Swal.fire({
           position: 'center',
@@ -108,4 +140,72 @@ export class EntradaComponent implements OnInit {
 
 
   cambiarAsistencia(alumno:AlumnoInterface){}
+
+
+  
+
+  getEstadoAlumno(dia:number, mes:number, year:number, idAlumno:number){
+
+
+    this.estadoAlumno.listarAsistenciaAlumno(dia, mes, year, idAlumno).subscribe({
+
+      next:estado =>{
+       
+       
+
+       let idAlumno = estado.idAlumno;
+       let asistencia = estado.asistencia;
+
+       if(asistencia){
+
+         document.getElementById(idAlumno+"asistencia")?.setAttribute("checked", "true");
+       }
+
+        document.getElementById(idAlumno+"entrada")?.setAttribute("value", estado.horaEntrada)
+        document.getElementById(idAlumno+"salida")?.setAttribute("value", estado.horaSalida)
+        
+        
+       
+
+
+      },
+      error: error =>{
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+
+    })
+
+
+    
+
+
+  }
+
+
+  submit(){
+
+    let pos=0;
+    document.getElementsByName("fila").forEach(estado => {
+      
+     let horaEntrada = document.getElementsByName("fila")[pos].getElementsByTagName("input")[0].value
+     let horaSalida = document.getElementsByName("fila")[pos].getElementsByTagName("input")[1].value
+    //  let asistencia = document.getElementsByName("fila")[pos].getElementsByTagName("input")[0].value
+     
+       
+      pos++;
+
+    });
+
+    
+  }
+
+
 }
