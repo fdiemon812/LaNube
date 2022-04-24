@@ -97,8 +97,7 @@ export class EditarAlumnoComponent implements OnInit {
   agregarTutor() {
 
 
-    console.log("agregando nuevo TOTAL"+this.tutoresExistentesTotales);
-    console.log("agregando nuevo"+this.tutoresExistentes);
+ 
 
     if(this.tutoresExistentesTotales<2){
       this.tutoresExistentesTotales++;
@@ -110,8 +109,7 @@ export class EditarAlumnoComponent implements OnInit {
 
 
     }
-    console.log("agregando nuevo TOTAL"+this.tutoresExistentesTotales);
-    console.log("agregando nuevo"+this.tutoresExistentes);
+   
   }
 
 
@@ -330,7 +328,6 @@ export class EditarAlumnoComponent implements OnInit {
 
   editarAlumnoDatos(alumno: AlumnoInterface){
 
-    console.log("hola!!");
     
     
     this.alumnoService.editarAlumno(alumno).subscribe({
@@ -464,13 +461,10 @@ export class EditarAlumnoComponent implements OnInit {
 
       next:resp =>{
       
-        console.log("listado de tutores grander TOTALES"+this.tutoresExistentesTotales);
-        console.log("listado de tutores grander"+this.tutoresExistentes);
+      
         this.tutoresExistentesArray=resp;
        
 
-        console.log("listado de tutores grander TOTALES"+this.tutoresExistentesTotales);
-        console.log("listado de tutores grander"+this.tutoresExistentes);
       },
       error:error=>{
 
@@ -630,17 +624,14 @@ export class EditarAlumnoComponent implements OnInit {
             body=[{}]
           }
          
-          console.log("LANZANDO");
           
           this.tutoresService.actualizarTutoresAlumno(this.alumno.id, body).subscribe({
 
             next: resp=>{
               
-              console.log(resp)
             },
             error: err =>{
 
-              console.log(err)
 
 
               Swal.fire({

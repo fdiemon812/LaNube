@@ -60,7 +60,6 @@ export class TutoresService {
         const url = `${ environment.urlApi }/centro/${centro}/alumno/${idAlumno}`;
 
      
-        console.log("lanzando peticion");
         
 
         const headers = new HttpHeaders() .set('Authorization',
