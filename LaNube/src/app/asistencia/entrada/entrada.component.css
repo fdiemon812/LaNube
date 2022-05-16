@@ -10,3 +10,12 @@
 
     width: 50%;
 }
+
+input{
+    width: 75px;
+    
+}
+
+.datetime-reset-button{
+    display: none !important;
+}

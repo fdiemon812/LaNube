@@ -1,13 +1,13 @@
 
 
 
-<div class="d-flex">
+<div class="d-sm-flex">
 
-  <div>
+  <div >
     <app-filtro-alumno (aulaEvento)="procesaAula($event)" ></app-filtro-alumno>
 
   </div>
-  <div>
+  <div >
 
     <app-fecha (fechaEvento)="procesaFecha($event)"></app-fecha>
   </div>
@@ -23,10 +23,11 @@
 
 
 
-    <div class="row"> <div class="d-flex">
+    <div class="row d-none d-sm-none d-md-block">
+       <div class="d-flex">
 
       
-      <div class=""> <strong>Apellidos, Nombre</strong>
+      <div class="" style="width: 50%;"> <strong>Apellidos, Nombre</strong>
          </div>
      
 
@@ -52,38 +53,35 @@
         <hr></div>
 
 
-  <div class="row" name="fila" *ngFor="let alumno of alumnos;let i=index">
+  <div class="row " name="fila" *ngFor="let alumno of alumnos;let i=index">
 
     
   
     
    
 
-    <div class="d-flex">
+    <div class="d-md-flex d-sm-block">
 
       
-      <div [id]="alumno.id" class="nombre">{{alumno.apellidos}}, {{alumno.nombre}}</div>
-     
+      <div  [id]="alumno.id" class="nombre d-none d-sm-none d-md-block">{{alumno.apellidos}}, {{alumno.nombre}}</div>
+
+      <div class=" col-sm-12 d-block d-sm-block d-md-none text-center " ><strong>{{alumno.apellidos}}, {{alumno.nombre}}</strong></div>
+
 
 
   
-      <div class="me-5">
-
+      <div class="me-5 text-center">
+        <label style="width: 70px;"  class="me-2  d-md-none" for="alumno.id+'entrada'"><strong>Entrada</strong></label>
         <input type="time" [id]="alumno.id+'entrada'">
       </div>
 
-      <div class="me-5">
+      <div class="me-5 text-center">
+        <label style="width: 70px;"  class="me-2  d-md-none" for="alumno.id+'salida'"><strong>Salida</strong></label>
 
         <input type="time" [id]="alumno.id+'salida'">
       </div>
      
-      <div class="me-5">
-
-        <!-- <button (click)="cambiarAsistencia(alumno)" *ngIf="alumno.alta"  type="button" class="btn btn-success">Sí</button>
-        <button (click)="cambiarAsistencia(alumno)" *ngIf="!alumno.alta"  type="button" class="btn btn-danger">No</button> -->
-
-        <input type="checkbox" class="" [id]="alumno.id+'asistencia'">
-        <!-- <label class="btn btn-danger" [for]="alumno.id">Checked</label><br> -->
+      <div class="me-5 ms-3 text-center" [id]="alumno.id+'asistencia'">
       </div>
         
     </div>
@@ -97,9 +95,12 @@
 
 
 </div>
+
+
+
 <div class="text-center">
 
-  <button (click)="submit()"  type="button" class="btn btn-primary">Guardar</button> 
+  <button (click)="comprobarAsistencia()"  type="button" class="btn btn-primary">Guardar</button> 
 </div>
 
 </form>

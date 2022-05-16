@@ -1,8 +1,8 @@
 <div class="container-fluid">
-    <div class="row d-flex">
+    <div class="row d-sm-flex">
        
-        <div class="offset-1 p-0  text-start d-flex mt-2" >
-            <label class="d-flex mt-2" for="aula">Aula</label>
+        <div class="offset-1 p-0  text-start d-sm-flex mt-2" >
+            <label class="d-sm-flex mt-2 ms-2" for="aula">Aula</label>
             <select [(ngModel)]="idAula" (change)="cambiarAula()" class="ms-2 form-select d-flex" name="aula" id="aula" style="width:200px;" >
                 <option value="0" selected >Todos</option>
                 <option value="{{aula.id}}"  *ngFor="let aula of aulas; let i =index" [selected]="aula.nombre=='Sin aula'">{{aula.nombre}}</option>

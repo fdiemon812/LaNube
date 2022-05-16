@@ -153,16 +153,25 @@ export class EntradaComponent implements OnInit {
 
     this.estadoAlumno.listarAsistenciaAlumno(dia, mes, year, idAlumno).subscribe({
 
+      
       next:estado =>{
-       
+
        
 
        let idAlumno = estado.idAlumno;
        let asistencia = estado.asistencia;
 
+
        if(asistencia){
 
-         document.getElementById(idAlumno+"asistencia")?.setAttribute("checked", "true");
+        //  document.getElementById(idAlumno+"asistencia")?.setAttribute("checked", "true");
+        document.getElementById(idAlumno+"asistencia")!.innerHTML='<i class="bi bi-check2-circle"  style="color: green;"></i>'
+        
+
+       }else{
+        // document.getElementById(idAlumno+"asistencia")?.removeAttribute("checked");
+        document.getElementById(idAlumno+"asistencia")!.innerHTML='<i class="bi bi-x-lg"  style="color: red;"></i>'
+
        }
 
         document.getElementById(idAlumno+"entrada")?.setAttribute("value", estado.horaEntrada)
@@ -196,9 +205,10 @@ export class EntradaComponent implements OnInit {
 
   submit(){
 
-    let pos=0;
-    let isSalidaNula:boolean=true;
 
+
+    let pos=0;
+    let alumnosConMaxHoras=0;
 
     while(document.getElementsByName("fila").length>pos){
 
@@ -207,33 +217,13 @@ export class EntradaComponent implements OnInit {
       
      let horaEntrada = document.getElementsByName("fila")[pos].getElementsByTagName("input")[0].value
      let horaSalida = document.getElementsByName("fila")[pos].getElementsByTagName("input")[1].value
-     let asistencia = document.getElementsByName("fila")[pos].getElementsByTagName("input")[2].checked
+    //  let asistencia = document.getElementsByName("fila")[pos].getElementsByTagName("input")[2].checked
      let idAlumno = parseInt(document.getElementsByClassName("nombre")[pos].id)
      let nombreAlumno=  document.getElementsByClassName("nombre")[pos].innerHTML
      let mes:number =  this.fecha.getMonth()+1;
       
      
-      // if(horaEntrada.length==5 && horaSalida.length!=5){
-
-      //   Swal.fire({
-      //     position: 'center',
-      //     icon: 'warning',
-      //     title: '¡Hay alumnos sin salida!',
-      //     text: `${nombreAlumno} - ¿Quieres continuar? `,
-      //     showConfirmButton: true,
-      //     showDenyButton: true,
-      //     confirmButtonText: 'Guardar',
-      //     confirmButtonColor: '#476eff',
-      //   }).then((result) => {
-      //     if (result.isConfirmed) {
-      //       Swal.fire('Guardado', '', 'success')
-      //     } else if (result.isDenied) {
-      //       Swal.fire('No se ha guardado', '', 'info')
-      //     }
-      //   })
-
-      // }
-      
+     
 
       const estado2:EstadoAlumnoInterface ={
         id: 0,
@@ -246,28 +236,47 @@ export class EntradaComponent implements OnInit {
         eat3: '',
         horaEntrada: horaEntrada,
         horaSalida: horaSalida,
-        asistencia: asistencia,
+        asistencia: true,
         fecha: this.fecha
       }
-      this.estadoAlumno.updateAsistenciaAlumnos(estado2, this.fecha.getDate(), mes, this.fecha.getFullYear()).subscribe({ next:resp =>{
+      this.estadoAlumno.updateAsistenciaAlumnos(estado2, this.fecha.getDate(), mes, this.fecha.getFullYear()).subscribe({ 
+        
+        
+        next:resp =>{
 
+        
+          
+          
+          if(alumnosConMaxHoras==0 && (pos)==document.getElementsByName("fila").length){
+            this.introducirDatosAlumno();
 
-       
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡GUARDADO!',
+              showConfirmButton: false,
+              timer: 2000
+        
+            })
+            
+          }
+             
 
       },
       error: error =>{
-
-        console.log(error.error.mensaje);
         
+        alumnosConMaxHoras=1;
+
+        if((pos)==document.getElementsByName("fila").length){
+          this.introducirDatosAlumno();}
 
         Swal.fire({
           position: 'center',
           icon: 'warning',
-          title: '¡Cuidado con la hora!',
+          title: '¡NO SE HA GUARDADO TODO!',
           text: `${nombreAlumno} - ${error.error.mensaje}`,
           showConfirmButton: true,
         })
-
       }
 
     })
@@ -275,9 +284,97 @@ export class EntradaComponent implements OnInit {
 
       pos++;
 
+
+
+
     };
 
+
+
+
     
+  }
+
+
+
+
+
+
+  
+
+
+
+  comprobarAsistencia(){
+
+
+
+    let pos=0;
+    let alumnosSinSalida: string[]=[];
+
+
+      document.getElementsByName("fila").forEach(estado => {
+      
+      let horaEntrada = document.getElementsByName("fila")[pos].getElementsByTagName("input")[0].value
+      let horaSalida = document.getElementsByName("fila")[pos].getElementsByTagName("input")[1].value
+      // let asistencia = document.getElementsByName("fila")[pos].getElementsByTagName("input")[2].checked
+      let idAlumno = parseInt(document.getElementsByClassName("nombre")[pos].id)
+      let nombreAlumno=  document.getElementsByClassName("nombre")[pos].innerHTML
+      let mes:number =  this.fecha.getMonth()+1;
+
+      if(horaEntrada.length==5 && horaSalida.length!=5){
+
+       
+
+        alumnosSinSalida.push(nombreAlumno);
+
+      }
+      pos++;
+
+  })
+
+
+   if(alumnosSinSalida.length!=0){
+      
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: '¡Hay alumnos sin salida!',
+          text: this.getAlumnosSinSalida(alumnosSinSalida),
+          showConfirmButton: true,
+          showDenyButton: true,
+          confirmButtonText: 'Guardar',
+          confirmButtonColor: '#476eff',
+        }).then((result) => {
+          if (result.isConfirmed) {
+           this.submit()
+          } else if (result.isDenied) {
+            Swal.fire('No se han guardado los cambios', '', 'info')
+          }
+        })
+
+      }else{
+        this.submit()
+      }
+      
+
+
+}
+
+
+  getAlumnosSinSalida(alumnos:string[]){
+
+    let texto='  - -   ';
+    alumnos.forEach(alumno => {
+
+      texto=texto+alumno+'  - -   '
+
+      
+    });
+
+
+    return texto;
+
   }
 
 

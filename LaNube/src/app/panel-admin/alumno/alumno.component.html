@@ -43,10 +43,10 @@
             <tbody>
               <tr class="m-5" *ngFor="let alumno of alumnos">
                 
-                <td class="p-2" scope="col">{{alumno.nombre}}, {{alumno.apellidos}} </td>
+                <td class="p-2" scope="col"><a [routerLink]="['/home/alumno', alumno.id]">{{alumno.nombre}}, {{alumno.apellidos}} </a></td>
                 <!-- <td scope="col"></td> -->
                 <!-- <th scope="col">{{alumno.dni}}</th> -->
-                <td scope="col">{{alumno.aula.nombre}}</td>
+                <td scope="col"> {{alumno.aula.nombre}}</td>
                 <td scope="col">{{alumno.fechaNacimiento}}</td>
                 <td scope="col">{{alumno.comida}}</td>
                 <td scope="col"><i *ngIf="!alumno.comeEnCentro" class="bi bi-x"></i><i *ngIf="alumno.comeEnCentro" class="bi bi-check-lg"></i></td>

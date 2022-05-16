@@ -3,19 +3,20 @@ import { CommonModule } from '@angular/common';
 import { EntradaComponent } from './entrada/entrada.component';
 import { FormsModule } from '@angular/forms';
 import { PanelAdminModule } from '../panel-admin/panel-admin.module';
-import { FechaComponent } from './fecha/fecha.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
 @NgModule({
   declarations: [
-    EntradaComponent,
-    FechaComponent
+    EntradaComponent
+    
   ],
   imports: [
     CommonModule,
     FormsModule,
-    PanelAdminModule
+    PanelAdminModule,
+    SharedModule
   ],
   exports:[EntradaComponent]
 })

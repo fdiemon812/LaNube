@@ -18,10 +18,8 @@ import { AsistenciaModule } from './asistencia/asistencia.module';
     BrowserModule,
     RouterModule,
     LoginModule,
-    PanelAdminModule,
-     
-    AsistenciaModule
-  ],
+    PanelAdminModule  ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

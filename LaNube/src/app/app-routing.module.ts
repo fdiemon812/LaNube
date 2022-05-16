@@ -10,6 +10,7 @@ import { isAdmin } from './guards/isAdmin.guard';
 import { VistaAlumnoComponent } from './panel-admin/vista-alumno/vista-alumno.component';
 import { EditarAlumnoComponent } from './panel-admin/editar-alumno/editar-alumno.component';
 import { EntradaComponent } from './asistencia/entrada/entrada.component';
+import { EstadoAlumnoComponent } from './panel-admin/estado-alumno/estado-alumno.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
     {path: 'alumno',canActivate:[ValidarLogin],component:VistaAlumnoComponent},
     {path: 'registro', canActivate:[ValidarLogin, isAdmin], component: RegistroAlumnoComponent },
     {path: 'editar/:id', canActivate:[ValidarLogin, isAdmin], component: EditarAlumnoComponent },
+    {path: 'alumno/:id', canActivate:[ValidarLogin], component: EstadoAlumnoComponent },
     {path: 'asistencia', canActivate:[ValidarLogin, isAdmin], component: EntradaComponent }
   
 

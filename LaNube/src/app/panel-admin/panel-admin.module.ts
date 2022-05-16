@@ -12,6 +12,10 @@ import { VistaAlumnoComponent } from './vista-alumno/vista-alumno.component';
 import { FiltroAlumnoComponent } from './filtro-alumno/filtro-alumno.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
+import { EstadoAlumnoComponent } from './estado-alumno/estado-alumno.component';
+
+
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -24,7 +28,8 @@ import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
     RegistroAlumnoComponent,
     VistaAlumnoComponent,
     FiltroAlumnoComponent,
-    EditarAlumnoComponent
+    EditarAlumnoComponent,
+    EstadoAlumnoComponent
   ],
   imports: [
     AppRoutingModule,
@@ -32,7 +37,8 @@ import { EditarAlumnoComponent } from './editar-alumno/editar-alumno.component';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    DataTablesModule
+    DataTablesModule,
+    SharedModule
     
   ],exports:[ 
 
