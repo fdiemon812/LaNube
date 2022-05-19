@@ -9,8 +9,10 @@
   <div class="row d-flex text-end">
    
     <p  data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: rgb(0, 0, 0);">Nuevo <i class="fa-solid fa-plus"></i></p>
+
   </div>
 
+  <!-- Modal para CREAR -->
   <div class="row">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -42,53 +44,101 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="addEstado()">Añadir</button>
+            <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="addEstado()">Añadir</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+
+
+<!-- Modal para editar -->
+<div class="row">
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Crear Estado</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <input  type="text" [(ngModel)]="descripcion"  class="form-control "  id="descripcion">
+
+          </div>
+          <div class="mt-2">
+
+            <label for="descripcion" class="form-label">Tipo:</label>
+            <select class="form-select" [(ngModel)]="tipo" >
+              <option value="bath">Baño</option>
+              <option value="eat">Comida</option>
+              </select>   
+            
+          </div>
+
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="borrarEstado()">Borrar</button>
+          <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="editarEstado()">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FIN MODALES -->
   <div class="row">
 
 
     <div *ngIf="estado.bath1.length>0" class="d-flex m-4">
-      <i class="fas fa-toilet"></i>
-      <p class="ms-3">{{estado.bath1}}</p>
+      <i  data-bs-toggle="modal" data-bs-target="#editModal" (click)="selectFila('bath1')" name="bath" class="fas fa-toilet"></i>
+      <p class="ms-3" id="bath1">{{estado.bath1}}</p>
+
     </div>
     
 
     <div *ngIf="estado.bath2.length>0" class="d-flex m-4">
-      <i class="fas fa-toilet"></i>
-      <p class="ms-3">{{estado.bath2}}</p>
+      <i data-bs-toggle="modal" data-bs-target="#editModal" (click)="selectFila('bath2')" name="bath" class="fas fa-toilet"></i>
+      <p class="ms-3" id="bath2">{{estado.bath2}}</p>
+
     </div>
     
 
     
     <div *ngIf="estado.bath3.length>0" class="d-flex m-4">
-      <i class="fa-solid fa-fork-knife"></i>
-            <p class="ms-3">{{estado.bath3}}</p>
+      <i data-bs-toggle="modal" data-bs-target="#editModal" (click)="selectFila('bath3')" name="bath" class="fas fa-toilet"></i>
+            <p id="bath3" class="ms-3 me-5">{{estado.bath3}}</p>
     </div>
     
 
 
 
     <div *ngIf="estado.eat1.length>0" class="d-flex m-4">
-      <i class="fa-solid fa-utensils"></i>
-      <p class="ms-3">{{estado.eat1}}</p>
+      <i data-bs-toggle="modal" data-bs-target="#editModal" (click)="selectFila('eat1')" name="eat" class="fa-solid fa-utensils"></i>
+      <p id="eat1" class="ms-3 ">{{estado.eat1}}</p>
+
     </div>
     
 
 
     <div *ngIf="estado.eat2.length>0" class="d-flex m-4">
-      <i class="fa-solid fa-utensils"></i>
-      <p class="ms-3">{{estado.eat2}}</p>
+      <i data-bs-toggle="modal" data-bs-target="#editModal" (click)="selectFila('eat2')" name="eat" class="fa-solid fa-utensils"></i>
+      <p id="eat2" class="ms-3 ">{{estado.eat2}}</p>
+
     </div>
     
 
 
     <div *ngIf="estado.eat3.length>0" class="d-flex m-4">
-      <i class="fa-solid fa-utensils"></i>
-      <p class="ms-3">{{estado.eat3}}</p>
+      <i data-bs-toggle="modal" data-bs-target="#editModal" (click)="selectFila('eat3')" name="eat" class="fa-solid fa-utensils"></i>
+      <p id="eat3" class="ms-3 ">{{estado.eat3}}</p>
+
     </div>
     
   
