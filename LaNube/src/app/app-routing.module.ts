@@ -11,11 +11,13 @@ import { VistaAlumnoComponent } from './panel-admin/vista-alumno/vista-alumno.co
 import { EditarAlumnoComponent } from './panel-admin/editar-alumno/editar-alumno.component';
 import { EntradaComponent } from './asistencia/entrada/entrada.component';
 import { EstadoAlumnoComponent } from './panel-admin/estado-alumno/estado-alumno.component';
+import { AulaModule } from './aula/aula.module';
 
 
 const routes: Routes = [
 
   {path: 'login',component:LoginComponent},
+  
   {path: 'home',component:HomeComponent, canActivate:[ValidarLogin], children:[
 
     {path: 'profesor',canActivate:[ValidarLogin], component:ProfesorComponent},
@@ -23,7 +25,8 @@ const routes: Routes = [
     {path: 'registro', canActivate:[ValidarLogin, isAdmin], component: RegistroAlumnoComponent },
     {path: 'editar/:id', canActivate:[ValidarLogin, isAdmin], component: EditarAlumnoComponent },
     {path: 'alumno/:id', canActivate:[ValidarLogin], component: EstadoAlumnoComponent },
-    {path: 'asistencia', canActivate:[ValidarLogin, isAdmin], component: EntradaComponent }
+    {path: 'asistencia', canActivate:[ValidarLogin, isAdmin], component: EntradaComponent },
+    {path: 'aula',    loadChildren:()=>import('./aula/aula.module').then(m=>m.AulaModule)},
   
 
 
