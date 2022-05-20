@@ -1,1 +1,68 @@
-<p>aulas works!</p>
+
+<div class="container">
+
+    
+
+
+        <div class="card mt-5">
+            <p-table responsiveLayout="stack" [value]="aulas">
+                <ng-template pTemplate="caption" >
+                   <span >Aulas</span>
+                    
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th>Nombre </th>
+                        <th>Profesores</th>
+                        <th>Alumnos</th>
+                        <th>Editar</th>
+                        <th>Borrar</th>
+                        
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-aula let-columns="columns">
+                    <tr>
+                        <td><span class="p-column-title">Nombre</span>{{aula.nombre}}</td>
+                        <td><span class="p-column-title">Profesores</span></td>
+                        <td (click)="selectToAddUser(aula)"><span class="p-column-title">Alumnos</span><i class="pi pi-user focusAdd"></i></td>
+                        <td><span class="p-column-title">Editar</span><i class="pi pi-pencil focusEditar"></i></td>
+                        <td><span class="p-column-title">Borrar</span><i class="pi pi-trash focusBorrar"></i></td>
+                        
+                             
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- ESTE ES EL DE LOS USUARIOS PARA ARRASTRAR  (onShow)="backup()" (onHide)="saveChanges()" -->
+<p-dialog [(visible)]="dialogUser" >
+    <p-pickList [source]="availables" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" 
+    [target]="notAvailables" [responsive]="true" filterBy="name" sourceHeader="No asignados" targetHeader="Asignados" 
+    [dragdrop]="true" sourceFilterPlaceholder="Buscar por nombre"
+        targetFilterPlaceholder="Buscar por nombre">
+        <ng-template let-o pTemplate="item" class="fondo">
+            <div class="item">
+                <div class="item-list-detail">
+                    <h5 class="mb-2">{{o.name}}</h5>
+                    <i class="pi pi-user item-role-icon"></i>
+                    <span class="item-role">{{o.rol}}</span>
+                </div>
+            </div>
+        </ng-template>
+    </p-pickList>
+
+   <!--  <form>
+        <div class="form-group">
+            <input type="submit" value="Actualizar iniciativa" (click)="addUser()" class="btn float-right edit_btn saveUser" id="update">
+        </div>
+    </form>-->
+</p-dialog>

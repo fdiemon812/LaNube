@@ -16,6 +16,8 @@ import { AsistenciaModule } from './asistencia/asistencia.module';
   imports: [
     AppRoutingModule,
     BrowserModule,
+    AsistenciaModule,
+    
     RouterModule,
     LoginModule,
     PanelAdminModule  ],
