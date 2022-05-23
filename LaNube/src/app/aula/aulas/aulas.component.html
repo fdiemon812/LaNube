@@ -44,25 +44,21 @@
 
 
 <!-- ESTE ES EL DE LOS USUARIOS PARA ARRASTRAR  (onShow)="backup()" (onHide)="saveChanges()" -->
-<p-dialog [(visible)]="dialogUser" >
+<p-dialog [(visible)]="dialogUser"  (onHide)="guardarCambios()">
     <p-pickList [source]="availables" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" 
     [target]="notAvailables" [responsive]="true" filterBy="name" sourceHeader="No asignados" targetHeader="Asignados" 
     [dragdrop]="true" sourceFilterPlaceholder="Buscar por nombre"
         targetFilterPlaceholder="Buscar por nombre">
-        <ng-template let-o pTemplate="item" class="fondo">
+        <ng-template let-alumno pTemplate="item" class="fondo">
             <div class="item">
                 <div class="item-list-detail">
-                    <h5 class="mb-2">{{o.name}}</h5>
-                    <i class="pi pi-user item-role-icon"></i>
-                    <span class="item-role">{{o.rol}}</span>
+                 
+                    <i class="pi pi-user item-role-icon me-2"></i>
+                    <span class="item-role">{{alumno.apellidos}}, {{alumno.nombre}}</span>
                 </div>
             </div>
         </ng-template>
     </p-pickList>
 
-   <!--  <form>
-        <div class="form-group">
-            <input type="submit" value="Actualizar iniciativa" (click)="addUser()" class="btn float-right edit_btn saveUser" id="update">
-        </div>
-    </form>-->
+   
 </p-dialog>

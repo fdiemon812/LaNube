@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { LoginModule } from './login/login.module';
 import { PanelAdminModule } from './panel-admin/panel-admin.module';
 import { AsistenciaModule } from './asistencia/asistencia.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -17,10 +19,11 @@ import { AsistenciaModule } from './asistencia/asistencia.module';
     AppRoutingModule,
     BrowserModule,
     AsistenciaModule,
-    
     RouterModule,
     LoginModule,
-    PanelAdminModule  ],
+    PanelAdminModule,
+    BrowserAnimationsModule
+   ],
 
   providers: [],
   bootstrap: [AppComponent]

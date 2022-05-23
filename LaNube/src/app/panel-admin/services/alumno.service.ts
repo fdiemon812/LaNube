@@ -75,7 +75,7 @@ export class AlumnoService {
 
          
        
-        const url = `${ environment.urlApi }/centro/${this.centro}/alumno`;
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
         const body= {nombre, apellidos, dni, fechaNacimiento, direccion, comida,  observaciones, horaEntrada, horaSalida, aula, comeEnCentro}
@@ -122,7 +122,7 @@ export class AlumnoService {
     agregarTutorAlumno(id:number, idAlumno:number ):Observable<any>{
 
 
-        const url = `${ environment.urlApi }/alumno/${idAlumno}`;
+        const url = `${ environment.urlApi }/alumnos/${idAlumno}`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
         const body= {id}
@@ -151,7 +151,7 @@ export class AlumnoService {
     borrarAlumno(idAlumno:number ):Observable<any>{
 
 
-        const url = `${ environment.urlApi }/centro/${this.centro}/alumno/${idAlumno}`;
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumnos/${idAlumno}`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
        
@@ -175,7 +175,7 @@ export class AlumnoService {
 
     editarAlumno(alumno: AlumnoInterface) {
         
-        const url = `${ environment.urlApi }/centro/${this.centro}/alumno/${alumno.id}`;
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumnos/${alumno.id}`;
 
         const body= alumno;
         const headers = new HttpHeaders() .set('Authorization',
@@ -189,7 +189,7 @@ export class AlumnoService {
 
       getAlumno(idAlumno:number) {
         
-        const url = `${ environment.urlApi }/centro/${this.centro}/alumno/${idAlumno}`;
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumnos/${idAlumno}`;
 
         const headers = new HttpHeaders() .set('Authorization',
     

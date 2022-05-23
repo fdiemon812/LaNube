@@ -21,7 +21,7 @@ import { PickListModule } from 'primeng/picklist';
     AulaRoutingModule,
     TableModule,
     DialogModule,
-    PickListModule,
+    PickListModule
 
 
     
