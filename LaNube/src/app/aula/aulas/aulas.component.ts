@@ -53,7 +53,7 @@ export class AulasComponent implements OnInit {
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Si',
         accept: () => {
-            this.addUser();
+            // this.addUser();
         },
         reject: () => {
         }
@@ -63,6 +63,23 @@ export class AulasComponent implements OnInit {
   }
 
 
+  /**
+ * Método para añadir un usuario a una iniciativa
+ */
+// addUser(){
+//   const listado = JSON.stringify(this.notAvailables)
+//   this.initiativeService.addUser(this.selectedToAddUser,JSON.parse(listado)).subscribe({
+//     next: (resp => {
+//       }),
+//     error: resp=> {
+//     this.messageService.add({key: 'addUser', severity:'warn', summary: 'Error', detail: resp.error.mensaje});
+
+//       // Swal.fire(
+//       //   '¡Error!', resp.error.mensaje, 'error'
+//       //   );
+//     }
+//     })
+//   }
 
     listarAulas(){
 

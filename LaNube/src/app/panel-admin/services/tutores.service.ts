@@ -57,7 +57,7 @@ export class TutoresService {
         
         let centro=this.alumnoService.centro;
 
-        const url = `${ environment.urlApi }/centro/${centro}/alumno/${idAlumno}`;
+        const url = `${ environment.urlApi }/centro/${centro}/alumnos/${idAlumno}`;
 
      
         
