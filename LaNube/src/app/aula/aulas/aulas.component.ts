@@ -34,15 +34,6 @@ export class AulasComponent implements OnInit {
 
 
 
-    cargarBackup(){
-      console.log(this.notAvailables);
-      console.log(this.availables);
-      this.backupList=this.notAvailables.slice()
-      console.log(this.backupList);
-
-    }
-
-
     guardarCambios() {
       if(!(JSON.stringify(this.backupList)===JSON.stringify(this.notAvailables))){   
    
@@ -112,14 +103,21 @@ export class AulasComponent implements OnInit {
  selectToAddUser(aula:AulaInterface){
    
   this.loadAddUser();
-  this.alumnoService.listarAlumnos().subscribe((resp) => {
-    this.notAvailables = resp;
+  this.alumnoService.listarAlumnosSinAula().subscribe((resp) => {
+    this.availables = resp;
+
+    console.log(resp);
+    
     this.backupList=this.notAvailables.slice()
+
+    
 
     
   });
   this.alumnoService.listarAlumnosAula(aula.id).subscribe((resp) => {
-    this.availables = resp;
+    this.notAvailables = resp;
+    console.log(resp);
+
   
   });
   this.selectedToAddUser = aula;

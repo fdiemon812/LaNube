@@ -38,6 +38,23 @@ export class AlumnoService {
         return this.http.get<AlumnoInterface[]>(url, {headers});
     }
 
+      /**
+     * 
+     * @returns Lista todos los alumnos de un centro
+     */
+
+       listarAlumnosSinAula():Observable<AlumnoInterface[]>{
+
+        
+
+        const url = `${ environment.urlApi }/centro/${this.centro}/alumnos/aulas/1`;
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+                
+
+        return this.http.get<AlumnoInterface[]>(url, {headers});
+    }
+
     /**
      * 
      * @param idAulaInput Lista los alumnos de un aula determinada en un centro determinada

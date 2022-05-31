@@ -362,7 +362,7 @@ export class RegistroAlumnoComponent implements OnInit {
 
 
       next: resp=>{
-        this.router.navigateByUrl('home');
+       
       },
       error: error=>{
 

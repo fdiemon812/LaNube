@@ -204,14 +204,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
       if (result.isConfirmed) {
 
         this.borrarAlumno(idAlumno);
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Borrado',
-          text: 'El alumno ha sido eliminado',
-          showConfirmButton: false,
-          timer: 2000
-        })
+        
       }
     })
 
@@ -225,11 +218,19 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     return this.alumnoService.borrarAlumno(idAlumno).subscribe({
 
       next:resp =>{
-        
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Borrado',
+          text: 'El alumno ha sido eliminado',
+          showConfirmButton: false,
+          timer: 2000
+        })
         this.ngOnChanges();
       },
       error: error =>{
-
+        console.log(error);
+        
         Swal.fire({
           position: 'center',
           icon: 'warning',
