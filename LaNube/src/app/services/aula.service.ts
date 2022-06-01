@@ -70,8 +70,29 @@ export class AulaService {
     }
 
 
+    
+    /**
+     * 
+     * @returns Lista las aulas de un centro
+     */
+     asignarAlumnosAula(idAula:number, alumnos:string):Observable<any>{
 
-   
+
+        console.log(idAula);
+
+
+        const url = `${ environment.urlApi }/centro/${this.centro}/aula/${idAula}/alumnos`;
+        const headers = new HttpHeaders() .set('Authorization',
+         `Bearer ${localStorage.getItem('token')}` );
+                
+        const body=alumnos
+        return this.http.put<AlumnoInterface[]>(url,body,{headers});
+    }
+
+
+
+
+  
 
 
     cambiarCentro(centro:any){

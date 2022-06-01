@@ -189,8 +189,7 @@ export class EstadoAlumnoComponent implements OnInit {
     let hora= new Date();
     let cadenaTime = hora.getHours() +":"+hora.getMinutes()+" - ";
 
-  console.log(this.descripcion);
-  console.log(this.fila);
+
   
 
     if(this.fila=="bath1"){

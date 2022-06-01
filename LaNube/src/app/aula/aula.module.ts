@@ -6,6 +6,8 @@ import {TableModule} from 'primeng/table';
 import { DialogModule } from "primeng/dialog";
 import { PickListModule } from 'primeng/picklist';
 import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 
 
 
@@ -21,7 +23,8 @@ import { ConfirmationService } from 'primeng/api';
     AulaRoutingModule,
     TableModule,
     DialogModule,
-    PickListModule
+    PickListModule,
+    ConfirmDialogModule
 
 
     

@@ -18,6 +18,7 @@ export class AulasComponent implements OnInit {
     dialogUser!:boolean;
     selectedToAddUser!:AulaInterface
     backupList: AlumnoInterface[]=[];
+    selectedAula!: number;
 
 
 
@@ -27,7 +28,6 @@ export class AulasComponent implements OnInit {
 
     ngOnInit() {
 
-        // this.productService.getProductsSmall().then(data => this.products = data);
 
         this.listarAulas();
     }
@@ -35,16 +35,20 @@ export class AulasComponent implements OnInit {
 
 
     guardarCambios() {
+
+     
+
+     
       if(!(JSON.stringify(this.backupList)===JSON.stringify(this.notAvailables))){   
    
       this.confirmationService.confirm({
-        key:'confirm2',
+        key:'confirm',
         message: '¿Quiere guardar los cambios antes de salir?',
         header: 'Confirmación',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Si',
         accept: () => {
-            // this.addUser();
+             this.addUser();
         },
         reject: () => {
         }
@@ -57,20 +61,26 @@ export class AulasComponent implements OnInit {
   /**
  * Método para añadir un usuario a una iniciativa
  */
-// addUser(){
-//   const listado = JSON.stringify(this.notAvailables)
-//   this.initiativeService.addUser(this.selectedToAddUser,JSON.parse(listado)).subscribe({
-//     next: (resp => {
-//       }),
-//     error: resp=> {
-//     this.messageService.add({key: 'addUser', severity:'warn', summary: 'Error', detail: resp.error.mensaje});
+addUser(){
+  const listado = JSON.stringify(this.notAvailables)
 
-//       // Swal.fire(
-//       //   '¡Error!', resp.error.mensaje, 'error'
-//       //   );
-//     }
-//     })
-//   }
+  
+
+  this.aulaService.asignarAlumnosAula( this.selectedAula, JSON.parse(listado)).subscribe({
+    next: (resp => {
+console.log(resp);
+
+
+      }),
+    error: resp=> {
+      console.log(resp);
+
+      Swal.fire(
+        '¡Error!', resp.error.mensaje, 'error'
+        );
+    }
+    })
+  }
 
     listarAulas(){
 
@@ -101,12 +111,17 @@ export class AulasComponent implements OnInit {
  * 
  */
  selectToAddUser(aula:AulaInterface){
-   
+  this.selectedAula=aula.id;
+
+  console.log(this.selectedAula);
+  console.log(aula.id);
+  
+  
+  
   this.loadAddUser();
   this.alumnoService.listarAlumnosSinAula().subscribe((resp) => {
     this.availables = resp;
 
-    console.log(resp);
     
     this.backupList=this.notAvailables.slice()
 
@@ -116,7 +131,8 @@ export class AulasComponent implements OnInit {
   });
   this.alumnoService.listarAlumnosAula(aula.id).subscribe((resp) => {
     this.notAvailables = resp;
-    console.log(resp);
+    this.backupList=this.notAvailables.slice()
+
 
   
   });

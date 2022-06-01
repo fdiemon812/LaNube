@@ -23,8 +23,8 @@
                 <ng-template pTemplate="body" let-aula let-columns="columns">
                     <tr>
                         <td><span class="p-column-title">Nombre</span>{{aula.nombre}}</td>
-                        <td><span class="p-column-title">Profesores</span></td>
-                        <td (click)="selectToAddUser(aula)"><span class="p-column-title">Alumnos</span><i class="pi pi-user focusAdd"></i></td>
+                        <td><span class="p-column-title">Profesores</span><i class="pi pi-user-edit focusAdd"></i></td>
+                        <td (click)="selectToAddUser(aula)"><span class="p-column-title">Alumnos</span><i class="pi pi-users focusAdd"></i></td>
                         <td><span class="p-column-title">Editar</span><i class="pi pi-pencil focusEditar"></i></td>
                         <td><span class="p-column-title">Borrar</span><i class="pi pi-trash focusBorrar"></i></td>
                         
@@ -62,3 +62,8 @@
 
    
 </p-dialog>
+
+<p-confirmDialog key="confirm" [style]="{width: '50vw'}" [baseZIndex]="1"></p-confirmDialog>
+
+
+

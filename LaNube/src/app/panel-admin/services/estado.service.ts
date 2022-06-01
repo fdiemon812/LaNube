@@ -20,7 +20,6 @@ export class EstadoService {
 
    createEstadoAlumnos(estado:EstadoAlumnoInterface,  dia:number, mes:number, year:number):Observable<EstadoAlumnoInterface>{
 
-    console.log(estado);
 
 
         let centro=this.alumnoService.centro;
@@ -41,7 +40,6 @@ export class EstadoService {
                
             
             }
-            console.log(body);
 
 
         const url = `${ environment.urlApi }/centro/${centro}/alumno/${estado.idAlumno}/estado/${dia}/${mes}/${year}`;
