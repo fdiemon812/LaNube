@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row d-sm-flex">
-       
+
         <div class="offset-1 p-0  text-start d-sm-flex mt-2" >
             <label class="d-sm-flex mt-2 ms-2" for="aula">Fecha</label>
-                 
-            <input type="date" [(ngModel)]="fecha" (change)="cambiarFecha()" class="ms-2 form-select d-flex" name="aula" id="aula" style="width:200px;">
+
+            <input type="date" [(ngModel)]="fecha" (change)="cambiarFecha()" class="ms-2 form-select d-flex" name="aula" id="aula" style="width:200px;" max="{{date | date:'yyyy-MM-dd'}}">
         </div>
 
 
-        
+
 
 
     </div>

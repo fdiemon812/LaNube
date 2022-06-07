@@ -12,11 +12,11 @@ import { CentroService } from '../services/centro.service';
 })
 export class HomeComponent implements OnInit {
 
-  
-  centro:number=1;
+
+  centro:number=10001;
   centros!:CentroInterface[];
   constructor( private router:Router, private activatedRoute:ActivatedRoute, private centroService:CentroService) { }
-  
+
 
   ngOnInit(): void {
 
@@ -27,14 +27,14 @@ export class HomeComponent implements OnInit {
   cambiarCentro(): void {
 
     this.router.navigate(
-      [], 
+      [],
       {
         relativeTo: this.activatedRoute,
         queryParams: { centro: this.centro },
         queryParamsHandling: 'merge'
       });
   }
-  
+
 
   cerrarSesion(){
 
@@ -49,13 +49,13 @@ export class HomeComponent implements OnInit {
     return this.centroService.listarCentros().subscribe({
 
       next:resp =>{
-       
+
         this.centros=resp;
-       
-              
+
+
       },
       error: error =>{
-        
+
 
         Swal.fire({
           position: 'center',
@@ -69,5 +69,5 @@ export class HomeComponent implements OnInit {
 
     })
   }
- 
+
 }

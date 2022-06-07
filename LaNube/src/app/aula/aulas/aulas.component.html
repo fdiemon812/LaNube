@@ -1,14 +1,14 @@
 
 <div class="container">
 
-    
+
 
 
         <div class="card mt-5">
             <p-table responsiveLayout="stack" [value]="aulas">
                 <ng-template pTemplate="caption" >
                    <span >Aulas</span>
-                    
+
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -17,18 +17,18 @@
                         <th>Alumnos</th>
                         <th>Editar</th>
                         <th>Borrar</th>
-                        
+
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-aula let-columns="columns">
                     <tr>
                         <td><span class="p-column-title">Nombre</span>{{aula.nombre}}</td>
-                        <td><span class="p-column-title">Profesores</span><i class="pi pi-user-edit focusAdd"></i></td>
+                        <td (click)="selectToAddProf(aula)"><span class="p-column-title">Profesores</span><i class="pi pi-user-edit focusAdd"></i></td>
                         <td (click)="selectToAddUser(aula)"><span class="p-column-title">Alumnos</span><i class="pi pi-users focusAdd"></i></td>
                         <td><span class="p-column-title">Editar</span><i class="pi pi-pencil focusEditar"></i></td>
                         <td><span class="p-column-title">Borrar</span><i class="pi pi-trash focusBorrar"></i></td>
-                        
-                             
+
+
                     </tr>
                 </ng-template>
             </p-table>
@@ -45,14 +45,14 @@
 
 <!-- ESTE ES EL DE LOS USUARIOS PARA ARRASTRAR  (onShow)="backup()" (onHide)="saveChanges()" -->
 <p-dialog [(visible)]="dialogUser"  (onHide)="guardarCambios()">
-    <p-pickList [source]="availables" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" 
-    [target]="notAvailables" [responsive]="true" filterBy="name" sourceHeader="No asignados" targetHeader="Asignados" 
+    <p-pickList [source]="availables" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}"
+    [target]="notAvailables" [responsive]="true" filterBy="name" sourceHeader="No asignados" targetHeader="Asignados"
     [dragdrop]="true" sourceFilterPlaceholder="Buscar por nombre"
         targetFilterPlaceholder="Buscar por nombre">
         <ng-template let-alumno pTemplate="item" class="fondo">
             <div class="item">
                 <div class="item-list-detail">
-                 
+
                     <i class="pi pi-user item-role-icon me-2"></i>
                     <span class="item-role">{{alumno.apellidos}}, {{alumno.nombre}}</span>
                 </div>
@@ -60,10 +60,31 @@
         </ng-template>
     </p-pickList>
 
-   
+
 </p-dialog>
 
 <p-confirmDialog key="confirm" [style]="{width: '50vw'}" [baseZIndex]="1"></p-confirmDialog>
 
 
 
+<!--  PROFESORES PARA ARRASTRAR  (onShow)="backup()" (onHide)="saveChanges()" -->
+<p-dialog [(visible)]="dialogProf"  (onHide)="guardarCambios2()">
+  <p-pickList [source]="availablesProf" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}"
+  [target]="notAvailablesProf" [responsive]="true" filterBy="name" sourceHeader="No asignados" targetHeader="Asignados"
+  [dragdrop]="true" sourceFilterPlaceholder="Buscar por nombre"
+      targetFilterPlaceholder="Buscar por nombre">
+      <ng-template let-profesor pTemplate="item" class="fondo">
+          <div class="item">
+              <div class="item-list-detail">
+
+                  <i class="pi pi-user item-role-icon me-2"></i>
+                  <span class="item-role">{{profesor.apellidos}}, {{profesor.nombre}}</span>
+              </div>
+          </div>
+      </ng-template>
+  </p-pickList>
+
+
+</p-dialog>
+
+<p-confirmDialog key="confirmProf" [style]="{width: '50vw'}" [baseZIndex]="1"></p-confirmDialog>

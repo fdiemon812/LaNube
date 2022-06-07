@@ -8,21 +8,22 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class FechaComponent implements OnInit {
 
    fecha!:String;
+   date=new Date()
 
 
 
    @Output() fechaEvento = new EventEmitter();
 
-   
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   cambiarFecha(){
-    
-    
-    this.fechaEvento.emit(this.fecha);    
+
+
+    this.fechaEvento.emit(this.fecha);
   }
 
 }

@@ -8,47 +8,47 @@ import { AlumnoInterface } from "../panel-admin/interfaces/alumno.interface";
     providedIn: 'root'
 })
 export class AulaService {
-  
-    
-    centro:any=1;
+
+
+    centro:any=10001;
     isPrimera:boolean=true;
     constructor(private http:HttpClient, ){
 
     }
 
-   
-  
 
-    
+
+
+
 
     /**
-     * 
+     *
      * @returns Lista todos los alumnos de un centro
      */
 
     listarAlumnos():Observable<AlumnoInterface[]>{
 
-        
+
 
         const url = `${ environment.urlApi }/centro/${this.centro}/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
-                
+
 
         return this.http.get<AlumnoInterface[]>(url, {headers});
     }
 
     /**
-     * 
+     *
      * @param idAulaInput Lista los alumnos de un aula determinada en un centro determinada
-     * @returns 
+     * @returns
      */
     listarAlumnosAula(idAulaInput:number):Observable<AlumnoInterface[]>{
 
         const url = `${ environment.urlApi }/centro/${this.centro}/aula/${idAulaInput}/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
-                
+
 
         return this.http.get<AlumnoInterface[]>(url, {headers});
     }
@@ -56,7 +56,7 @@ export class AulaService {
 
 
     /**
-     * 
+     *
      * @returns Lista las aulas de un centro
      */
     listarAula():Observable<any>{
@@ -64,15 +64,15 @@ export class AulaService {
         const url = `${ environment.urlApi }/centro/${this.centro}/aulas`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
-                
+
 
         return this.http.get<any>(url, {headers});
     }
 
 
-    
+
     /**
-     * 
+     *
      * @returns Lista las aulas de un centro
      */
      asignarAlumnosAula(idAula:number, alumnos:string):Observable<any>{
@@ -84,7 +84,7 @@ export class AulaService {
         const url = `${ environment.urlApi }/centro/${this.centro}/aula/${idAula}/alumnos`;
         const headers = new HttpHeaders() .set('Authorization',
          `Bearer ${localStorage.getItem('token')}` );
-                
+
         const body=alumnos
         return this.http.put<AlumnoInterface[]>(url,body,{headers});
     }
@@ -92,18 +92,18 @@ export class AulaService {
 
 
 
-  
+
 
 
     cambiarCentro(centro:any){
-        
+
         if(centro==null){
             this.centro=1;
             this.isPrimera=false;
         }else{
             this.centro= parseInt(centro);
         }
-        
+
     }
 
 

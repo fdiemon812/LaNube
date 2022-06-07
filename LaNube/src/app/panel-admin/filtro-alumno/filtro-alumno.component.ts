@@ -32,16 +32,16 @@ export class FiltroAlumnoComponent implements OnInit {
 
 
    changeCentro(centro:string) {
-    
+
     this.alumnoService.cambiarCentro(centro);
     this.listarAulas();
 
    }
 
   cambiarAula(){
-    
 
-    this.aulaEvento.emit(this.idAula);    
+
+    this.aulaEvento.emit(this.idAula);
   }
 
   listarAulas(){
@@ -49,7 +49,7 @@ export class FiltroAlumnoComponent implements OnInit {
     this.alumnoService.listarAula().subscribe({
 
       next:resp =>{
-      
+
         this.aulas=resp;
       },
       error:error=>{
