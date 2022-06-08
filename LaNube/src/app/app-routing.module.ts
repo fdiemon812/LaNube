@@ -17,7 +17,7 @@ import { AulaModule } from './aula/aula.module';
 const routes: Routes = [
 
   {path: 'login',component:LoginComponent},
-  
+
   {path: 'home',component:HomeComponent, canActivate:[ValidarLogin], children:[
 
     {path: 'profesor',canActivate:[ValidarLogin], component:ProfesorComponent},
@@ -25,9 +25,9 @@ const routes: Routes = [
     {path: 'registro', canActivate:[ValidarLogin, isAdmin], component: RegistroAlumnoComponent },
     {path: 'editar/:id', canActivate:[ValidarLogin, isAdmin], component: EditarAlumnoComponent },
     {path: 'alumno/:id', canActivate:[ValidarLogin], component: EstadoAlumnoComponent },
-    {path: 'asistencia', canActivate:[ValidarLogin, isAdmin], component: EntradaComponent },
+    {path: 'asistencia', canActivate:[ValidarLogin], component: EntradaComponent },
     {path: 'aula',    loadChildren:()=>import('./aula/aula.module').then(m=>m.AulaModule)},
-  
+
 
 
   ]}

@@ -1,6 +1,7 @@
 import { CompileEntryComponentMetadata } from '@angular/compiler';
 import { Component, EventEmitter, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UtilesService } from 'src/app/services/utiles.service';
 import Swal from 'sweetalert2';
 import { CentroInterface } from '../interfaces/centro.interface';
 import { CentroService } from '../services/centro.service';
@@ -15,12 +16,23 @@ export class HomeComponent implements OnInit {
 
   centro:number=10001;
   centros!:CentroInterface[];
-  constructor( private router:Router, private activatedRoute:ActivatedRoute, private centroService:CentroService) { }
+  rol!:string;
+
+
+  constructor( private router:Router,
+     private activatedRoute:ActivatedRoute,
+     private centroService:CentroService,
+     private utilesService:UtilesService) { }
 
 
   ngOnInit(): void {
+    this.getRol();
 
-    this.listarCentros();
+
+    if(this.rol!='TUTOR'){
+
+      this.listarCentros();
+    }
   }
 
 
@@ -69,5 +81,11 @@ export class HomeComponent implements OnInit {
 
     })
   }
+
+  getRol(){
+    this.rol=this.utilesService.getRol();
+  }
+
+
 
 }

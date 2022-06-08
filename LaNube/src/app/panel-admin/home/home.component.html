@@ -4,41 +4,41 @@
   <!-- Barra de navegación superior -->
 <div class="row">
 
-    
+
 <nav class="navbar navbar-expand navbar-light bg-azul ">
     <div class="container-fluid">
         <a class="navbar-brand me-auto" href="#"><img src="../../../assets/lanube-bien-logo.png" class="logo" alt="logo-nube"></a>
-        
 
-          <select  [(ngModel)]="centro" (change)="cambiarCentro()"  class="ms-5 form-select" name="" id="" style="width: 200px;">
+
+          <select *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" [(ngModel)]="centro" (change)="cambiarCentro()"  class="ms-5 form-select" name="" id="" style="width: 200px;">
 
             <option *ngFor="let centro of centros" value={{centro.id}}>{{centro.nombre}}</option>
-  
+
           </select>
 
-       
-       
 
 
-          
+
+
+
             <ul class="navbar-nav ms-auto m-2 mb-lg-0">
-                
+
               <div class="dropstart">
                 <li class="nav-item">
-                  
+
                     <a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-person"  style="color: white; font-size: 1.6rem;"></i> </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li><a  href class="dropdown-item" >Ajustes</a></li>
                       <hr>
                       <li><a href class="dropdown-item" (click)="cerrarSesion()">Cerrar sesión</a></li>
                     </ul>
-                
-                
+
+
                   </li>
                 </div>
 
             </ul>
-           
+
     </div>
 </nav>
 
@@ -47,7 +47,7 @@
 
 
 
-  
+
 
 
 <div class="row h90">
@@ -55,21 +55,21 @@
 
 
     <div class="col-md-2 d-none d-md-block  navbar  " style="align-items: start;"   >
-     
-     
-          
+
+
+
             <div class="d-flex flex-column  " >
-                     
+
 
               <hr>
               <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
+                <li *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" class="nav-item">
                   <a   [routerLink]="['aula']"  routerLinkActive ="active" class="nav-link p-0  link-dark" aria-current="page">
                     <i class="bi bi-people"></i>
                     Aula
                   </a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" class="nav-item">
                   <a [routerLink]="['profesor']"  routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
                     <i class="bi bi-mortarboard"></i>
                     Profesor
@@ -88,7 +88,7 @@
                     Asistencia
                   </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a   routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
                     <i class="bi bi-calendar-week"></i>
                     Eventos
@@ -99,19 +99,19 @@
                     <i class="bi bi-file-earmark-text"></i>
                     Informes
                   </a>
-                </li>
-                
-               
+                </li> -->
+
+
               </ul>
               <hr>
 
             </div>
-          
-          
+
+
 
     </div>
 
-    
+
 
 
 
@@ -122,9 +122,9 @@
 
         <router-outlet></router-outlet>
 
-        
+
     </div>
-   
+
 
 
 </div>
@@ -141,8 +141,8 @@
 
 
 <div class="col-1 col-md-1 text-center" style="height: 65px;">
-      
-  
+
+
 
   <div class="offcanvas offcanvas-start navy" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
@@ -150,38 +150,38 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body ">
-      <a    
+      <a
       class="nav-link p-0 pt-2 pb-2 link-dark d-flex  " aria-current="page">
         <i class="bi bi-people  me-1"></i>
         Aula
       </a>
-        <a [routerLink]="['profesor']"  routerLinkActive ="active" 
+        <a [routerLink]="['profesor']"  routerLinkActive ="active"
         class="nav-link p-0 pt-2 pb-2 link-dark d-flex " aria-current="page">
           <i class="bi bi-mortarboard  me-1"></i>
           Profesor
         </a>
-        <a  [routerLink]="['alumno']"  routerLinkActive ="active" 
+        <a  [routerLink]="['alumno']"  routerLinkActive ="active"
         class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
             <i class="bi bi-person-video me-1" ></i>
             Alumno
         </a>
-       
+
           <a [routerLink]="['asistencia']"  routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark d-flex " aria-current="page">
             <i class="bi bi-card-list me-1"></i>
             Asistencia
           </a>
-        
-      <a  
+
+      <a
       class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
           <i class="bi bi-calendar-week  me-1" ></i>
           Eventos
       </a>
-      <a  
+      <a
       class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
           <i class="bi bi-file-earmark-text  me-1" ></i>
           Informes
       </a>
-        
+
         <!-- <div class="d-flex fixed-bottom justify-content-end">
             <a href="#" class="p-2 text-decoration-none d-flex navy">
                 <h6 class="p-2">Cerrar sesión</h6>
@@ -189,7 +189,7 @@
             </a>
         </div> -->
 
-        
+
     </div>
   </div>
 

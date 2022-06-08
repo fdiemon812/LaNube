@@ -10,6 +10,7 @@ import { AlumnoInterface } from "../interfaces/alumno.interface";
 export class AlumnoService {
 
 
+
     centro:any=10001;
     isPrimera:boolean=true;
     constructor(private http:HttpClient, ){
@@ -213,6 +214,18 @@ export class AlumnoService {
          `Bearer ${localStorage.getItem('token')}` );
 
          return this.http.get<AlumnoInterface>(url,{headers});
+
+      }
+
+
+      listarAlumnosTutor(email: string) {
+
+        const url = `${ environment.urlApi }/centro/${this.centro}/tutores/${email}/alumnos`;
+        const headers = new HttpHeaders() .set('Authorization',
+
+         `Bearer ${localStorage.getItem('token')}` );
+
+         return this.http.get<AlumnoInterface[]>(url,{headers});
 
       }
 

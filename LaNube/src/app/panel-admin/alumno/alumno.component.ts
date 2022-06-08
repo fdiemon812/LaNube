@@ -19,50 +19,54 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   @Input()  idAulaInput:number=0;
 
    alumnos:AlumnoInterface[]=[];
-    tutoresExistentes!:number;
+   tutoresExistentes!:number;
    isCargado:boolean=false;
    dtOptions: DataTables.Settings ={};
    dtTrigger: Subject<any> = new Subject<any>();
 
    @ViewChild(DataTableDirective, {static: false})
   dtElement!: DataTableDirective;
-   
-  
-  
+
+
+
 
 
   constructor(private alumnoService: AlumnoService,
     private activatedRoute: ActivatedRoute,
      private isAdmin:isAdmin, private loginService:LoginService,
      private router:Router, private jwt :JwtHelperService) { }
-  
+
   ngOnInit(): void {
-   
+
     this.comprobarTutor();
     this.dtOptions = {
       pagingType: 'simple_numbers',
       autoWidth:true,
-      
+
       responsive: true,
       language: {
-        
+
         url: 'http://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
       }
     }
-    
+
     this.activatedRoute.queryParams.subscribe({
       next: ((params) => {
 
         if(params['centro']!=null){
-          
+
           this.changeCentro(parseInt(params['centro']));
         }
-          
+
       })
     })
-    this.listarAlumnos();
-   
-    
+
+    if(this.rol=='ADMINISTRADOR' || this.rol=='PROFESOR'){
+
+      this.listarAlumnos();
+    }
+
+
     }
 
 
@@ -70,13 +74,13 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     this.alumnoService.cambiarCentro(centro);
     this.ngOnChanges();
   }
-    
- 
+
+
     ngOnChanges(){
       if(this.isCargado==true && this.idAulaInput!=0){
-        
-        this.listarAlumnosAula();     
-       
+
+        this.listarAlumnosAula();
+
       } else if(this.isCargado == true){
 
         this.listarAlumnos();
@@ -86,7 +90,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
- 
+
 
 
   listarAlumnos():any{
@@ -104,14 +108,14 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
             this.dtTrigger.next(null);
-          });       
+          });
 
 
         }
 
 
 
-        
+
       },
       error: error =>{
 
@@ -137,13 +141,13 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     return this.alumnoService.listarAlumnosAula(this.idAulaInput).subscribe({
 
       next:resp =>{
-       
+
         this.alumnos=resp;
         console.log(resp);
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
           this.dtTrigger.next(null);
-        });        
+        });
       },
       error: error =>{
         console.log(error);
@@ -163,7 +167,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
 
   comprobarTutor():boolean{
-    
+
 
   let respuesta: boolean=false;
   let rol ="";
@@ -204,7 +208,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
       if (result.isConfirmed) {
 
         this.borrarAlumno(idAlumno);
-        
+
       }
     })
 
@@ -213,7 +217,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
 
   borrarAlumno(idAlumno:number):any{
-    
+
 
     return this.alumnoService.borrarAlumno(idAlumno).subscribe({
 
@@ -230,7 +234,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
       },
       error: error =>{
         console.log(error);
-        
+
         Swal.fire({
           position: 'center',
           icon: 'warning',
@@ -249,7 +253,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   editarAlumno(id:number):void{
 
 
-    
+
 
     this.router.navigate([`home/editar/${id}`]);
   }
@@ -276,9 +280,9 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
       confirmButtonText: mensajeBoton
     }).then((result) => {
       if (result.isConfirmed) {
-  
+
         this.cambiarEstado(alumno);
-       
+
       }
     })
   }
@@ -298,11 +302,11 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
       alumno.alta=true;
     }
 
- 
+
     this.alumnoService.editarAlumno(alumno).subscribe({
 
       next:resp =>{
-        
+
 
       },
       error: error =>{
