@@ -12,6 +12,7 @@ import { EditarAlumnoComponent } from './panel-admin/editar-alumno/editar-alumno
 import { EntradaComponent } from './asistencia/entrada/entrada.component';
 import { EstadoAlumnoComponent } from './panel-admin/estado-alumno/estado-alumno.component';
 import { AulaModule } from './aula/aula.module';
+import { MensajeriaModule } from './mensajeria/mensajeria.module';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     {path: 'alumno/:id', canActivate:[ValidarLogin], component: EstadoAlumnoComponent },
     {path: 'asistencia', canActivate:[ValidarLogin], component: EntradaComponent },
     {path: 'aula',    loadChildren:()=>import('./aula/aula.module').then(m=>m.AulaModule)},
+    {path: 'mensajes',    loadChildren:()=>import('./mensajeria/mensajeria.module').then(m=>m.MensajeriaModule)}
 
 
 

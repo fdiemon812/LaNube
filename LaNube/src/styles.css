@@ -16,10 +16,19 @@
     background:#d5eff09c ;
 }
 
-/* html{
-    overflow: hidden;
-} */
+
 
 .cdk-drag{
     z-index: 1200 !important;
+}
+
+.p-orderlist .p-orderlist-striped .p-orderlist-list .p-orderlist-item:nth-child(2n){
+
+  background-color: rgb(238, 238, 238) !important;
+}
+
+.p-orderlist-list{
+  max-height: 30rem !important;
+  min-height: 15rem !important;
+
 }

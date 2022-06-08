@@ -1,0 +1,36 @@
+
+<div class="container-fluid ">
+
+  <div class="row mt-5">
+
+    <p-tabView>
+      <p-tabPanel header="Recibidos">
+        <p-orderList id="listaRecibidos" [value]="mensajes" filterBy="texto" [stripedRows]="true" controlsPosition="right">
+          <ng-template let-mensaje pTemplate="item">
+            <div>
+
+
+                  <div>{{mensaje.fecha }}</div>
+                  <div style="font-size:14px;float:right;margin:15px 5px 0 0; border: 10px" >{{mensaje.id}}</div>
+
+              </div>
+          </ng-template>
+      </p-orderList>
+
+
+
+
+
+
+      </p-tabPanel>
+      <p-tabPanel header="Enviados">
+          Content 2
+      </p-tabPanel>
+
+  </p-tabView>
+
+
+  </div>
+
+
+</div>
