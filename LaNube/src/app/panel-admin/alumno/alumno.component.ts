@@ -8,6 +8,7 @@ import { isAdmin } from '../../guards/isAdmin.guard';
 import { LoginService } from '../../login/services/login.service';
 import Swal from 'sweetalert2';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UtilesService } from '../../services/utiles.service';
 
 @Component({
   selector: 'app-alumno',
@@ -23,6 +24,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
    isCargado:boolean=false;
    dtOptions: DataTables.Settings ={};
    dtTrigger: Subject<any> = new Subject<any>();
+   rol!:string
 
    @ViewChild(DataTableDirective, {static: false})
   dtElement!: DataTableDirective;
@@ -34,11 +36,13 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private alumnoService: AlumnoService,
     private activatedRoute: ActivatedRoute,
      private isAdmin:isAdmin, private loginService:LoginService,
-     private router:Router, private jwt :JwtHelperService) { }
+     private router:Router, private jwt :JwtHelperService,
+     private utilService:UtilesService) { }
 
   ngOnInit(): void {
 
-    this.comprobarTutor();
+    // this.comprobarTutor();
+    this.rol=this.utilService.getRol()
     this.dtOptions = {
       pagingType: 'simple_numbers',
       autoWidth:true,
@@ -64,10 +68,14 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
     if(this.rol=='ADMINISTRADOR' || this.rol=='PROFESOR'){
 
       this.listarAlumnos();
+    }else if(this.rol=='TUTOR'){
+      this.listarAlumnosTutor();
     }
 
 
     }
+
+
 
 
   changeCentro(centro:number) {
@@ -95,6 +103,50 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
   listarAlumnos():any{
     return this.alumnoService.listarAlumnos().subscribe({
+
+      next:resp =>{
+
+        this.alumnos=resp;
+        if(!this.isCargado){
+          this.dtTrigger.next(this.dtOptions);
+          this.isCargado=true;
+
+        }else{
+
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+            this.dtTrigger.next(null);
+          });
+
+
+        }
+
+
+
+
+      },
+      error: error =>{
+
+        console.log(error);
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
+
+      }
+
+    })
+  }
+
+
+  listarAlumnosTutor() :any{
+    let email = this.utilService.getUserEmail();
+    this.alumnoService.listarAlumnosTutor(email).subscribe({
 
       next:resp =>{
 
@@ -262,6 +314,8 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
   confirmarCambioEstado(alumno:AlumnoInterface){
 
+    if(this.rol=='ADMINISTRADOR' || this.rol=='PROFESOR'){
+
     let texto="Vas a dar de ALTA";
     let mensajeBoton="Dar de ALTA"
     if(alumno.alta){
@@ -285,6 +339,7 @@ export class AlumnoComponent implements OnInit, OnDestroy, OnChanges {
 
       }
     })
+   }
   }
 
 

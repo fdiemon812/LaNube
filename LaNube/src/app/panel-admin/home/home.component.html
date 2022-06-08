@@ -25,6 +25,8 @@
 
               <div class="dropstart">
                 <li class="nav-item">
+                    <a class="me-3"  role="button" id="mail"
+                   > <i class="bi bi-envelope"  style="color: white; font-size: 1.6rem;"></i> </a>
 
                     <a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-person"  style="color: white; font-size: 1.6rem;"></i> </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -150,44 +152,27 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body ">
-      <a
-      class="nav-link p-0 pt-2 pb-2 link-dark d-flex  " aria-current="page">
+      <a [routerLink]="['aula']"  routerLinkActive ="active"
+      class="nav-link p-0 pt-2 pb-2 link-dark d-flex  " aria-current="page" data-bs-dismiss="offcanvas">
         <i class="bi bi-people  me-1"></i>
         Aula
       </a>
         <a [routerLink]="['profesor']"  routerLinkActive ="active"
-        class="nav-link p-0 pt-2 pb-2 link-dark d-flex " aria-current="page">
+        class="nav-link p-0 pt-2 pb-2 link-dark d-flex " aria-current="page" data-bs-dismiss="offcanvas">
           <i class="bi bi-mortarboard  me-1"></i>
           Profesor
         </a>
         <a  [routerLink]="['alumno']"  routerLinkActive ="active"
-        class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
+        class="nav-link p-0 pt-2 pb-2 link-dark d-flex " data-bs-dismiss="offcanvas">
             <i class="bi bi-person-video me-1" ></i>
             Alumno
         </a>
 
           <a [routerLink]="['asistencia']"  routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark d-flex " aria-current="page">
-            <i class="bi bi-card-list me-1"></i>
+            <i class="bi bi-card-list me-1" data-bs-dismiss="offcanvas"></i>
             Asistencia
           </a>
 
-      <a
-      class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
-          <i class="bi bi-calendar-week  me-1" ></i>
-          Eventos
-      </a>
-      <a
-      class="nav-link p-0 pt-2 pb-2 link-dark d-flex ">
-          <i class="bi bi-file-earmark-text  me-1" ></i>
-          Informes
-      </a>
-
-        <!-- <div class="d-flex fixed-bottom justify-content-end">
-            <a href="#" class="p-2 text-decoration-none d-flex navy">
-                <h6 class="p-2">Cerrar sesión</h6>
-                <i class="bi bi-door-open" style="font-size: 1.5em"></i>
-            </a>
-        </div> -->
 
 
     </div>

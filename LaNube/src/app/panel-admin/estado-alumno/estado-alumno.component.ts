@@ -4,6 +4,7 @@ import { EstadoAlumnoInterface } from '../interfaces/asistencia.interface';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { EstadoService } from '../services/estado.service';
+import { UtilesService } from '../../services/utiles.service';
 
 @Component({
   selector: 'app-estado-alumno',
@@ -12,14 +13,17 @@ import { EstadoService } from '../services/estado.service';
 })
 export class EstadoAlumnoComponent implements OnInit {
 
-  constructor(private asistenciaAlumno: AsistenciaService,private estadoService:EstadoService,  private activatedRouter: ActivatedRoute) { }
+  constructor(private asistenciaAlumno: AsistenciaService,
+    private estadoService:EstadoService,
+     private activatedRouter: ActivatedRoute,
+     private utilService:UtilesService) { }
 
   descripcion:string="";
   tipo:string="eat";
   fila:string="";
-
+  rol!:string;
   fecha:Date=new Date();
-  estado:EstadoAlumnoInterface={ 
+  estado:EstadoAlumnoInterface={
     id:          0,
     idAlumno:    0,
     bath1:       "",
@@ -34,8 +38,9 @@ export class EstadoAlumnoComponent implements OnInit {
     fecha:      new Date()};
 
 
-    
+
   ngOnInit(): void {
+    this.rol=this.utilService.getRol();
     this.ngOnChanges();
   }
 
@@ -43,15 +48,15 @@ export class EstadoAlumnoComponent implements OnInit {
 
 
     this.getEstadoAlumno(this.fecha.getDate(), this.fecha.getMonth()+1, this.fecha.getFullYear(), this.activatedRouter.snapshot.params['id'])
-    
-    
-    
+
+
+
   }
 
 
 
   maxEstados(){
-    
+
   }
 
   addEstado(){
@@ -72,7 +77,7 @@ export class EstadoAlumnoComponent implements OnInit {
     let hora= new Date();
     let cadenaTime = hora.getHours() +":"+hora.getMinutes()+" - ";
 
-  
+
 
 
     if(this.tipo=="eat"){
@@ -81,7 +86,7 @@ export class EstadoAlumnoComponent implements OnInit {
         this.estado.eat1=cadenaTime+this.descripcion;
       }else if(this.estado.eat2.length==0){
         this.estado.eat2=cadenaTime+this.descripcion;
-      }else if(this.estado.eat3.length==0){        
+      }else if(this.estado.eat3.length==0){
         this.estado.eat3=cadenaTime+this.descripcion;
 
       }
@@ -98,16 +103,16 @@ export class EstadoAlumnoComponent implements OnInit {
 
     }
 
-    
-  
-    this.estadoService.createEstadoAlumnos(this.estado,this.fecha.getDate(), this.fecha.getMonth()+1, 
+
+
+    this.estadoService.createEstadoAlumnos(this.estado,this.fecha.getDate(), this.fecha.getMonth()+1,
     this.fecha.getFullYear()).subscribe({
 
-      
+
       next:resp =>{
 
        this.estado=resp;
-        
+
 
 
       },
@@ -124,22 +129,22 @@ export class EstadoAlumnoComponent implements OnInit {
       }
 
     })
-    
+
   }
   procesaFecha(fecha:any){
-    
-    
-    
+
+
+
     let year =fecha.substring(0,4)
     let mes = fecha.substring(5,7)
     let dia = fecha.substring(8,10)
-   
-    
-    
-    
+
+
+
+
     this.fecha=new Date(year+"/"+mes+"/"+dia);
 
-    
+
     this.ngOnChanges();
 
   }
@@ -150,12 +155,12 @@ export class EstadoAlumnoComponent implements OnInit {
 
     this.asistenciaAlumno.listarAsistenciaAlumno(dia, mes, year, idAlumno).subscribe({
 
-      
+
       next:resp =>{
 
         this.estado=resp;
-        
-        
+
+
 
 
       },
@@ -174,14 +179,14 @@ export class EstadoAlumnoComponent implements OnInit {
     })
 
 
-    
+
 
 
   }
 
   selectFila(fila:string){
-    
-    
+
+
     this.descripcion=(document.getElementById(fila)!.innerHTML).substring(7,20);
     this.fila=fila;
   }
@@ -190,7 +195,7 @@ export class EstadoAlumnoComponent implements OnInit {
     let cadenaTime = hora.getHours() +":"+hora.getMinutes()+" - ";
 
 
-  
+
 
     if(this.fila=="bath1"){
       this.estado.bath1=cadenaTime+this.descripcion;
@@ -202,9 +207,9 @@ export class EstadoAlumnoComponent implements OnInit {
       this.estado.bath3=cadenaTime+this.descripcion;
 
     }else  if(this.fila=="eat1"){
-      
+
       this.estado.eat1=cadenaTime+this.descripcion;
-      
+
     }else  if(this.fila=="eat2"){
       this.estado.eat2=cadenaTime+this.descripcion;
 
@@ -213,15 +218,15 @@ export class EstadoAlumnoComponent implements OnInit {
 
     }
 
-    
-    this.estadoService.createEstadoAlumnos(this.estado,this.fecha.getDate(), this.fecha.getMonth()+1, 
+
+    this.estadoService.createEstadoAlumnos(this.estado,this.fecha.getDate(), this.fecha.getMonth()+1,
     this.fecha.getFullYear()).subscribe({
 
-      
+
       next:resp =>{
 
        this.estado=resp;
-        
+
        this.descripcion="";
 
       },
@@ -240,7 +245,7 @@ export class EstadoAlumnoComponent implements OnInit {
     })
 
 
-   
+
   }
 
 
@@ -259,7 +264,7 @@ export class EstadoAlumnoComponent implements OnInit {
       this.estado.bath2="";
 
     }else  if(this.fila=="bath3"){
-      this.estado.bath3=""; 
+      this.estado.bath3="";
 
     }else  if(this.fila=="eat1"){
       this.estado.eat1="";
@@ -273,14 +278,14 @@ export class EstadoAlumnoComponent implements OnInit {
     }
     this.descripcion="";
 
-    this.estadoService.createEstadoAlumnos(this.estado,this.fecha.getDate(), this.fecha.getMonth()+1, 
+    this.estadoService.createEstadoAlumnos(this.estado,this.fecha.getDate(), this.fecha.getMonth()+1,
     this.fecha.getFullYear()).subscribe({
 
-      
+
       next:resp =>{
 
        this.estado=resp;
-        
+
 
 
       },
@@ -300,4 +305,4 @@ export class EstadoAlumnoComponent implements OnInit {
 
   }
 
-}  
+}

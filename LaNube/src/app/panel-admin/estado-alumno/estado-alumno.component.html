@@ -3,11 +3,11 @@
   <div class="row">
 
     <app-fecha (fechaEvento)="procesaFecha($event)"></app-fecha>
-    
+
   </div>
 
-  <div class="row d-flex text-end">
-   
+  <div class="row d-flex text-end" *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'">
+
     <p  data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: rgb(0, 0, 0);">Nuevo <i class="fa-solid fa-plus"></i></p>
 
   </div>
@@ -34,8 +34,8 @@
               <select class="form-select" [(ngModel)]="tipo" >
                 <option value="bath">Baño</option>
                 <option value="eat">Comida</option>
-                </select>   
-              
+                </select>
+
             </div>
 
 
@@ -76,8 +76,8 @@
             <select class="form-select" [(ngModel)]="tipo" >
               <option value="bath">Baño</option>
               <option value="eat">Comida</option>
-              </select>   
-            
+              </select>
+
           </div>
 
 
@@ -101,21 +101,21 @@
       <p class="ms-3" id="bath1">{{estado.bath1}}</p>
 
     </div>
-    
+
 
     <div *ngIf="estado.bath2.length>0" class="d-flex m-4">
       <i data-bs-toggle="modal" data-bs-target="#editModal" (click)="selectFila('bath2')" name="bath" class="fas fa-toilet"></i>
       <p class="ms-3" id="bath2">{{estado.bath2}}</p>
 
     </div>
-    
 
-    
+
+
     <div *ngIf="estado.bath3.length>0" class="d-flex m-4">
       <i data-bs-toggle="modal" data-bs-target="#editModal" (click)="selectFila('bath3')" name="bath" class="fas fa-toilet"></i>
             <p id="bath3" class="ms-3 me-5">{{estado.bath3}}</p>
     </div>
-    
+
 
 
 
@@ -124,7 +124,7 @@
       <p id="eat1" class="ms-3 ">{{estado.eat1}}</p>
 
     </div>
-    
+
 
 
     <div *ngIf="estado.eat2.length>0" class="d-flex m-4">
@@ -132,7 +132,7 @@
       <p id="eat2" class="ms-3 ">{{estado.eat2}}</p>
 
     </div>
-    
+
 
 
     <div *ngIf="estado.eat3.length>0" class="d-flex m-4">
@@ -140,14 +140,25 @@
       <p id="eat3" class="ms-3 ">{{estado.eat3}}</p>
 
     </div>
-    
-  
-    
+
+
+
+    <div *ngIf="estado.eat1.length<1 &&
+    estado.eat2.length<1 &&
+    estado.eat3.length<1 &&
+    estado.bath1.length<1 &&
+    estado.bath2.length<1 &&
+    estado.bath3.length<1 &&
+    rol=='TUTOR' " class="d-flex m-4 mt-5">
+
+      <h3>No hay ningún estado para esta fecha</h3>
+
+    </div>
 
 
 
 
-    
+
   </div>
 
 

@@ -22,12 +22,10 @@ export class FechaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.date.getFullYear()+"-"+this.date.getDate()+"-"+(this.date.getMonth()+1))
-    let today: Date = new Date();
-   let  pipe = new DatePipe('en-US');
-   let todayWithPipe = null;
-    todayWithPipe = pipe.transform(Date.now(), 'yyyy-dd-MM');
-    console.log(todayWithPipe);
+  let today: Date = new Date();
+  let  pipe = new DatePipe('en-US');
+  let todayWithPipe = null;
+  todayWithPipe = pipe.transform(Date.now(), 'yyyy-dd-MM');
 
 
   }
