@@ -65,7 +65,7 @@
               <hr>
               <ul class="nav nav-pills flex-column mb-auto">
                 <li   class="nav-item">
-                  <a   [routerLink]="['mensajes']"  routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
+                  <a   [routerLink]="['mensajes']" (click)=" checkMensaje()" routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
                     <i class="bi bi-envelope"></i>
                     Mensajes
                     <i *ngIf="aviso" style="color: rgb(38, 181, 224);" class="bi bi-circle-fill"></i>
@@ -73,26 +73,26 @@
                   </a>
                 </li>
                 <li *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" class="nav-item">
-                  <a   [routerLink]="['aula']"  routerLinkActive ="active" class="nav-link p-0  p-0 pt-2 pb-2   link-dark" aria-current="page">
+                  <a   [routerLink]="['aula']" (click)=" checkMensaje()" routerLinkActive ="active" class="nav-link p-0  p-0 pt-2 pb-2   link-dark" aria-current="page">
                     <i class="bi bi-people"></i>
                     Aula
                   </a>
                 </li>
                 <li *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" class="nav-item">
-                  <a [routerLink]="['profesor']"  routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
+                  <a [routerLink]="['profesor']" (click)=" checkMensaje()" routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
                     <i class="bi bi-mortarboard"></i>
                     Profesor
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a [routerLink]="['alumno']"  routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
+                  <a [routerLink]="['alumno']" (click)=" checkMensaje()" routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
                     <i class="bi bi-person-video"></i>
                     Alumno
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a [routerLink]="['asistencia']"  routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
+                  <a [routerLink]="['asistencia']" (click)=" checkMensaje()" routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
                     <i class="bi bi-card-list"></i>
                     Asistencia
                   </a>
