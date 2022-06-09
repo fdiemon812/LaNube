@@ -168,6 +168,21 @@ export class PanelMensajesComponent implements OnInit {
       this.mensajeSelected=mensaje;
       this.dialogCorreo=true;
 
+      this.mensajeService.editarLeido(mensaje).subscribe({
+
+        next: resp=>{
+          console.log(resp);
+
+
+        },
+        error: err=>{
+
+          Swal.fire(
+            '¡Error!', err.error.mensaje, 'error'
+            );
+        }
+      })
+
     }
 
 

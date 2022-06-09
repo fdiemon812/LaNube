@@ -16,7 +16,9 @@
 
                   <div class="d-flex mt-3">
                     <div  class="col-4"><strong>{{mensaje.asunto}}</strong></div>
-                    <div class="col-8">{{formatTexto(mensaje.texto)}}</div>
+                    <div class="col-7">{{formatTexto(mensaje.texto)}}</div>
+                    <div class="col-1"> <i *ngIf="!mensaje.leido" style="color: rgb(38, 181, 224);" class="bi bi-circle-fill"></i></div>
+
                   </div>
 
 
@@ -43,7 +45,7 @@
 
                   <div class="d-flex mt-3">
                     <div  class="col-4"><strong>{{mensaje.asunto}}</strong></div>
-                    <div class="col-8">{{formatTexto(mensaje.texto)}}</div>
+                    <div class="col-7">{{formatTexto(mensaje.texto)}}</div>
                   </div>
 
 

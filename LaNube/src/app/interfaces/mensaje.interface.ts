@@ -5,6 +5,7 @@ export interface MensajeInterface {
   fecha:    Date;
   emisor:   User;
   receptor: User;
+  leido: boolean;
 }
 
 export interface User {

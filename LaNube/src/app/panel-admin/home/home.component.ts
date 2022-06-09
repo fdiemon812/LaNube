@@ -5,6 +5,7 @@ import { UtilesService } from 'src/app/services/utiles.service';
 import Swal from 'sweetalert2';
 import { CentroInterface } from '../interfaces/centro.interface';
 import { CentroService } from '../services/centro.service';
+import { MensajeService } from '../../services/mensaje.service';
 
 @Component({
   selector: 'app-home',
@@ -17,15 +18,18 @@ export class HomeComponent implements OnInit {
   centro:number=10001;
   centros!:CentroInterface[];
   rol!:string;
+  aviso:boolean=false;
 
 
   constructor( private router:Router,
      private activatedRoute:ActivatedRoute,
      private centroService:CentroService,
-     private utilesService:UtilesService) { }
+     private utilesService:UtilesService,
+     private mensajeService:MensajeService) { }
 
 
   ngOnInit(): void {
+    this.checkMensaje();
     this.getRol();
 
 
@@ -87,5 +91,36 @@ export class HomeComponent implements OnInit {
   }
 
 
+
+
+  checkMensaje(){
+
+    this.mensajeService.listarMensajesNoLeidos().subscribe({
+
+      next: resp=>{
+        if(resp.length>0){
+          this.aviso=true;
+        }else{
+          this.aviso=false;
+
+        }
+        console.log(this.aviso);
+        console.log(resp);
+
+
+
+      },
+      error: err=>{
+
+        Swal.fire(
+          '¡Error!', err.error.mensaje, 'error'
+          );
+      }
+
+
+    })
+
+
+  }
 
 }
