@@ -6,6 +6,7 @@
     tlf:       string;
     role:      string;
     id:        number;
+    nombreApellidos?: string;
 }
 
 

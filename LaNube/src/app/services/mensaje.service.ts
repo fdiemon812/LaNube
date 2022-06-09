@@ -11,13 +11,38 @@ import { AlumnoInterface } from "../panel-admin/interfaces/alumno.interface";
 export class MensajeService {
 
 
+
+
+
+
     constructor(private http:HttpClient){
 
     }
 
+    enviarMensaje(id:number, body:{texto:string, asunto:string}):Observable<MensajeInterface[]>{
+
+      const url = `${ environment.urlApi }/mensajes/usuarios/${id}`;
+      const headers = new HttpHeaders() .set('Authorization',
+       `Bearer ${localStorage.getItem('token')}` );
 
 
+      return this.http.post<MensajeInterface[]>(url,body, {headers});
+  }
 
+ /**
+     *
+     * @returns Lista todos los alumnos de un centro
+     */
+
+  listarMensajesEnviados():Observable<MensajeInterface[]>{
+
+    const url = `${ environment.urlApi }/mensajes/enviados`;
+    const headers = new HttpHeaders() .set('Authorization',
+     `Bearer ${localStorage.getItem('token')}` );
+
+
+    return this.http.get<MensajeInterface[]>(url, {headers});
+}
 
 
     /**

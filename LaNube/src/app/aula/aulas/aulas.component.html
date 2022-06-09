@@ -44,7 +44,7 @@
 
 
 <!-- ESTE ES EL DE LOS USUARIOS PARA ARRASTRAR  (onShow)="backup()" (onHide)="saveChanges()" -->
-<p-dialog [(visible)]="dialogUser"  (onHide)="guardarCambios()">
+<p-dialog [(visible)]="dialogUser"   (onHide)="guardarCambios()">
     <p-pickList [source]="availables" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}"
     [target]="notAvailables" [responsive]="true" filterBy="name" sourceHeader="No asignados" targetHeader="Asignados"
     [dragdrop]="true" sourceFilterPlaceholder="Buscar por nombre"
@@ -68,7 +68,7 @@
 
 
 <!--  PROFESORES PARA ARRASTRAR  (onShow)="backup()" (onHide)="saveChanges()" -->
-<p-dialog [(visible)]="dialogProf"  (onHide)="guardarCambios2()">
+<p-dialog class="arrastrar" [(visible)]="dialogProf"  (onHide)="guardarCambios2()">
   <p-pickList [source]="availablesProf" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}"
   [target]="notAvailablesProf" [responsive]="true" filterBy="name" sourceHeader="No asignados" targetHeader="Asignados"
   [dragdrop]="true" sourceFilterPlaceholder="Buscar por nombre"
