@@ -4,13 +4,15 @@ import { EntradaComponent } from './entrada/entrada.component';
 import { FormsModule } from '@angular/forms';
 import { PanelAdminModule } from '../panel-admin/panel-admin.module';
 import { SharedModule } from '../shared/shared.module';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 
 @NgModule({
   declarations: [
-    EntradaComponent
-    
+    EntradaComponent,
+    CalendarComponent
+
   ],
   imports: [
     CommonModule,

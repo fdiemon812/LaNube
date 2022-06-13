@@ -18,9 +18,11 @@ export class AulasComponent implements OnInit {
     availables:AlumnoInterface[]=[];
     notAvailables:AlumnoInterface[]=[]
     dialogUser!:boolean;
+    confirmBorrar!:boolean
     selectedToAddUser!:AulaInterface
     backupList: AlumnoInterface[]=[];
     selectedAula!: number;
+    nombreAula!:string;
 
 
     availablesProf:ProfesorInterface[]=[];
@@ -229,5 +231,104 @@ guardarCambios2() {
     }
     })
   }
+
+
+
+  crearAula(){
+    this.aulaService.crearAula(this.nombreAula).subscribe({
+
+      next:resp=>{
+        this.listarAulas();
+        Swal.fire({
+          icon: 'success',
+          title: 'Aula creado',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.nombreAula=""
+      },
+      error:err=>{
+        this.nombreAula=""
+        Swal.fire({
+        icon: 'error',
+        title: 'Ups... Es embarazoso, pero algo no funciona',
+        showConfirmButton: false,
+        timer: 1500
+      })}
+
+    })
+
+  }
+
+
+
+ editarAula(aula:AulaInterface){
+    this.nombreAula=aula.nombre;
+    this.selectedAula=aula.id;
+
+  }
+
+  editarAulaSubmit(){
+
+    this.aulaService.editarAula(this.nombreAula, this.selectedAula).subscribe({
+
+      next:resp=>{
+        this.listarAulas();
+        Swal.fire({
+          icon: 'success',
+          title: 'Aula editada',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.nombreAula=""
+      },
+      error:err=>{
+        this.nombreAula=""
+        Swal.fire({
+        icon: 'error',
+        title: 'Ups... Es embarazoso, pero algo no funciona',
+        showConfirmButton: false,
+        timer: 1500
+      })}
+
+    })
+
+  }
+
+
+  borrarAula(id:number){
+    this.confirmationService.confirm({
+      key:'confirmBorrar',
+      message: '¿Seguro que quieres borrar el aula?',
+      header: 'Confirmación',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Si',
+      accept: () => {
+           this.aulaService.borrarAula(id).subscribe({
+
+            next:resp=>{
+              this.listarAulas();
+              Swal.fire({
+                icon: 'success',
+                title: 'Aula borrada',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            },
+            error:err=>{
+              this.nombreAula=""
+              Swal.fire({
+              icon: 'error',
+              title: 'Ups... Es embarazoso, pero algo no funciona',
+              showConfirmButton: false,
+              timer: 1500
+            })}
+
+          })
+      },
+      reject: () => {
+      }
+  });  }
+
 
 }

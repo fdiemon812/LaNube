@@ -56,7 +56,7 @@ export class PanelMensajesComponent implements OnInit {
         this.profesores = resp;
 
         this.profesores.forEach(profesor => {
-          profesor.nombreApellidos=profesor.nombre+", "+profesor.apellidos
+          profesor.nombreApellidos=profesor.apellidos+", "+profesor.nombre
         });
         this.results =this.profesores;
 
@@ -171,7 +171,6 @@ export class PanelMensajesComponent implements OnInit {
       this.mensajeService.editarLeido(mensaje).subscribe({
 
         next: resp=>{
-          console.log(resp);
 
 
         },

@@ -3,11 +3,15 @@ import { Injectable, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AlumnoInterface } from "../panel-admin/interfaces/alumno.interface";
+import { AulaInterface } from '../panel-admin/interfaces/aula.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AulaService {
+
+
+
 
 
     centro:any=10001;
@@ -16,9 +20,42 @@ export class AulaService {
 
     }
 
+    borrarAula(id: number) {
+      const url = `${ environment.urlApi }/centro/${this.centro}/aula/${id}`;
+      const headers = new HttpHeaders() .set('Authorization',
+       `Bearer ${localStorage.getItem('token')}` );
 
 
+      return this.http.delete<AulaInterface[]>(url, {headers});
+    }
 
+    crearAula(nombreAula: string) {
+
+      const url = `${ environment.urlApi }/centro/${this.centro}/aula`;
+      const headers = new HttpHeaders() .set('Authorization',
+       `Bearer ${localStorage.getItem('token')}` );
+      const body={
+        "nombre":nombreAula
+      }
+
+      return this.http.post<AulaInterface[]>(url,body, {headers});
+
+
+    }
+
+
+    editarAula(nombreAula: string, id:number) {
+
+      const url = `${ environment.urlApi }/centro/${this.centro}/aula/${id}`;
+      const headers = new HttpHeaders() .set('Authorization',
+       `Bearer ${localStorage.getItem('token')}` );
+      const body={
+        "nombre":nombreAula
+      }
+
+      return this.http.put<AulaInterface[]>(url,body, {headers});
+
+    }
 
 
     /**

@@ -104,8 +104,7 @@ export class HomeComponent implements OnInit {
           this.aviso=false;
 
         }
-        console.log(this.aviso);
-        console.log(resp);
+
 
 
 
