@@ -4,7 +4,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'dist','la-nube')));
 app.get('*', function(req,res) {
 
-  res.sendFile(path.join(__dirname,'dist','app_name','index.html'));
+  res.sendFile(path.join(__dirname,'dist','la-nube','index.html'));
 
 })
 
