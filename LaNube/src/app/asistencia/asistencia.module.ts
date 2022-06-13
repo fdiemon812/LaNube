@@ -4,21 +4,22 @@ import { EntradaComponent } from './entrada/entrada.component';
 import { FormsModule } from '@angular/forms';
 import { PanelAdminModule } from '../panel-admin/panel-admin.module';
 import { SharedModule } from '../shared/shared.module';
-import { CalendarComponent } from './calendar/calendar.component';
+import { FullCalendarModule } from 'primeng/fullcalendar'
+
 
 
 
 @NgModule({
   declarations: [
-    EntradaComponent,
-    CalendarComponent
-
+    EntradaComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     PanelAdminModule,
-    SharedModule
+    SharedModule,
+    FullCalendarModule
+
   ],
   exports:[EntradaComponent]
 })

@@ -3,6 +3,7 @@ import { Injectable, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AlumnoInterface } from "../interfaces/alumno.interface";
+import { EstadoAlumnoInterface } from '../interfaces/asistencia.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,22 @@ export class AlumnoService {
 
 
 
+    /**
+     *
+     * @returns Lista todos los alumnos de un centro
+     */
+
+     listarAsistenciaAlumno(id:number):Observable<EstadoAlumnoInterface[]>{
+
+
+
+      const url = `${ environment.urlApi }/centro/${this.centro}/alumno/${id}`;
+      const headers = new HttpHeaders() .set('Authorization',
+       `Bearer ${localStorage.getItem('token')}` );
+
+
+      return this.http.get<EstadoAlumnoInterface[]>(url, {headers});
+  }
 
 
     /**

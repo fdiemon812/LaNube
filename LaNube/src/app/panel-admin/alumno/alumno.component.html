@@ -32,7 +32,7 @@
                 <td scope="col">Alimentación</td>
                 <td  scope="col">Almuerzo </td>
                 <td  scope="col">Estado</td>
-                <td *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" scope="col"> </td>
+                <td *ngIf="rol=='ADMINISTRADOR'" scope="col"> </td>
 
 
 
@@ -50,21 +50,21 @@
                 <td scope="col">{{alumno.fechaNacimiento}}</td>
                 <td scope="col">{{alumno.comida}}</td>
                 <td scope="col"><i *ngIf="!alumno.comeEnCentro" class="bi bi-x"></i><i *ngIf="alumno.comeEnCentro" class="bi bi-check-lg"></i></td>
-                <td *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" scope="col">
+                <td *ngIf="rol=='ADMINISTRADOR'" scope="col">
 
                   <button (click)="confirmarCambioEstado(alumno)" *ngIf="alumno.alta"  type="button" class="btn btn-success">Alta</button>
                   <button (click)="confirmarCambioEstado(alumno)" *ngIf="!alumno.alta" type="button" class="btn btn-danger">Baja</button>
 
 
                 </td>
-                <td *ngIf="rol=='TUTOR'" scope="col">
+                <td *ngIf="rol=='TUTOR' || rol=='PROFESOR'" scope="col">
 
                   <button disabled *ngIf="alumno.alta"  type="button" class="btn btn-success">Alta</button>
                   <button disabled  *ngIf="!alumno.alta" type="button" class="btn btn-danger">Baja</button>
 
 
                 </td>
-                <td *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'"  scope="col">
+                <td *ngIf="rol=='ADMINISTRADOR'"  scope="col">
 
                   <i (click)="editarAlumno(alumno.id)"  class="bi bi-pen me-1"></i> <i (click)="confirmarBorradoAlumno(alumno.id)" class=" ms-1 bi bi-trash"></i>
 

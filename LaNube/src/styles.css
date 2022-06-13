@@ -6,6 +6,12 @@
 @import "../node_modules/quill/dist/quill.core.css";
 @import "../node_modules/quill/dist/quill.snow.css";
 
+
+
+@import "~@fullcalendar/core/main.min.css";
+@import "~@fullcalendar/daygrid/main.min.css";
+@import "~@fullcalendar/timegrid/main.min.css";
+
 /* You can add global styles to this file, and also import other style files */
 
 .grayScale {

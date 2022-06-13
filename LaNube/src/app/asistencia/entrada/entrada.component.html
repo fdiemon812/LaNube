@@ -1,7 +1,9 @@
 
+<div *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'">
 
 
-<div class="d-sm-flex">
+
+<div class="d-sm-flex" >
 
   <div *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'">
     <app-filtro-alumno (aulaEvento)="procesaAula($event)" ></app-filtro-alumno>
@@ -74,7 +76,7 @@
         <label style="width: 70px;"  class="me-2  d-md-none" for="alumno.id+'entrada'"><strong>Entrada</strong></label>
 
         <input *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" type="time" [id]="alumno.id+'entrada'" >
-        <input *ngIf="rol=='TUTOR'" disabled type="time" [id]="alumno.id+'entrada'" >
+        <!-- <input *ngIf="rol=='TUTOR'" disabled type="time" [id]="alumno.id+'entrada'" > -->
 
       </div>
 
@@ -82,7 +84,7 @@
         <label style="width: 70px;"  class="me-2  d-md-none" for="alumno.id+'salida'"><strong>Salida</strong></label>
 
         <input *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'"   type="time" [id]="alumno.id+'salida'">
-        <input *ngIf="rol=='TUTOR'" disabled   type="time" [id]="alumno.id+'salida'">
+        <!-- <input *ngIf="rol=='TUTOR'" disabled   type="time" [id]="alumno.id+'salida'"> -->
 
       </div>
 
@@ -110,3 +112,14 @@
 
 </form>
 
+
+</div>
+
+
+<div class="container  pt-0 p-5" *ngIf="rol=='TUTOR'" >
+  <div class="row p-5" >
+
+    <p-fullCalendar [events]="events" [options]="options" *ngIf="cantidadAlumnos==cantidadAlumnosCargados"></p-fullCalendar>
+  </div>
+
+</div>

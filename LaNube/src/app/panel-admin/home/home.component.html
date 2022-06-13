@@ -72,13 +72,13 @@
 
                   </a>
                 </li>
-                <li *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" class="nav-item">
+                <li *ngIf="rol=='ADMINISTRADOR'" class="nav-item">
                   <a   [routerLink]="['aula']" (click)=" checkMensaje()" routerLinkActive ="active" class="nav-link p-0  p-0 pt-2 pb-2   link-dark" aria-current="page">
                     <i class="bi bi-people"></i>
                     Aula
                   </a>
                 </li>
-                <li *ngIf="rol=='ADMINISTRADOR' || rol=='PROFESOR'" class="nav-item">
+                <li *ngIf="rol=='ADMINISTRADOR'" class="nav-item">
                   <a [routerLink]="['profesor']" (click)=" checkMensaje()" routerLinkActive ="active" class="nav-link p-0 pt-2 pb-2 link-dark" aria-current="page">
                     <i class="bi bi-mortarboard"></i>
                     Profesor

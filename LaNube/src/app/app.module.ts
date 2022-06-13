@@ -9,6 +9,8 @@ import { LoginModule } from './login/login.module';
 import { PanelAdminModule } from './panel-admin/panel-admin.module';
 import { AsistenciaModule } from './asistencia/asistencia.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FullCalendarModule } from 'primeng/fullcalendar';
+
 
 
 
@@ -23,7 +25,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule,
     LoginModule,
     PanelAdminModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FullCalendarModule
+
    ],
 
   providers: [],

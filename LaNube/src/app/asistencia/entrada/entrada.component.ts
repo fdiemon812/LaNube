@@ -6,12 +6,27 @@ import { AsistenciaService } from '../../panel-admin/services/asistencia.service
 import { EstadoAlumnoInterface } from '../../panel-admin/interfaces/asistencia.interface';
 import { UtilesService } from '../../services/utiles.service';
 
+
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import esLocale from '@fullcalendar/core/locales/es';
+
 @Component({
   selector: 'app-entrada',
   templateUrl: './entrada.component.html',
   styleUrls: ['./entrada.component.css']
 })
 export class EntradaComponent implements OnInit {
+
+  public events: any[] = [];
+  public options: any;
+  allLoad!:boolean;
+  cantidadAlumnos=0;
+  cantidadEstados=0
+  cantidadAlumnosCargados=0
+  cantidadEstadosCargados=0
+
 
   idAulaInput:number=0;
   fecha:Date=new Date();
@@ -43,7 +58,24 @@ export class EntradaComponent implements OnInit {
 
     }else if (this.rol=='TUTOR'){
 
+
+      this.options = {
+        plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+        defaultDate: new Date(),
+        locale: esLocale,
+        header: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        editable: false
+      };
+      this.allLoad=true;
+
+
       this.listarAlumnosTutor();
+
+
 
 
 
@@ -60,8 +92,15 @@ export class EntradaComponent implements OnInit {
 
     next:resp =>{
 
+      this.cantidadAlumnos=resp.length;
       this.alumnos=resp;
-      this.introducirDatosAlumno();
+
+      resp.forEach(alumno => {
+
+        this.sacarAsistenciaAlumno(alumno.id, alumno.nombre);
+
+
+      });
 
     },
     error: error =>{
@@ -79,6 +118,7 @@ export class EntradaComponent implements OnInit {
   })
 
   }
+
 
 
 
@@ -107,6 +147,60 @@ export class EntradaComponent implements OnInit {
 
   }
 
+  sacarAsistenciaAlumno(id: number, nombre:string) {
+
+    this.alumnoService.listarAsistenciaAlumno(id).subscribe({
+
+      next:resp =>{
+        this.cantidadEstados=resp.length
+        let i=1;
+        resp.forEach(estado => {
+
+          const newEvent ={
+
+            title: nombre +" " +estado.horaEntrada+"-"+estado.horaSalida,
+            start: estado.fecha,
+            end:  estado.fecha ,
+            description:nombre,
+            backgroundColor: "#02a600",
+            borderColor: '#02a600'
+
+
+          }
+
+         this.events.push(newEvent)
+         i++;
+
+
+         if(i==this.cantidadEstados){
+          this.cantidadAlumnosCargados++;
+
+         }
+
+
+        });
+
+
+
+
+
+      },
+      error: error =>{
+
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Ups... Algo va mal',
+          text: 'Intentalo más tarde',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+
+    })
+
+
+  }
 
   listarAlumnosAula():any{
 
